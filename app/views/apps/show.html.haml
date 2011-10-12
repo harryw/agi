@@ -1,0 +1,63 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @app.name
+%p
+  %b Description:
+  = @app.description
+%p
+  %b Stage name:
+  = @app.stage_name
+%p
+  %b Deploy to:
+  = @app.deploy_to
+%p
+  %b Deploy user:
+  = @app.deploy_user
+%p
+  %b Deploy group:
+  = @app.deploy_group
+%p
+  %b Multi tenant:
+  = @app.multi_tenant
+%p
+  %b Uses bundler:
+  = @app.uses_bundler
+%p
+  %b Alert emails:
+  = @app.alert_emails
+%p
+  %b Url:
+  = @app.url
+%p
+  %b Git revision:
+  = @app.git_revision
+%p
+  %b Rails env:
+  = @app.rails_env
+%p
+  %b Project link:
+  = @app.project_link
+%p
+  %b Customer link:
+  = @app.customer_link
+%p
+  %b Database link:
+  = @app.database_link
+%p
+  %b Chef account link:
+  = @app.chef_account_link
+%p
+  %b Cache cluster link:
+  = @app.cache_cluster_link
+%p
+  %b Infrastructure link:
+  = @app.infrastructure_link
+%p
+  %b Newrelic account link:
+  = @app.newrelic_account_link
+
+= link_to 'Edit', edit_app_path(@app)
+\|
+= link_to 'Back', apps_path

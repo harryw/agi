@@ -13,7 +13,8 @@ Spork.prefork do
     
     require 'cucumber/rails'
     require 'cucumber/rspec/doubles'
-    
+    # http://collectiveidea.com/blog/archives/2010/09/09/practical-cucumber-factory-girl-steps/
+    #require "factory_girl/step_definitions" #pickle takes care
     
     # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
     # order to ease the transition to Capybara we set the default here. If you'd

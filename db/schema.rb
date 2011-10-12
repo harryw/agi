@@ -11,7 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111010175949) do
+ActiveRecord::Schema.define(:version => 20111012162144) do
+
+  create_table "apps", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "stage_name"
+    t.string   "deploy_to"
+    t.string   "deploy_user"
+    t.string   "deploy_group"
+    t.string   "multi_tenant"
+    t.string   "uses_bundler"
+    t.string   "alert_emails"
+    t.string   "url"
+    t.string   "git_revision"
+    t.string   "rails_env"
+    t.string   "project_link"
+    t.string   "customer_link"
+    t.string   "database_link"
+    t.string   "chef_account_link"
+    t.string   "cache_cluster_link"
+    t.string   "infrastructure_link"
+    t.string   "newrelic_account_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "opscode_orgs", :force => true do |t|
     t.string   "name"

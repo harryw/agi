@@ -1,0 +1,31 @@
+= simple_form_for @app do |form|
+
+  -if @app.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@app.errors.count, "error")} prohibited this #{App.name.titleize} from being saved:"
+      %ul
+        - @app.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :name, :label => 'Name'
+  = form.input :description, :label => 'Description'
+  = form.input :stage_name, :label => 'Stage Name'
+  = form.input :deploy_to, :label => 'Deploy To'
+  = form.input :deploy_user, :label => 'Deploy User'
+  = form.input :deploy_group, :label => 'Deploy Group'
+  = form.input :multi_tenant, :label => 'Multi Tenant'
+  = form.input :uses_bundler, :label => 'Uses Bundler'
+  = form.input :alert_emails, :label => 'Alert Emails'
+  = form.input :url, :label => 'Url'
+  = form.input :git_revision, :label => 'Git Revision'
+  = form.input :rails_env, :label => 'Rails Env'
+  = form.input :project_link, :label => 'Project Link'
+  = form.input :customer_link, :label => 'Customer Link'
+  = form.input :database_link, :label => 'Database Link'
+  = form.input :chef_account_link, :label => 'Chef Account Link'
+  = form.input :cache_cluster_link, :label => 'Cache Cluster Link'
+  = form.input :infrastructure_link, :label => 'Infrastructure Link'
+  = form.input :newrelic_account_link, :label => 'Newrelic Account Link'
+
+  .actions
+    = form.button :submit

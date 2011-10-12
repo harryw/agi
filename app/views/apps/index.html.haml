@@ -1,0 +1,55 @@
+%h1 Listing apps
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Stage name
+    %th Deploy to
+    %th Deploy user
+    %th Deploy group
+    %th Multi tenant
+    %th Uses bundler
+    %th Alert emails
+    %th Url
+    %th Git revision
+    %th Rails env
+    %th Project link
+    %th Customer link
+    %th Database link
+    %th Chef account link
+    %th Cache cluster link
+    %th Infrastructure link
+    %th Newrelic account link
+    %th
+    %th
+    %th
+
+  - @apps.each do |app|
+    %tr
+      %td= app.name
+      %td= app.description
+      %td= app.stage_name
+      %td= app.deploy_to
+      %td= app.deploy_user
+      %td= app.deploy_group
+      %td= app.multi_tenant
+      %td= app.uses_bundler
+      %td= app.alert_emails
+      %td= app.url
+      %td= app.git_revision
+      %td= app.rails_env
+      %td= app.project_link
+      %td= app.customer_link
+      %td= app.database_link
+      %td= app.chef_account_link
+      %td= app.cache_cluster_link
+      %td= app.infrastructure_link
+      %td= app.newrelic_account_link
+      %td= link_to 'Show', app
+      %td= link_to 'Edit', edit_app_path(app)
+      %td= link_to 'Destroy', app, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New App', new_app_path
