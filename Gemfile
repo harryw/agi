@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
+gem 'rack', '1.3.3' #1.3.4 gives warning: already initialized constant WFKV_
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -18,12 +19,24 @@ end
 
 gem 'jquery-rails'
 
-# Use unicorn as the web server
-# gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
+gem 'haml'
+gem 'haml-rails', :group => :development
+gem 'simple_form'
 
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
+group :test do
+  gem 'database_cleaner'
+  gem 'rails3-generators' #mainly for factory_girl & simple_form at this point
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'cucumber-rails'
+  gem "pickle"
+  gem 'capybara'
+  gem 'guard-cucumber'
+  gem "guard-rspec"
+  gem "launchy"
+  gem "growl" # guard asks for this gem
+  gem "growl_notify"
+  gem "spork", "> 0.9.0.rc" # Improve loading times during testing
+  gem "guard-spork"
+end
