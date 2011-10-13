@@ -1,0 +1,29 @@
+%h1 Listing chef_accounts
+
+%table
+  %tr
+    %th Name
+    %th Formal name
+    %th Validator key
+    %th Client key
+    %th Databag key
+    %th Api url
+    %th
+    %th
+    %th
+
+  - @chef_accounts.each do |chef_account|
+    %tr
+      %td= chef_account.name
+      %td= chef_account.formal_name
+      %td= chef_account.validator_key
+      %td= chef_account.client_key
+      %td= chef_account.databag_key
+      %td= chef_account.api_url
+      %td= link_to 'Show', chef_account
+      %td= link_to 'Edit', edit_chef_account_path(chef_account)
+      %td= link_to 'Destroy', chef_account, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Chef account', new_chef_account_path
