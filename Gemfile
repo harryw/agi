@@ -20,25 +20,25 @@ end
 gem 'jquery-rails'
 
 
-gem 'haml'
+gem 'haml'				# it replaces erb making views much cleaner
 gem 'haml-rails', :group => :development
-gem 'simple_form'
+gem 'simple_form'		# Cleanest way to write a form view
 
 
 group :test do
   gem 'database_cleaner'
   gem 'rails3-generators' #mainly for factory_girl & simple_form at this point
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails'	# mocking
   gem 'cucumber-rails'
-  gem "pickle"
-  gem 'capybara'
+  gem "pickle"			# gives you a lot already defined cucumber steps
+  gem 'capybara'		
   gem 'guard-cucumber'
-  gem 'rb-fsevent'
-  gem "guard-rspec"
-  gem "launchy"
-  gem "growl" # guard asks for this gem
-  gem "growl_notify"
+  gem 'rb-fsevent'		# required by guard for notifications
+  gem "guard-rspec"		# run rspec when a spec is saved
+  gem "launchy" 		# show the web page in case of error
+  gem "growl" 			# guard requires this gem
+  gem "growl_notify"	
   gem "spork", "> 0.9.0.rc" # Improve loading times during testing
   gem "guard-spork"
 end
