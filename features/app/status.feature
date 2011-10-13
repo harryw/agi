@@ -49,7 +49,7 @@ Feature: App Status Page  (App-Status)
 		And the timestamp on the databag item "testapp" is equal to or later than the mtime of app "testapp"
 		Then I should not see the text "Undeployed Changes"
 
-	Scenario:  When I deploy the App I should see a confirmation message
+	Scenario Outline:  When I deploy the App I should see a confirmation message
 		When I click "Deploy" then "Confirm" I should see "Application testapp has been deployed!"
 		And I should see "Deployed at:"
 		And I should see <a timestamp>

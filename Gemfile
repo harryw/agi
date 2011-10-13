@@ -24,6 +24,7 @@ gem 'haml'
 gem 'haml-rails', :group => :development
 gem 'simple_form'
 
+
 group :test do
   gem 'database_cleaner'
   gem 'rails3-generators' #mainly for factory_girl & simple_form at this point
@@ -33,6 +34,7 @@ group :test do
   gem "pickle"
   gem 'capybara'
   gem 'guard-cucumber'
+  gem 'rb-fsevent'
   gem "guard-rspec"
   gem "launchy"
   gem "growl" # guard asks for this gem
