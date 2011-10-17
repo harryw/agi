@@ -5,7 +5,6 @@ Feature: Show every out of the box pickle step
 	Background: 
 		Given an app exists with name: "Mediflex-mdsol-production", stage_name: "development"
 
-			
 	Scenario: Go to the index page
 		Given I go to the apps page
 		Then  the current route should match /apps
@@ -31,4 +30,4 @@ Feature: Show every out of the box pickle step
 		When I fill in "Name" with "testapp"
 		And I press "Create App"
 		Then I should see "App was successfully created."
-		And show me the page
+		#And show me the page

@@ -14,7 +14,16 @@ class AppsController < ApplicationController
   # GET /apps/1.json
   def show
     @app = App.find(params[:id])
-
+     
+    @deployment_status = 
+        if !@app.databag_item_timestamp
+            "Never Deployed"
+        elsif @app.databag_item_timestamp < @app.app_timestamp
+            "Undeployed Changes"
+        else
+            "Deploy at: #{@app.app_timestamp}"
+        end
+        
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @app }

@@ -21,3 +21,4 @@ Then /^the current route should match \/(.+?)$/ do |route|
     regexp = route.gsub(/:(\w*?)id/,'\d+')
     current_path.should  =~ /#{regexp}$/
 end
+

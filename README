@@ -1,2 +1,11 @@
 AgI is intended to be a basic but functional cloud construction and management console, initially using
 Amazon AWS and Opscode Chef.
+
+Install RVM
+bundle
+brew install growlnotify
+
+bundle exec guard
+
+# testing a single feature:
+bundle exec cucumber features/app/demo.feature -r features

@@ -31,14 +31,15 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'	# mocking
   gem 'cucumber-rails'
-  gem "pickle"			# gives you a lot already defined cucumber steps
-  gem 'capybara'		
+  gem "pickle"			# gives you a lot of already defined cucumber steps
+  gem 'capybara'
+  gem 'guard' 
+  gem 'growl'		# guard uses to notify
+					#gem 'growl_notify' # if used, guard doesn't show the errors
   gem 'guard-cucumber'
   gem 'rb-fsevent'		# required by guard for notifications
   gem "guard-rspec"		# run rspec when a spec is saved
   gem "launchy" 		# show the web page in case of error
-  gem "growl" 			# guard requires this gem
-  gem "growl_notify"	
   gem "spork", "> 0.9.0.rc" # Improve loading times during testing
   gem "guard-spork"
 end
