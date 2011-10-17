@@ -26,15 +26,15 @@ Feature: App Status Page  (App-Status)
 	And I press "Deploy"
 	Then I should see "App Mediflex-mdsol-production has been deployed"
     
-
   Scenario: Deploying an App will show a "Deploy at: <time>" status
-	When "Deploy an app successfully" FIND IF THERE IS A WAY TO CALL A SCENARIO
+	Given an app successfully deployed
 	And I go to the app's page
 	Then I should see "Deploy at:"
 
   Scenario: An App that has changed since last deployment will show "Undeployed Changes" alert
-    When "Deploy an app successfully"
-    And I should see "Deploy at:"
+	Given an app successfully deployed
+	And I go to the app's page
+	And I should see "Deploy at:"
 	When I go to the app's edit page
 	And I fill in "git_revision" with "56789012"
 	And I press "Update"
