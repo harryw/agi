@@ -1,41 +1,41 @@
 # Agi Scenarios
+# A deployment is never automatic, a user has to press the button
+# In order to know the deployment status you have to query the databag timestamp
+# App#Show always show the deployment status (Never Deployed | Undeploy Changes | Deploy at: <time>)
 
 
 # Phase I - App prototyping
 
 
 Feature: App Status Page  (App-Status)
-  In order to manage my App
+  In order to know if my app was either deployed or not
   As a user
-  I want to be told my App's Properties and Deployment Status
-
+  I want to be told my App's Deployment Status
+  
   Background:
-    	Given an app exists with name: "Mediflex-mdsol-production"
+    Given an app exists with name: "Mediflex-mdsol-production"
+	And I go to the app's page
 
-	Scenario:  When the App has never been deployed, I should see the "Undeployed Changes" alert
-		When I am on the "Properties" page for app "testapp"
-		And no databag item exists on opscode with the name "testapp"
-		Then I should see "Undeployed Changes"
+  Scenario: A new App will show "Never Deployed" status
+	Then I should see "Never Deployed"
+	
+  Scenario: Deploy an app successfully
+	When I follow "Deploy"
+	And the current route should match /apps/:id/deployments/new
+	And I should see some json file
+	And I press "Deploy"
+	Then I should see "App Mediflex-mdsol-production has been deployed"
+    
+  Scenario: Deploying an App will show a "Deploy at: <time>" status
+	Given an app successfully deployed
+	And I go to the app's page
+	Then I should see "Deploy at:"
 
-	Scenario:  When the App has changed since last deployment, I should see the "Undeployed Changes" alert
-		When I am on the "Properties" page for app "testapp"
-		And a databag item exists on opscode with the name "testapp"
-		And the timestamp on the databag item "testapp" is earlier than the mtime of app "testapp"
-		Then I should see "Undeployed Changes"
-
-	Scenario:  When the App has not changed since last deployment, I should not see the "Undeployed Changes" alert
-		When I am on the "Properties" page for app "testapp"
-		And a databag item exists on opscode with the name "testapp"
-		And the timestamp on the databag item "testapp" is equal to or later than the mtime of app "testapp"
-		Then I should not see the text "Undeployed Changes"
-
-	Scenario Outline:  When I deploy the App I should see a confirmation message
-		When I click "Deploy" then "Confirm" I should see "Application testapp has been deployed!"
-		And I should see "Deployed at:"
-		And I should see <a timestamp>
-		And I should see "JSON deployed:"
-		And I should see <a valid JSON deployment object>
-
-		Examples:
-		| a timestamp		| a valid JSON deployment object	|
-		| <<<INSERT>>>		| <<<INSERT>>>						|
+  Scenario: An App that has changed since last deployment will show "Undeployed Changes" alert
+	Given an app successfully deployed
+	And I go to the app's page
+	And I should see "Deploy at:"
+	When I go to the app's edit page
+	And I fill in "git_revision" with "56789012"
+	And I press "Update"
+	Then I should see "Undeployed Changes"
