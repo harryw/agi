@@ -1,4 +1,6 @@
 Agi::Application.routes.draw do
+  resources :chef_accounts
+
   resources :apps
 
   # The priority is based upon order of creation:

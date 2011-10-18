@@ -1,0 +1,2 @@
+module ChefAccountsHelper
+end
