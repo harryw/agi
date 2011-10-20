@@ -22,8 +22,8 @@ Feature: App Status Page  (App-Status)
   Scenario: Deploy an app successfully
 	When I follow "Deploy"
 	And the current route should match /apps/:id/deployments/new
-	And I should see some json file
-	And I press "Deploy"
+	And I should see some json data in the div id="deployment_data"
+	And I press "Create Deploy"
 	Then I should see "App Mediflex-mdsol-production has been deployed"
     
   Scenario: Deploying an App will show a "Deploy at: <time>" status

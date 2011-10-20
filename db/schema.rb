@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012162144) do
+ActiveRecord::Schema.define(:version => 20111017202703) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -33,6 +33,23 @@ ActiveRecord::Schema.define(:version => 20111012162144) do
     t.string   "cache_cluster_link"
     t.string   "infrastructure_link"
     t.string   "newrelic_account_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "deployments", :force => true do |t|
+    t.string   "user_link"
+    t.string   "git_repo"
+    t.string   "git_commit"
+    t.text     "description"
+    t.boolean  "send_email"
+    t.string   "task"
+    t.boolean  "do_migrations"
+    t.string   "migration_command"
+    t.text     "result_log"
+    t.integer  "app_id"
+    t.datetime "started_at"
+    t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

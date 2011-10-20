@@ -1,5 +1,9 @@
 Agi::Application.routes.draw do
-  resources :apps
+  
+
+  resources :apps do # look into shallow routes
+      resources :deployments
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
