@@ -24,4 +24,8 @@ FactoryGirl.define do
     end
 end
 
+Factory.define :app_with_deployment, :parent => :app do |app|
+    app.after_create {|a| Factory(:deployment, :app => a)}
+end 
+
                

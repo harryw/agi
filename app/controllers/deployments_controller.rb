@@ -46,7 +46,7 @@ class DeploymentsController < ApplicationController
 
     respond_to do |format|
       if @deployment.save
-        format.html { redirect_to [@app,@deployment], notice: "App #{@app.name} has been deployed" }
+        format.html { redirect_to [@app,@deployment], notice: "App has been deployed successfully" }
         format.json { render json: @deployment, status: :created, location: @deployment }
       else
         format.html { render action: "new" }

@@ -16,3 +16,4 @@ FactoryGirl.define do
       completed_at "2011-10-17 16:27:03"
     end
 end
+

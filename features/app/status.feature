@@ -12,22 +12,23 @@ Feature: App Status Page  (App-Status)
   As a user
   I want to be told my App's Deployment Status
   
-  Background:
-    Given an app exists with name: "Mediflex-mdsol-production"
-	And I go to the app's page
 
   Scenario: A new App will show "Never Deployed" status
+	Given an app exists with name: "Mediflex-mdsol-production"
+	And I go to the app's page
 	Then I should see "Never Deployed"
 	
   Scenario: Deploy an app successfully
+    Given an app exists with name: "Mediflex-mdsol-production"
+	And I go to the app's page
 	When I follow "Deploy"
 	And the current route should match /apps/:id/deployments/new
 	And I should see some json data in the div id="deployment_data"
 	And I press "Create Deploy"
-	Then I should see "App Mediflex-mdsol-production has been deployed"
+	Then I should see "App has been deployed successfully"
     
   Scenario: Deploying an App will show a "Deploy at: <time>" status
-	Given an app successfully deployed
+	Given an app_with_deployment exists
 	And I go to the app's page
 	Then I should see "Deploy at:"
 
