@@ -12,7 +12,7 @@
   = form.input :task, :label => 'Task'
   = form.input :do_migrations, :label => 'Do Migrations'
   = form.input :migration_command, :label => 'Migration Command'
-
+  = form.input :deployment_timestamp, :as => :hidden, :input_html => { :value => @app.updated_at }
 
   .actions
     = form.button :submit

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111017202703) do
+ActiveRecord::Schema.define(:version => 20111021182729) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20111017202703) do
     t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deployment_timestamp"
   end
 
   create_table "opscode_orgs", :force => true do |t|

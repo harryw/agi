@@ -57,6 +57,14 @@
 %p
   %b Newrelic account link:
   = @app.newrelic_account_link
+%p
+  %b Updated at:
+  = @app.updated_at
+%p
+  %b Deployment timestamp:
+  = @app.databag_item_timestamp
+
+
 
 #deployment_status= @deployment_status 
 

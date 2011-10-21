@@ -14,6 +14,7 @@ FactoryGirl.define do
       app_id 1
       started_at "2011-10-17 16:27:03"
       completed_at "2011-10-17 16:27:03"
+      deployment_timestamp "2011-10-17 16:27:03"
     end
 end
 

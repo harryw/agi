@@ -21,7 +21,7 @@ Feature: App Status Page  (App-Status)
   Scenario: Deploy an app successfully
     Given an app exists with name: "Mediflex-mdsol-production"
 	And I go to the app's page
-	When I follow "Deploy"
+	When I follow "Deploy" 
 	And the current route should match /apps/:id/deployments/new
 	And I should see some json data in the div id="deployment_data"
 	And I press "Create Deploy"
@@ -33,10 +33,10 @@ Feature: App Status Page  (App-Status)
 	Then I should see "Deploy at:"
 
   Scenario: An App that has changed since last deployment will show "Undeployed Changes" alert
-	Given an app successfully deployed
+	Given an app_with_deployment exists
 	And I go to the app's page
 	And I should see "Deploy at:"
 	When I go to the app's edit page
-	And I fill in "git_revision" with "56789012"
+	And I fill in "Git Revision" with "56789012"
 	And I press "Update"
 	Then I should see "Undeployed Changes"
