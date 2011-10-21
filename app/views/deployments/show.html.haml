@@ -36,10 +36,15 @@
 %p
   %b Completed at:
   = @deployment.completed_at
-
 %p
   %b deployment_timestamp:
   = @deployment.deployment_timestamp
+
+%p
+  %b json_data:
+  :coderay
+    #!json
+    #{@deployment.json_data}
 
 
 = link_to 'Edit', edit_app_deployment_path(@app,@deployment)
