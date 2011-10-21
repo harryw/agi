@@ -24,6 +24,7 @@ gem 'haml'				# it replaces erb making views much cleaner
 gem 'haml-rails', :group => :development
 gem 'simple_form'		# Cleanest way to write a form view
 
+gem 'haml-coderay' # provides syntax highlighting for certain programming languages
 
 group :test do
   gem 'database_cleaner'
