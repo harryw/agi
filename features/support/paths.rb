@@ -11,6 +11,12 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
 
+    when /the sign up page/
+      '/users/sign_up'
+
+    when /the sign in page/
+      '/users/sign_in'
+    
     # the following are examples using path_to_pickle
     
     when /^#{capture_model}(?:'s)? #{capture_model}(?:'s)? #{capture_model}(?:'s)? page$/   

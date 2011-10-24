@@ -12,6 +12,9 @@ Feature: App Status Page  (App-Status)
   As a user
   I want to be told my App's Deployment Status
   
+  Background: A user must be loged-in to use Agi
+    Given I am a user named "foo" with an email "user@test.com" and password "please"
+	And I sign in as "user@test.com/please"
 
   Scenario: A new App will show "Never Deployed" status
 	Given an app exists with name: "Mediflex-mdsol-production"

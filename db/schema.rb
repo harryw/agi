@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111021203423) do
+ActiveRecord::Schema.define(:version => 20111024192343) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -54,15 +54,6 @@ ActiveRecord::Schema.define(:version => 20111021203423) do
     t.datetime "updated_at"
     t.datetime "deployment_timestamp"
     t.text     "json_data"
-  end
-
-  create_table "opscode_orgs", :force => true do |t|
-    t.string   "name"
-    t.text     "validator_key"
-    t.text     "client_key"
-    t.text     "databag_key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

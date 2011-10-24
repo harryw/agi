@@ -26,6 +26,8 @@ gem 'simple_form'		# Cleanest way to write a form view
 
 gem 'haml-coderay' # provides syntax highlighting for certain programming languages
 
+gem 'devise' # User authentication
+
 group :test do
   gem 'database_cleaner'
   gem 'rails3-generators' #mainly for factory_girl & simple_form at this point
