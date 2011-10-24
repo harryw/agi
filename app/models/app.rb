@@ -1,7 +1,10 @@
 class App < ActiveRecord::Base
     has_many :deployments
+    #TODO scope sucessful
     
-    def databag_item_timestamp 
+    # Rename this function
+    def databag_item_timestamp
+        # TODO, last sucessful deployment 
         self.deployments.last.try(:deployment_timestamp)
     end
     
