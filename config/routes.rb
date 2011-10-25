@@ -1,7 +1,14 @@
 Agi::Application.routes.draw do
-  resources :chef_accounts
 
-  resources :apps
+  resources :chef_accounts
+  
+  devise_for :users
+
+  resources :apps do # look into shallow routes
+      resources :deployments
+  end
+  
+  root :to => "apps#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

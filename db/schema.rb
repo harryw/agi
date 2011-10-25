@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111013201405) do
+ActiveRecord::Schema.define(:version => 20111024192343) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -44,8 +44,24 @@ ActiveRecord::Schema.define(:version => 20111013201405) do
     t.text     "client_key"
     t.text     "databag_key"
     t.string   "api_url"
+
+  create_table "deployments", :force => true do |t|
+    t.string   "user_link"
+    t.string   "git_repo"
+    t.string   "git_commit"
+    t.text     "description"
+    t.boolean  "send_email"
+    t.string   "task"
+    t.boolean  "do_migrations"
+    t.string   "migration_command"
+    t.text     "result_log"
+    t.integer  "app_id"
+    t.datetime "started_at"
+    t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deployment_timestamp"
+    t.text     "json_data"
   end
 
 end

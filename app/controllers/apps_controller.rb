@@ -18,10 +18,10 @@ class AppsController < ApplicationController
     @deployment_status = 
         if !@app.databag_item_timestamp
             "Never Deployed"
-        elsif @app.databag_item_timestamp < @app.app_timestamp
-            "Undeployed Changes"
-        else
+        elsif @app.databag_item_timestamp.to_i == @app.app_timestamp.to_i
             "Deploy at: #{@app.app_timestamp}"
+        else
+            "Undeployed Changes"
         end
         
     respond_to do |format|

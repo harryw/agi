@@ -1,0 +1,51 @@
+
+%p
+  %b User link:
+  = @deployment.user_link
+%p
+  %b Git repo:
+  = @deployment.git_repo
+%p
+  %b Git commit:
+  = @deployment.git_commit
+%p
+  %b Description:
+  = @deployment.description
+%p
+  %b Send email:
+  = @deployment.send_email
+%p
+  %b Task:
+  = @deployment.task
+%p
+  %b Do migrations:
+  = @deployment.do_migrations
+%p
+  %b Migration command:
+  = @deployment.migration_command
+%p
+  %b Result log:
+  = @deployment.result_log
+%p
+  %b App:
+  = @deployment.app_id
+%p
+  %b Started at:
+  = @deployment.started_at
+%p
+  %b Completed at:
+  = @deployment.completed_at
+%p
+  %b deployment_timestamp:
+  = @deployment.deployment_timestamp
+
+%p
+  %b json_data:
+  :coderay
+    #!json
+    #{@deployment.json_data}
+
+
+= link_to 'Edit', edit_app_deployment_path(@app,@deployment)
+\|
+= link_to 'Back', app_deployments_path(@app)

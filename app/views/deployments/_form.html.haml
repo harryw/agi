@@ -1,0 +1,19 @@
+= simple_form_for [@app,@deployment] do |form|
+
+  -if @deployment.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@deployment.errors.count, "error")} prohibited this #{Deployment.name.titleize} from being saved:"
+      %ul
+        - @deployment.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :description, :label => 'Description'
+  = form.input :send_email, :label => 'Send Email'
+  = form.input :task, :label => 'Task'
+  = form.input :do_migrations, :label => 'Do Migrations'
+  = form.input :migration_command, :label => 'Migration Command'
+  = form.input :deployment_timestamp, :as => :hidden, :input_html => { :value => @app.app_timestamp }
+  = form.input :json_data, :as => :hidden, :input_html => { :value => @deployment_data }
+
+  .actions
+    = form.button :submit
