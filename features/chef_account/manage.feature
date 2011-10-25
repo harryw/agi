@@ -4,7 +4,8 @@ Feature: Allow me to manage my chef_accounts
 
   Background:
     Given a chef_account exists with name: "testorg", formal_name: "Test Opscode Account"
-
+	And I am a user named "foo" with an email "user@test.com" and password "please"
+	And I sign in as "user@test.com/please"
 
   Scenario: Go to the index page
     Given I go to the chef_accounts page
