@@ -1,5 +1,9 @@
 Agi::Application.routes.draw do
 
+  resources :projects
+
+  resources :customers
+
   resources :chef_accounts
   
   devise_for :users

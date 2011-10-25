@@ -1,0 +1,24 @@
+
+
+%p
+  %b Name:
+  = @project.name
+%p
+  %b Formal name:
+  = @project.formal_name
+%p
+  %b Homepage:
+  = @project.homepage
+%p
+  %b Description:
+  = @project.description
+%p
+  %b Respository:
+  = @project.respository
+%p
+  %b Repo private key:
+  = @project.repo_private_key
+
+= link_to 'Edit', edit_project_path(@project)
+\|
+= link_to 'Back', projects_path
