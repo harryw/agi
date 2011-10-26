@@ -1,5 +1,7 @@
 Agi::Application.routes.draw do
 
+  resources :databases
+
   resources :projects
 
   resources :customers

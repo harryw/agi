@@ -1,0 +1,39 @@
+%h1 Listing databases
+
+%table
+  %tr
+    %th Name
+    %th Db name
+    %th Username
+    %th Password
+    %th Client cert
+    %th Type
+    %th Instance class
+    %th Instance storage
+    %th Multi az
+    %th Availability zone
+    %th Engine version
+    %th
+    %th
+    %th
+
+  - @databases.each do |database|
+    %tr
+      %td= database.name
+      %td= database.db_name
+      %td= database.username
+      %td= database.password
+      %td= database.client_cert
+      %td= database.type
+      %td= database.instance_class
+      %td= database.instance_storage
+      %td= database.multi_az
+      %td= database.availability_zone
+      %td= database.engine_version
+      %td= link_to 'Show', database
+      %td= link_to 'Edit', edit_database_path(database)
+      %td= link_to 'Destroy', database, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Database', new_database_path

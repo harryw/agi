@@ -10,6 +10,7 @@ class App < ActiveRecord::Base
     delegate :name, :name, :to => :customer, :prefix => true, :allow_nil => true
     delegate :name, :name, :to => :database, :prefix => true, :allow_nil => true
     
+    #serialize :deployed_data
     #TODO scope sucessful
     
     # Rename this function

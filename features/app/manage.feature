@@ -7,20 +7,25 @@ Feature: Allow me to manage my apps
 		And I sign in as "user@test.com/please"
 		And a customer exists with name: "Johnson & Johnson", name_tag: "jnj"
 		And a project exists with name: "Little Project"
+		And a database exists with name: "Great DB"
 		
-	Scenario: Create a App
+	Scenario: Create an App
 		Given I go to the apps page
 		And I follow "New App"
 		And the current route should match /apps/new
 	    When I fill in "Name" with "Mediflex"
 		And I select "Johnson & Johnson" from "Customer"
 		And I select "Little Project" from "Project"
+		And I check "Great DB"
 		And I press "Create App"
 		Then I should see "App was successfully created."
 		And I should see "Johnson & Johnson"
 		And I should see "Little Project"
+		And I should see "Little Project"
+		And I should see "Great DB"
 		
-	Scenario: Edit a App
+		
+	Scenario: Edit an App
 		Given a app exists with name: "Mediflex"
 		And I go to the app's edit page
 		When I fill in "Name" with "Mediflex-edited"
