@@ -4,8 +4,8 @@ class App < ActiveRecord::Base
     belongs_to :project
     
     
-    delegate :name, :formal_name, :to => :project, :prefix => true, :allow_nil => true
-    delegate :name, :formal_name, :to => :customer, :prefix => true, :allow_nil => true
+    delegate :name, :name, :to => :project, :prefix => true, :allow_nil => true
+    delegate :name, :name, :to => :customer, :prefix => true, :allow_nil => true
     
     #TODO scope sucessful
     

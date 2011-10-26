@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :project do
       name "MyString"
-      formal_name "MyString"
+      name_tag "MyString"
       homepage "MyString"
       description "MyText"
       respository "MyString"

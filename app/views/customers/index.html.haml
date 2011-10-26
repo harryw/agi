@@ -3,7 +3,7 @@
 %table
   %tr
     %th Name
-    %th Formal name
+    %th Tag name
     %th
     %th
     %th
@@ -11,7 +11,7 @@
   - @customers.each do |customer|
     %tr
       %td= customer.name
-      %td= customer.formal_name
+      %td= customer.formal_tag
       %td= link_to 'Show', customer
       %td= link_to 'Edit', edit_customer_path(customer)
       %td= link_to 'Destroy', customer, :confirm => 'Are you sure?', :method => :delete

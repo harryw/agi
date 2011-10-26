@@ -3,7 +3,7 @@
 %table
   %tr
     %th Name
-    %th Formal name
+    %th Name tag
     %th Homepage
     %th Description
     %th Respository
@@ -15,7 +15,7 @@
   - @projects.each do |project|
     %tr
       %td= project.name
-      %td= project.formal_name
+      %td= project.name_tag
       %td= project.homepage
       %td= project.description
       %td= project.respository

@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :customer do
       name "MyString"
-      formal_name "MyString"
+      name_tag "MyString"
     end
 end

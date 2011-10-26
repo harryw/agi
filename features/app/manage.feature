@@ -5,7 +5,7 @@ Feature: Allow me to manage my apps
 	Background: A user must be logged-in to use Agi
     	Given I am a user named "foo" with an email "user@test.com" and password "please"
 		And I sign in as "user@test.com/please"
-		And a customer exists with name: "jnj", formal_name: "Johnson & Johnson"
+		And a customer exists with name_tag: "jnj", name: "Johnson & Johnson"
 		
 	Scenario: Create a App
 		Given I go to the apps page
