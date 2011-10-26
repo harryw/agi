@@ -1,11 +1,14 @@
 class App < ActiveRecord::Base
-    has_many :deployments
+    
     belongs_to :customer
     belongs_to :project
+    belongs_to :database
+
+    has_many :deployments
     
-    
-    delegate :name, :name, :to => :project, :prefix => true, :allow_nil => true
+    delegate :name, :name, :to => :project,  :prefix => true, :allow_nil => true
     delegate :name, :name, :to => :customer, :prefix => true, :allow_nil => true
+    delegate :name, :name, :to => :database, :prefix => true, :allow_nil => true
     
     #TODO scope sucessful
     
