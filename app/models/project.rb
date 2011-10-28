@@ -3,6 +3,6 @@ class Project < ActiveRecord::Base
     
     def configuration
         attributes.symbolize_keys.extract!(:name,:name_tag,:homepage,
-                                            :respository,:repo_private_key)
+                                            :repository,:repo_private_key)
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111027182928) do
+ActiveRecord::Schema.define(:version => 20111028163208) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(:version => 20111027182928) do
     t.string   "name"
     t.string   "homepage"
     t.text     "description"
-    t.string   "respository"
+    t.string   "repository"
     t.text     "repo_private_key"
     t.datetime "created_at"
     t.datetime "updated_at"

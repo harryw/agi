@@ -5,7 +5,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string :formal_name
       t.string :homepage
       t.text :description
-      t.string :respository
+      t.string :repository
       t.text :repo_private_key
 
       t.timestamps

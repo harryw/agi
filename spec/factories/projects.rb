@@ -6,7 +6,7 @@ FactoryGirl.define do
       name_tag "MyString"
       homepage "MyString"
       description "MyText"
-      respository "MyString"
+      repository "MyString"
       repo_private_key "MyText"
     end
 end
