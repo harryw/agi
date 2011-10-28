@@ -36,6 +36,7 @@ class App < ActiveRecord::Base
     def data_bag_item_data
         {
             :id => name,
+            :deployment_timestamp => app_timestamp,
             :main => configuration,
             :project => project_configuration,
             :customer => customer_configuration,
