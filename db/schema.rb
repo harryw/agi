@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111026192733) do
+ActiveRecord::Schema.define(:version => 20111027182928) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20111026192733) do
     t.integer  "customer_id"
     t.integer  "project_id"
     t.integer  "database_id"
+    t.integer  "chef_account_id"
   end
 
   create_table "chef_accounts", :force => true do |t|
