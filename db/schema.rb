@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024192343) do
+ActiveRecord::Schema.define(:version => 20111028163208) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -26,15 +26,16 @@ ActiveRecord::Schema.define(:version => 20111024192343) do
     t.string   "url"
     t.string   "git_revision"
     t.string   "rails_env"
-    t.string   "project_link"
-    t.string   "customer_link"
-    t.string   "database_link"
     t.string   "chef_account_link"
     t.string   "cache_cluster_link"
     t.string   "infrastructure_link"
     t.string   "newrelic_account_link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "customer_id"
+    t.integer  "project_id"
+    t.integer  "database_id"
+    t.integer  "chef_account_id"
   end
 
   create_table "chef_accounts", :force => true do |t|
@@ -44,6 +45,29 @@ ActiveRecord::Schema.define(:version => 20111024192343) do
     t.text     "client_key"
     t.text     "databag_key"
     t.string   "api_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customers", :force => true do |t|
+    t.string   "name_tag"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "databases", :force => true do |t|
+    t.string   "name"
+    t.string   "db_name"
+    t.string   "username"
+    t.string   "password"
+    t.text     "client_cert"
+    t.string   "type"
+    t.string   "instance_class"
+    t.integer  "instance_storage"
+    t.boolean  "multi_az"
+    t.string   "availability_zone"
+    t.string   "engine_version"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,6 +89,17 @@ ActiveRecord::Schema.define(:version => 20111024192343) do
     t.datetime "updated_at"
     t.datetime "deployment_timestamp"
     t.text     "json_data"
+  end
+
+  create_table "projects", :force => true do |t|
+    t.string   "name_tag"
+    t.string   "name"
+    t.string   "homepage"
+    t.text     "description"
+    t.string   "repository"
+    t.text     "repo_private_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

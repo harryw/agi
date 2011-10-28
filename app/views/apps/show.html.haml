@@ -9,6 +9,15 @@
   %b Stage name:
   = @app.stage_name
 %p
+  %b Customer name:
+  = @app.customer_name
+%p
+  %b Project name:
+  = @app.project_name
+%p
+  %b Database Name:
+  = @app.database_name
+%p
   %b Deploy to:
   = @app.deploy_to
 %p
@@ -35,18 +44,7 @@
 %p
   %b Rails env:
   = @app.rails_env
-%p
-  %b Project link:
-  = @app.project_link
-%p
-  %b Customer link:
-  = @app.customer_link
-%p
-  %b Database link:
-  = @app.database_link
-%p
-  %b Chef account link:
-  = @app.chef_account_link
+ 
 %p
   %b Cache cluster link:
   = @app.cache_cluster_link

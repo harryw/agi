@@ -1,0 +1,11 @@
+
+%p
+  %b Name:
+  = @customer.name
+%p
+  %b Tag name:
+  = @customer.name_tag
+
+= link_to 'Edit', edit_customer_path(@customer)
+\|
+= link_to 'Back', customers_path

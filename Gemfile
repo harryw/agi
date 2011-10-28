@@ -27,6 +27,7 @@ gem 'simple_form'		# Cleanest way to write a form view
 gem 'haml-coderay' # provides syntax highlighting for certain programming languages
 
 gem 'devise' # User authentication
+gem 'chef', '>= 0.10.4' # opscode authentication
 
 group :test do
   gem 'database_cleaner'

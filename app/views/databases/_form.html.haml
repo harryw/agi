@@ -1,0 +1,23 @@
+= simple_form_for @database do |form|
+
+  -if @database.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@database.errors.count, "error")} prohibited this #{Database.name.titleize} from being saved:"
+      %ul
+        - @database.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :name, :label => 'Name'
+  = form.input :db_name, :label => 'Db Name'
+  = form.input :username, :label => 'Username'
+  = form.input :password, :label => 'Password'
+  = form.input :client_cert, :label => 'Client Cert'
+  = form.input :type, :label => 'Type'
+  = form.input :instance_class, :label => 'Instance Class'
+  = form.input :instance_storage, :label => 'Instance Storage'
+  = form.input :multi_az, :label => 'Multi Az'
+  = form.input :availability_zone, :label => 'Availability Zone'
+  = form.input :engine_version, :label => 'Engine Version'
+
+  .actions
+    = form.button :submit

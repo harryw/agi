@@ -9,6 +9,10 @@
 
   = form.input :name, :label => 'Name'
   = form.input :description, :label => 'Description'
+  = form.association :customer, :label => 'Customer', :prompt => "Choose a Customer"
+  = form.association :project, :label => 'Project', :prompt => "Choose a Project"
+  = form.association :chef_account, :label => 'Chef Account', :prompt => "Choose a Chef Account"
+  = form.association :database, :Label => 'Database', :as => :check_boxes
   = form.input :stage_name, :label => 'Stage Name'
   = form.input :deploy_to, :label => 'Deploy To'
   = form.input :deploy_user, :label => 'Deploy User'
@@ -19,9 +23,6 @@
   = form.input :url, :label => 'Url'
   = form.input :git_revision, :label => 'Git Revision'
   = form.input :rails_env, :label => 'Rails Env'
-  = form.input :project_link, :label => 'Project Link'
-  = form.input :customer_link, :label => 'Customer Link'
-  = form.input :database_link, :label => 'Database Link'
   = form.input :chef_account_link, :label => 'Chef Account Link'
   = form.input :cache_cluster_link, :label => 'Cache Cluster Link'
   = form.input :infrastructure_link, :label => 'Infrastructure Link'

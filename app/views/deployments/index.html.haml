@@ -32,10 +32,6 @@
       %td= deployment.app_id
       %td= deployment.started_at
       %td= deployment.completed_at
-      %td= link_to 'Show', deployment
-      %td= link_to 'Edit', edit_deployment_path(deployment)
-      %td= link_to 'Destroy', deployment, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', [@app,deployment]
 
 %br
-
-= link_to 'New Deployment', new_deployment_path

@@ -1,11 +1,17 @@
 Agi::Application.routes.draw do
 
+  resources :databases
+
+  resources :projects
+
+  resources :customers
+
   resources :chef_accounts
   
   devise_for :users
 
   resources :apps do # look into shallow routes
-      resources :deployments
+      resources :deployments, :except => [:edit, :destroy]
   end
   
   root :to => "apps#index"

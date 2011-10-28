@@ -1,0 +1,39 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @database.name
+%p
+  %b Db name:
+  = @database.db_name
+%p
+  %b Username:
+  = @database.username
+%p
+  %b Password:
+  = @database.password
+%p
+  %b Client cert:
+  = @database.client_cert
+%p
+  %b Type:
+  = @database.type
+%p
+  %b Instance class:
+  = @database.instance_class
+%p
+  %b Instance storage:
+  = @database.instance_storage
+%p
+  %b Multi az:
+  = @database.multi_az
+%p
+  %b Availability zone:
+  = @database.availability_zone
+%p
+  %b Engine version:
+  = @database.engine_version
+
+= link_to 'Edit', edit_database_path(@database)
+\|
+= link_to 'Back', databases_path
