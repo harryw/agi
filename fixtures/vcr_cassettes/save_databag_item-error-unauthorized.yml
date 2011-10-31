@@ -1,0 +1,57 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.opscode.com:443/organizations/scratch/data/application_environment
+    body: !!null 
+    headers:
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      content-length:
+      - '467'
+      x-ops-sign:
+      - version=1.0
+      x-ops-userid:
+      - restebanez
+      x-ops-timestamp:
+      - '2011-10-31T21:12:37Z'
+      x-ops-content-hash:
+      - G5dyNcfaxojRoaOzicuGcspBmU4=
+      x-ops-authorization-1:
+      - AK2+U97mS3fBld90DRC+uzVu7YmBKcYCgwqQPcqenrHqFio3zDejXpEfmvC0
+      x-ops-authorization-2:
+      - 18YN2Do3ww++1z0CqOAbdUmVFMbTEMEGFtYxTrybR4Jh6sUQBJoiMLjGzAWN
+      x-ops-authorization-3:
+      - XEvvXKM+rW2E3ON8S2ak4LqB5m/RC3brEf9ilHIQoIza41K+CWInfrzwmeA7
+      x-ops-authorization-4:
+      - EyX2Bv4Ik2fIoPRFYtK05jLYDTuAxP2575X5NGCsdKnpJkg3oOpRQkjij/9X
+      x-ops-authorization-5:
+      - G2YXTW5X9uzKzwH1LgaH7yqUQ4cM/N9EiiV2tEzqpr4cGjV9OC6+M40sfyAV
+      x-ops-authorization-6:
+      - M8302s1E2VgmTzoDMloJCfaFiPULCssCxGIzolO8IQ==
+      host:
+      - api.opscode.com:443
+      x-chef-version:
+      - 0.10.4
+      user-agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 401
+      message: Unauthorized
+    headers:
+      server:
+      - nginx/1.0.5
+      date:
+      - Mon, 31 Oct 2011 21:12:37 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      status:
+      - 401 Unauthorized
+    body: ! '{"error":["Failed to authenticate as restebanez. Ensure that your node_name
+      and client key are correct."]}'
+    http_version: '1.1'
