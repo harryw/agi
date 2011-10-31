@@ -25,4 +25,8 @@ Factory.define :app_with_deployment, :parent => :app do |app|
     app.after_create {|a| Factory(:deployment, :app => a, :deployment_timestamp => a.updated_at)}
 end 
 
+Factory.define :working_app, :parent => :app do |a|
+  a.association :chef_account, :factory => :chef_account
+end
+  
                

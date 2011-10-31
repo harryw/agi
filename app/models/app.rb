@@ -37,7 +37,7 @@ class App < ActiveRecord::Base
         {
             :id => name,
             :deployment_timestamp => app_timestamp,
-            :main => configuration,
+            :deployment => configuration,
             :project => project_configuration,
             :customer => customer_configuration,
             :database => database_configuration

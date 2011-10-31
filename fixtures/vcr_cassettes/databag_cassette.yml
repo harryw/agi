@@ -1,0 +1,57 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.opscode.com:443/organizations/scratch/data/application_environment
+    body: !!null 
+    headers:
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      content-length:
+      - '467'
+      x-ops-sign:
+      - version=1.0
+      x-ops-userid:
+      - restebanez
+      x-ops-timestamp:
+      - '2011-10-31T20:00:50Z'
+      x-ops-content-hash:
+      - G5dyNcfaxojRoaOzicuGcspBmU4=
+      x-ops-authorization-1:
+      - kTXyvJzaUFI87jKlq2Zi4Is6dG2VkXlhTZ0LOhjirRKHPPiqdqosyIWbvjF9
+      x-ops-authorization-2:
+      - LfgpUIcE+OZoxKv+8XROaCaZW6Qxbu/Po+O/cvhu83181cCgOVL7HZZGO+Su
+      x-ops-authorization-3:
+      - XKJHqwo9LZ8ZFmIeBBPgsRGEj+l1eQB3yt4PX/ukTq8MNSSZltBD8w/ZzneZ
+      x-ops-authorization-4:
+      - 2GLYmlDJ6VbxDwTIHg/RIRd4cAy8KSHhg6ocQ8mvVvhAwxVrO8moOUNtPOWm
+      x-ops-authorization-5:
+      - ZRLvQFDFLx2q6eORwPP2v+Ag6gdJN5jAbTPvSQLhyMj5hdKNRpUXOnH0+/jq
+      x-ops-authorization-6:
+      - hnQHPfidwsGmGqQFHqGEBoiB1v+FfVfsOkiAUq3qxg==
+      host:
+      - api.opscode.com:443
+      x-chef-version:
+      - 0.10.4
+      user-agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx/1.0.5
+      date:
+      - Mon, 31 Oct 2011 20:00:51 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      status:
+      - 200 OK
+    body: ! '{"_rev":"6-b7aa7a709569454f7e3bda265084c10a","project":null,"id":"Mediflex-mdsol-production","database":null,"data_bag":"application_environment","customer":null,"deployment":{"name":"Mediflex-mdsol-production","stage_name":"production","deploy_user":"medidata","alert_emails":"restebanez@mdsol.com,
+      jzimmerman@mdsol.com","url":"mediflex.cloudteam.com","multi_tenant":"true","uses_bundler":"true","rails_env":"production","deploy_group":"medidata","deploy_to":"/mnt/mediflex","git_revision":"1234567"},"chef_type":"data_bag_item","deployment_timestamp":"2011-10-21T18:24:35Z"}'
+    http_version: '1.1'

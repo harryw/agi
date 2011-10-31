@@ -1,0 +1,168 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.opscode.com:443/organizations/scratch/data/application_environment
+    body: !!null 
+    headers:
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      content-length:
+      - '467'
+      x-ops-sign:
+      - version=1.0
+      x-ops-userid:
+      - restebanez
+      x-ops-timestamp:
+      - '2011-10-31T20:09:27Z'
+      x-ops-content-hash:
+      - G5dyNcfaxojRoaOzicuGcspBmU4=
+      x-ops-authorization-1:
+      - AEF0pFjKMUvHQ6/xNsJPh5FGG5P3KHGq9XEsdbuL+MV+8ksAQFN+G8ek7Ov+
+      x-ops-authorization-2:
+      - foVeOT2LDXVDOxC0nm3HL4xEESOcFNPViAhLqiNv66vK5Cid8+Ay/pjGYsGx
+      x-ops-authorization-3:
+      - KqS+4bHCzc/nCbzlMnEJXrIXWSmEVG3Qn2EXFqJZWEUDtx8YMF0zEIGkdZ/D
+      x-ops-authorization-4:
+      - wUhlkfG6nOlykU1ODCuK98TpMcEnXtDRN0wbEwi+vEETwzvD8xjMYe31awc8
+      x-ops-authorization-5:
+      - 90Fn3ru0WJp4KJ9p5tyulTwmZMnMXGNPm0tFCUDoqxv4Uj9B+7QPQWgqM7AP
+      x-ops-authorization-6:
+      - eOeaDqCE8069e8eGzeuBGfvN1i4NorvpcvdVQBroRg==
+      host:
+      - api.opscode.com:443
+      x-chef-version:
+      - 0.10.4
+      user-agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 404
+      message: Not Found
+    headers:
+      server:
+      - nginx/1.0.5
+      date:
+      - Mon, 31 Oct 2011 20:09:28 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      status:
+      - 404 Not Found
+    body: ! '{"error":["No data bag ''application_environment'' could be found. Please
+      create this data bag before adding items to it."]}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.opscode.com:443/organizations/scratch//data
+    body: !!null 
+    headers:
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      content-length:
+      - '34'
+      x-ops-sign:
+      - version=1.0
+      x-ops-userid:
+      - restebanez
+      x-ops-timestamp:
+      - '2011-10-31T20:09:28Z'
+      x-ops-content-hash:
+      - urK+t/SDwieHUOLAblyyLkIgomM=
+      x-ops-authorization-1:
+      - YDd0xqlCuZkkW5/F9oVFwvsGaRb9mvNi4dVoLC1lW47kDFwWcEevnIQBq0gw
+      x-ops-authorization-2:
+      - b7fgpIrUwHtSVJ8hsT1VjN01/olVYtiUyZ+NQA17BNIltEl5Vp8xL+A0+d/R
+      x-ops-authorization-3:
+      - moUG/QpGXeCsUe6wSow2Gb+8Lln1p9FJzX9QRbRAQqEyJse3oA6vGt+p1/+X
+      x-ops-authorization-4:
+      - dCHuBQkJc+m1xY1J0Ci4Rc9K+rpOOlxvEEeuv4gU/MDOEM9NNBD9XS4Z83cV
+      x-ops-authorization-5:
+      - DJHXkpYvqtt+zJjpKdKhFzlcsPDEnRPcudeMY2kfZZIj1hgK+yzVDdjDdfPk
+      x-ops-authorization-6:
+      - qgUe1/N21rJ/tSkrErR4sEMQ5qEJVVHMMfI43gdSBg==
+      host:
+      - api.opscode.com:443
+      x-chef-version:
+      - 0.10.4
+      user-agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 201
+      message: Created
+    headers:
+      server:
+      - nginx/1.0.5
+      date:
+      - Mon, 31 Oct 2011 20:09:29 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      status:
+      - 201 Created
+    body: ! '{"uri":"https://api.opscode.com/organizations/scratch/data/application_environment"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.opscode.com:443/organizations/scratch/data/application_environment
+    body: !!null 
+    headers:
+      accept:
+      - application/json
+      content-type:
+      - application/json
+      content-length:
+      - '467'
+      x-ops-sign:
+      - version=1.0
+      x-ops-userid:
+      - restebanez
+      x-ops-timestamp:
+      - '2011-10-31T20:09:29Z'
+      x-ops-content-hash:
+      - G5dyNcfaxojRoaOzicuGcspBmU4=
+      x-ops-authorization-1:
+      - ToDlYGhLpNf4Bw0nt1Xbo4vGDBNrO3NAnsu0pQlALKnU7LCVIqlzi55jGieJ
+      x-ops-authorization-2:
+      - SbbuJmkboMSrGsJ17HYa+oeq/EyGmTTYbBhaYwv3OAaSwCdIPMmUE1yGTfA1
+      x-ops-authorization-3:
+      - 7WUFZ4J4h9L/Ll1eekqlIOC5wv6UyAhmeobbFBh7T/v4FxCj5xU94Z5DPzIV
+      x-ops-authorization-4:
+      - RJiI82kiz7FfMveFg4JmEOL2FwZ9NUutD0IDGVo6ccph4+iY0XlD87hahq89
+      x-ops-authorization-5:
+      - 7eMguc6xYGg1BoaNB8AkFs3JHkC1j6Z2sY8Jf9HJZDVA0X+zNFfM4bt6x3Vh
+      x-ops-authorization-6:
+      - hQTz/mtZTsC2cw31axd9nHxgf7Ay8nRm4EJaZy/RIQ==
+      host:
+      - api.opscode.com:443
+      x-chef-version:
+      - 0.10.4
+      user-agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx/1.0.5
+      date:
+      - Mon, 31 Oct 2011 20:09:30 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      status:
+      - 200 OK
+    body: ! '{"project":null,"id":"Mediflex-mdsol-production","database":null,"data_bag":"application_environment","customer":null,"deployment":{"name":"Mediflex-mdsol-production","stage_name":"production","deploy_user":"medidata","alert_emails":"restebanez@mdsol.com,
+      jzimmerman@mdsol.com","url":"mediflex.cloudteam.com","multi_tenant":"true","uses_bundler":"true","rails_env":"production","deploy_group":"medidata","deploy_to":"/mnt/mediflex","git_revision":"1234567"},"chef_type":"data_bag_item","deployment_timestamp":"2011-10-21T18:24:35Z"}'
+    http_version: '1.1'

@@ -29,6 +29,8 @@ gem 'haml-coderay' # provides syntax highlighting for certain programming langua
 gem 'devise' # User authentication
 gem 'chef', '>= 0.10.4' # opscode authentication
 
+
+
 group :test do
   gem 'database_cleaner'
   gem 'rails3-generators' #mainly for factory_girl & simple_form at this point
@@ -46,4 +48,6 @@ group :test do
   gem "launchy" 		# show the web page in case of error
   gem "spork", "> 0.9.0.rc" # Improve loading times during testing
   gem "guard-spork"
+  gem 'fakeweb'
+  gem "vcr"
 end
