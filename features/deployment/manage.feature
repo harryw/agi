@@ -9,5 +9,5 @@ Feature: Create a full deployment
 		And I go to the app's page
 		And I follow "Deploy"
 		When I fill in "Description" with "This is a test deployment"
-		And I press "Create Deployment" using a cassette named "databag_cassette"
+		And I press "Create Deployment" using a cassette named "save_databag_item-databag_doesnt_exist"
 		Then I should see "App has been deployed successfully"

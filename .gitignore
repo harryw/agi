@@ -5,4 +5,4 @@ tmp/
 .sass-cache/
 *.swp
 *DS_STORE
-spec/factories/real_data_used_to_generate_cassetes.rb
+spec/factories/chef_accounts.rb.real_data
