@@ -43,7 +43,7 @@ class DeploymentsController < ApplicationController
   def create
     @deployment = @app.deployments.build(params[:deployment])
     # By this time, we'll have the full deployment data, including every "prompt on deploy"
-    # @deployment.create_or_update_databag(json_data), this can be done with a before_save callback
+    # @deployment.create_or_update_databag(deployed_data), this can be done with a before_save callback
     respond_to do |format|
       if @deployment.save
         format.html { redirect_to [@app,@deployment], notice: "App has been deployed successfully" }

@@ -40,10 +40,10 @@
   = @deployment.deployment_timestamp
 
 %p
-  %b json_data:
+  %b deployed_data:
   :coderay
     #!json
-    #{@deployment.json_data}
+    #{@deployment.deployed_data}
 
 
 = link_to 'Back', app_deployments_path(@app)

@@ -21,4 +21,6 @@
 
 = link_to 'Edit', edit_chef_account_path(@chef_account)
 \|
+= link_to 'Destroy', @chef_account, :confirm => 'Are you sure?', :method => :delete
+\|
 = link_to 'Back', chef_accounts_path

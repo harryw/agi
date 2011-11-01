@@ -69,4 +69,6 @@
 
 = link_to 'Edit', edit_app_path(@app)
 \|
+= link_to 'Destroy', @app, :confirm => 'Are you sure?', :method => :delete
+\|
 = link_to 'Back', apps_path

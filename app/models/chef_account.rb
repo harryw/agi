@@ -5,7 +5,7 @@ class ChefAccount < ActiveRecord::Base
   after_save        :remove_client_key
   after_destroy     :remove_client_key
   
-  validates_presence_of :name, :validator_key, :client_key, :api_url
+  validates_presence_of :name, :client_name, :validator_key, :client_key, :api_url
   
   def update_data_bag_item(data_bag_item_data)
     begin
@@ -35,9 +35,9 @@ class ChefAccount < ActiveRecord::Base
     "#{name}-validator"
   end
 
-  def api_url
-    "https://api.opscode.com/organizations/#{name}"
-  end
+#  def api_url
+#    "https://api.opscode.com/organizations/#{name}"
+#  end
 
   def rest
     @rest ||= Chef::REST.new(api_url, client_name, get_client_key_path)

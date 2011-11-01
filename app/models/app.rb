@@ -10,7 +10,7 @@ class App < ActiveRecord::Base
     delegate :name, :configuration, :to => :project, :prefix => true, :allow_nil => true
     delegate :name, :configuration, :to => :customer,:prefix => true, :allow_nil => true
     delegate :name, :configuration, :to => :database,:prefix => true, :allow_nil => true
-    delegate :update_data_bag_item, :to => :chef_account, :prefix => true
+    delegate :name, :update_data_bag_item, :to => :chef_account, :prefix => true, :allow_nil => true
     
     #serialize :deployed_data
     #TODO scope sucessful

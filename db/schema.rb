@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111101155750) do
+ActiveRecord::Schema.define(:version => 20111101194902) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20111101155750) do
     t.string   "api_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "client_name"
+    t.string   "client_name"
   end
 
   create_table "customers", :force => true do |t|
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(:version => 20111101155750) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deployment_timestamp"
-    t.text     "json_data"
+    t.text     "deployed_data"
     t.boolean  "force_deploy",         :default => false
   end
 

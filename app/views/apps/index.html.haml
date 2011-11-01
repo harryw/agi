@@ -3,45 +3,26 @@
 %table
   %tr
     %th Name
-    %th Description
     %th Stage name
-    %th Deploy to
-    %th Deploy user
-    %th Deploy group
-    %th Multi tenant
-    %th Uses bundler
-    %th Alert emails
     %th Url
+    %th Chef Account
+    %th Database
+    %th Customer
+    %th Project
     %th Git revision
-    %th Rails env
-    %th Cache cluster link
-    %th Infrastructure link
-    %th Newrelic account link
-    %th
     %th
     %th
 
   - @apps.each do |app|
     %tr
-      %td= app.name
-      %td= app.description
+      %td= link_to app.name, app
       %td= app.stage_name
-      %td= app.deploy_to
-      %td= app.deploy_user
-      %td= app.deploy_group
-      %td= app.multi_tenant
-      %td= app.uses_bundler
-      %td= app.alert_emails
       %td= app.url
+      %td= link_to_if app.chef_account_name, app.chef_account_name, app.chef_account
+      %td= link_to_if app.database_name, app.database_name, app.database 
+      %td= link_to_if app.customer_name, app.customer_name, app.customer
+      %td= link_to_if app.project_name, app.project_name, app.project
       %td= app.git_revision
-      %td= app.rails_env
-      %td= app.cache_cluster_link
-      %td= app.infrastructure_link
-      %td= app.newrelic_account_link
-      %td= link_to 'Show', app
-      %td= link_to 'Edit', edit_app_path(app)
-      %td= link_to 'Destroy', app, :confirm => 'Are you sure?', :method => :delete
-
 %br
 
 = link_to 'New App', new_app_path
