@@ -16,6 +16,7 @@ Feature: Allow me to manage my databases
 	    When I fill in "Password" with "pass"
 	    When I fill in "Client Cert" with "jjjjjj"
 	    When I fill in "Type" with "mysql"
+			When I fill in "Hostname" with "127.0.0.1"
 		And I press "Create Database"
 		Then I should see "Database was successfully created."
 		

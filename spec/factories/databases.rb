@@ -6,6 +6,7 @@ FactoryGirl.define do
       db_name "MyString"
       username "MyString"
       password "MyString"
+      hostname "127.0.0.1"
       client_cert "MyText"
       type ""
       instance_class "MyString"

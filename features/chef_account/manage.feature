@@ -12,7 +12,6 @@ Feature: Allow me to manage my chef_accounts
     Then the current route should match /chef_accounts
     And I should be at the chef_accounts page
     And I should see "testorg"
-    And I should see "Test Opscode Account"
 
   Scenario: Go to the edit page
     Given I go to the chef_account's edit page
@@ -25,7 +24,7 @@ Feature: Allow me to manage my chef_accounts
     And I follow "New Chef account"
     And the current route should match /chef_accounts/new
     When I fill in "Name" with "testorg"
-    And I fill in "Formal Name" with "Test Chef Org"
+    And I fill in "Client Name" with "restebanez"
     And I fill in "Validator Key" with "fakevalkeytext"
     And I fill in "Client Key" with "fakeclientkeytext"
     And I fill in "Databag Key" with "fakedatabagencryptionkey"

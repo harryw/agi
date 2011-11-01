@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111028163208) do
+ActiveRecord::Schema.define(:version => 20111101155750) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -20,13 +20,10 @@ ActiveRecord::Schema.define(:version => 20111028163208) do
     t.string   "deploy_to"
     t.string   "deploy_user"
     t.string   "deploy_group"
-    t.string   "multi_tenant"
-    t.string   "uses_bundler"
     t.string   "alert_emails"
     t.string   "url"
     t.string   "git_revision"
     t.string   "rails_env"
-    t.string   "chef_account_link"
     t.string   "cache_cluster_link"
     t.string   "infrastructure_link"
     t.string   "newrelic_account_link"
@@ -36,6 +33,8 @@ ActiveRecord::Schema.define(:version => 20111028163208) do
     t.integer  "project_id"
     t.integer  "database_id"
     t.integer  "chef_account_id"
+    t.boolean  "multi_tenant"
+    t.boolean  "uses_bundler",          :default => true
   end
 
   create_table "chef_accounts", :force => true do |t|
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20111028163208) do
     t.string   "api_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "client_name"
   end
 
   create_table "customers", :force => true do |t|
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20111028163208) do
     t.string   "engine_version"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "hostname",          :default => "localhost"
   end
 
   create_table "deployments", :force => true do |t|
@@ -89,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20111028163208) do
     t.datetime "updated_at"
     t.datetime "deployment_timestamp"
     t.text     "json_data"
+    t.boolean  "force_deploy",         :default => false
   end
 
   create_table "projects", :force => true do |t|

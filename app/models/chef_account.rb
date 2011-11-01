@@ -40,7 +40,7 @@ class ChefAccount < ActiveRecord::Base
   end
 
   def rest
-    @rest ||= Chef::REST.new(api_url, 'restebanez', get_client_key_path)
+    @rest ||= Chef::REST.new(api_url, client_name, get_client_key_path)
   end
 
   def client_key_path

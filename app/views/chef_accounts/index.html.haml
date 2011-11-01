@@ -15,7 +15,7 @@
   - @chef_accounts.each do |chef_account|
     %tr
       %td= chef_account.name
-      %td= chef_account.formal_name
+      %td= chef_account.client_name
       %td= chef_account.validator_key
       %td= chef_account.client_key
       %td= chef_account.databag_key
