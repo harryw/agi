@@ -3,6 +3,6 @@
 = render 'form'
 
 
-#deployment_data= @deployment_data
+#deployment_data= @deployment_data.to_json
 
 = link_to 'Back', [@app]

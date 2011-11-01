@@ -42,8 +42,9 @@ class DeploymentsController < ApplicationController
   # POST /deployments.json
   def create
     @deployment = @app.deployments.build(params[:deployment])
-    # By this time, we'll have the full deployment data, including every "prompt on deploy"
-    # @deployment.create_or_update_databag(deployed_data), this can be done with a before_save callback
+
+    # This smells bad, but i don't know how to refactor it
+    @deployment.deployed_data = @deployment.merged_configuration
     respond_to do |format|
       if @deployment.save
         format.html { redirect_to [@app,@deployment], notice: "App has been deployed successfully" }
@@ -59,4 +60,6 @@ class DeploymentsController < ApplicationController
   def load_deployment_from_id
       @deployment = @app.deployments.find(params[:id])
   end
+  
+
 end

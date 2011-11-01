@@ -14,7 +14,6 @@
   = form.input :do_migrations, :label => 'Do Migrations'
   = form.input :migration_command, :label => 'Migration Command'
   = form.input :deployment_timestamp, :as => :hidden, :input_html => { :value => @app.app_timestamp }
-  = form.input :deployed_data, :as => :hidden, :input_html => { :value => @deployment_data }
 
   .actions
     = form.button :submit

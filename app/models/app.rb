@@ -26,7 +26,7 @@ class App < ActiveRecord::Base
     end
     
     def generate_deployment_data
-        data_bag_item_data.to_json
+        data_bag_item_data #.to_json
     end
     def configuration
         attributes.symbolize_keys.extract!(:name,:stage_name,:deploy_to,:deploy_user,:deploy_group,:multi_tenant,
