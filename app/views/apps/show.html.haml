@@ -48,11 +48,11 @@
   %b Platform:
   = @app.platform
 %p
-  %b Updated at:
-  = @app.updated_at
-%p
   %b Deployment timestamp:
   = @app.databag_item_timestamp
+%p
+  %b Deployments
+  = link_to 'Deployments', app_deployments_path(@app)
 
 
 

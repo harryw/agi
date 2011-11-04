@@ -2,36 +2,24 @@
 
 %table
   %tr
-    %th User link
+    %th Description
+    %th Result
     %th Git repo
     %th Git commit
-    %th Description
-    %th Force Deploy
-    %th Send email
     %th Task
-    %th Run migrations
-    %th Migration command
     %th App
     %th Started at
-    %th Completed at
     %th
     %th
     %th
 
   - @deployments.each do |deployment|
     %tr
-      %td= deployment.user_link
+      %td= link_to_if deployment.description, deployment.description, [@app,deployment]
+      %td= deployment.final_result
       %td= deployment.git_repo
       %td= deployment.git_commit
-      %td= deployment.description
-      %td= deployment.force_deploy
-      %td= deployment.send_email
       %td= deployment.task
-      %td= deployment.run_migrations
-      %td= deployment.migration_command
-      %td= deployment.app_id
+      %td= link_to deployment.app.name, deployment.app
       %td= deployment.started_at
-      %td= deployment.completed_at
-      %td= link_to 'Show', [@app,deployment]
-
 %br

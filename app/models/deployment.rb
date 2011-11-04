@@ -10,6 +10,7 @@ class Deployment < ActiveRecord::Base
     # :update_databag will be moved to an asyncronous state later
     before_save :set_initial_status, :save_deployed_data, :update_databag
     
+    validates_presence_of :description
     
     def set_initial_status
       self.started_at = Time.now

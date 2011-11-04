@@ -3,7 +3,7 @@
   = @deployment.final_result
 %p
   %b Deployed by:
-  = @deployment.user.email
+  = @deployment.user.email if @deployment.user
 %p
   %b Git repo:
   = @deployment.git_repo

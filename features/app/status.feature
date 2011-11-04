@@ -28,6 +28,7 @@ Feature: App Status Page  (App-Status)
 		When I follow "Deploy" 
 		And the current route should match /apps/:id/deployments/new
 		And I should see some json data in the div id="deployment_data"
+		And I fill in "Description" with "This is cucumber"
 		And I press "Create Deploy"
 		Then I should see "A deployment has been created"
     
