@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111101194902) do
+ActiveRecord::Schema.define(:version => 20111102200935) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -77,12 +77,10 @@ ActiveRecord::Schema.define(:version => 20111101194902) do
     t.string   "user_link"
     t.string   "git_repo"
     t.string   "git_commit"
-    t.text     "description"
     t.boolean  "send_email"
     t.string   "task"
     t.boolean  "do_migrations"
     t.string   "migration_command"
-    t.text     "result_log"
     t.integer  "app_id"
     t.datetime "started_at"
     t.datetime "completed_at"
@@ -91,6 +89,10 @@ ActiveRecord::Schema.define(:version => 20111101194902) do
     t.datetime "deployment_timestamp"
     t.text     "deployed_data"
     t.boolean  "force_deploy",         :default => false
+    t.string   "final_result"
+    t.string   "opscode_result"
+    t.text     "opscode_log"
+    t.string   "description"
   end
 
   create_table "projects", :force => true do |t|

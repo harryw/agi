@@ -43,11 +43,9 @@ class DeploymentsController < ApplicationController
   def create
     @deployment = @app.deployments.build(params[:deployment])
 
-    # This smells bad, but i don't know how to refactor it
-    @deployment.deployed_data = @deployment.merged_configuration
     respond_to do |format|
       if @deployment.save
-        format.html { redirect_to [@app,@deployment], notice: "App has been deployed successfully" }
+        format.html { redirect_to [@app,@deployment], notice: "A deployment has been created" }
         format.json { render json: @deployment, status: :created, location: @deployment }
       else
         format.html { render action: "new" }

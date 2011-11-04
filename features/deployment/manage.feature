@@ -4,10 +4,23 @@ Feature: Create a full deployment
   	Given I am a user named "foo" with an email "user@test.com" and password "please"
 		And I sign in as "user@test.com/please"
 
-	Scenario: Make a deployment
+	Scenario: Make a successful deployment
 		Given a working_app exists
 		And I go to the app's page
 		And I follow "Deploy"
 		When I fill in "Description" with "This is a test deployment"
 		And I press "Create Deployment" using a cassette named "save_databag_item-databag_doesnt_exist"
-		Then I should see "App has been deployed successfully"
+		Then I should see "A deployment has been created"
+		And I should see "Success"
+		And I should see "OK"
+		
+	Scenario: Make a deployment with invalid chef credentials
+		Given a working_app exists
+		And I go to the app's page
+		And I follow "Deploy"
+		When I fill in "Description" with "This is a test deployment"
+		And I press "Create Deployment" using a cassette named "save_databag_item-error-unauthorized"
+		Then I should see "A deployment has been created"
+		And I should see "Failed"		
+		And I should see "401"		
+		And I should see "Unauthorized"		

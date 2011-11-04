@@ -7,15 +7,28 @@ class Deployment < ActiveRecord::Base
     #before_save :app_update_data_bag_item
     
     serialize :deployed_data
-    before_save :update_databag
+    # :update_databag will be moved to an asyncronous state later
+    before_save :set_initial_status, :save_deployed_data, :update_databag
     
-#    def save_deployed_data
-#      deployed_data = merged_configuration
-#    end
-
+    def set_initial_status
+      self.started_at = Time.now
+      self.final_result = 'Pending'
+    end
     
+    def save_deployed_data
+      self.deployed_data = merged_configuration
+    end
+   
     def update_databag
-      app_chef_account_update_data_bag_item(merged_configuration)
+      begin
+        app_chef_account_update_data_bag_item(merged_configuration)
+        self.final_result = 'Success'
+        self.opscode_log= 'OK'
+      rescue 
+        self.opscode_log= $!.message 
+        self.final_result = 'Failed'  
+      end
+      self.completed_at = Time.now  # self is required for assignments
     end
     
     def configuration
@@ -26,5 +39,6 @@ class Deployment < ActiveRecord::Base
     def merged_configuration
       app.generate_deployment_data.merge(:extra => configuration)
     end
+    
     
 end

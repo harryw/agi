@@ -1,4 +1,6 @@
-
+%p
+  %b Final deployment result:
+  = @deployment.final_result
 %p
   %b User link:
   = @deployment.user_link
@@ -24,8 +26,8 @@
   %b Migration command:
   = @deployment.migration_command
 %p
-  %b Result log:
-  = @deployment.result_log
+  %b Opscode error log:
+  = @deployment.opscode_log
 %p
   %b App:
   = @deployment.app_id

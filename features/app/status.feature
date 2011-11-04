@@ -29,7 +29,7 @@ Feature: App Status Page  (App-Status)
 	And the current route should match /apps/:id/deployments/new
 	And I should see some json data in the div id="deployment_data"
 	And I press "Create Deploy"
-	Then I should see "App has been deployed successfully"
+	Then I should see "A deployment has been created"
     
   Scenario: Deploying an App will show a "Deploy at: <time>" status
 	Given an app_with_deployment exists

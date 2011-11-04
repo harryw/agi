@@ -11,6 +11,7 @@ class ChefAccount < ActiveRecord::Base
     begin
       puts 'tryting to save the databag'
       rest.post_rest("data/#{data_bag_name}", data_bag_item_data)
+      
     rescue Net::HTTPServerException
       if $!.message == '404 "Not Found"' && !@tried_to_create_databag
         puts 'creating the databag'
