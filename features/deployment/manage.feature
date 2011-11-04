@@ -27,4 +27,9 @@ Feature: Create a full deployment
 		And I should see "401"		
 		And I should see "Unauthorized"
 		And I should see "user@test.com"
+		
+	Scenario: Index
+	  Given a app_with_deployment exists
+	  When I go to the app's deployments page
+	  Then the current route should match /apps/:id/deployments
 				

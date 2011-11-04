@@ -6,19 +6,20 @@ Feature: Allow me to manage my databases
     	Given I am a user named "foo" with an email "user@test.com" and password "please"
 		And I sign in as "user@test.com/please"
 		
-	Scenario: Create a Database
+	Scenario: Create a Database and Show
 		Given I go to the databases page
 		And I follow "New Database"
 		And the current route should match /databases/new
-	    When I fill in "Name" with "Awsome DB"
-	    When I fill in "Db Name" with "develop"
-	    When I fill in "Username" with "root"
-	    When I fill in "Password" with "pass"
-	    When I fill in "Client Cert" with "jjjjjj"
-	    When I fill in "Type" with "mysql"
-			When I fill in "Hostname" with "127.0.0.1"
+	  When I fill in "Name" with "Awsome DB"
+	  When I fill in "Db Name" with "develop"
+	  When I fill in "Username" with "root"
+	  When I fill in "Password" with "pass"
+	  When I fill in "Client Cert" with "jjjjjj"
+	  When I fill in "Type" with "mysql"
+		When I fill in "Hostname" with "127.0.0.1"
 		And I press "Create Database"
 		Then I should see "Database was successfully created."
+		And I should see "Awsome DB"
 		
 	Scenario: Edit a Database
 		Given a database exists with db_name: "firstdatabase", name: "First Database"
@@ -27,3 +28,9 @@ Feature: Allow me to manage my databases
 		And I press "Update Database"
 		Then I should see "Database was successfully updated"
 		And I should see "firstdatabase-edit"
+		
+	Scenario: Index page
+    Given a database exists with name: "Great Database"
+    And I go to the databases page
+    Then I should see "Great Database"
+    And the current route should match /databases

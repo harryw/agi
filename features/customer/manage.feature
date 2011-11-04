@@ -6,14 +6,15 @@ Feature: Allow me to manage my customers
     	Given I am a user named "foo" with an email "user@test.com" and password "please"
 		And I sign in as "user@test.com/please"
 		
-	Scenario: Create a Customer
+	Scenario: Create a Customer and Show
 		Given I go to the customers page
 		And I follow "New Customer"
 		And the current route should match /customers/new
-	    When I fill in "Name Tag" with "mdsol"
-	    And I fill in "Name" with "Medidata"
+	  When I fill in "Name Tag" with "mdsol"
+	  And I fill in "Name" with "Medidata"
 		And I press "Create Customer"
 		Then I should see "Customer was successfully created."
+		And I should see "Medidata"
 		
 	Scenario: Edit a Customer
 		Given a customer exists with name_tag: "mdsol-edit", name: "Medidata Editing"
@@ -22,3 +23,9 @@ Feature: Allow me to manage my customers
 		And I press "Update Customer"
 		Then I should see "Customer was successfully updated"
 		And I should see "mdsol-edited"
+		
+	Scenario: Index page
+    Given a customer exists with name: "Great Customer"
+    And I go to the customers page
+    Then I should see "Great Customer"
+    And the current route should match /customers

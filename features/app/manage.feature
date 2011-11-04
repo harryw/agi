@@ -11,7 +11,7 @@ Feature: Allow me to manage my apps
 		And a chef_account exists with name: "Scratch"
 		
 		
-	Scenario: Create an App
+	Scenario: Create an App and Show
 		Given I go to the apps page
 		And I follow "New App"
 		And the current route should match /apps/new
@@ -33,3 +33,9 @@ Feature: Allow me to manage my apps
 		And I press "Update App"
 		Then I should see "App was successfully updated"
 		And I should see "Mediflex-edited"
+		
+	Scenario: Index page
+	  Given a app exists with url: "www.cucumber.com"
+	  And I go to the apps page
+	  Then I should see "www.cucumber.com"
+	  And the current route should match /apps
