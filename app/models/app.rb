@@ -40,7 +40,7 @@ class App < ActiveRecord::Base
     end
     def configuration
         attributes.symbolize_keys.extract!(:name,:stage_name,:deploy_to,:deploy_user,:deploy_group,:multi_tenant,
-                                            :uses_bundler,:alert_emails,:url,:git_revision,:rails_env)
+                                            :uses_bundler,:alert_emails,:url,:git_revision,:rails_env,:platform)
     end
     
     def data_bag_item_data

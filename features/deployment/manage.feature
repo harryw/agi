@@ -13,6 +13,8 @@ Feature: Create a full deployment
 		Then I should see "A deployment has been created"
 		And I should see "Success"
 		And I should see "OK"
+		And I should see "user@test.com"
+	
 		
 	Scenario: Make a deployment with invalid chef credentials
 		Given a working_app exists
@@ -23,4 +25,6 @@ Feature: Create a full deployment
 		Then I should see "A deployment has been created"
 		And I should see "Failed"		
 		And I should see "401"		
-		And I should see "Unauthorized"		
+		And I should see "Unauthorized"
+		And I should see "user@test.com"
+				

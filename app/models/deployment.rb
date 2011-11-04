@@ -17,6 +17,8 @@ class Deployment < ActiveRecord::Base
     end
     
     def save_deployed_data
+      self.git_repo = app.project.repository
+      self.git_commit = app.git_revision
       self.deployed_data = merged_configuration
     end
    

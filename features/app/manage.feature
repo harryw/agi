@@ -18,7 +18,7 @@ Feature: Allow me to manage my apps
 		And I select "Johnson & Johnson" from "Customer"
 		And I select "Imagegateway" from "Project"
 		And I select "Scratch" from "Chef Account"
-		And I check "Great DB"
+		And I select "Great DB" from "Database"
 		And I fill in "Stage Name" with "sandbox"
 		And I press "Create App"
 		Then I should see "App was successfully created."

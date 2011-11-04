@@ -11,7 +11,7 @@
   = form.association :customer, :label => 'Customer', :prompt => "Choose a Customer"
   = form.association :project, :label => 'Project', :prompt => "Choose a Project"
   = form.association :chef_account, :label => 'Chef Account', :prompt => "Choose a Chef Account"
-  = form.association :database, :Label => 'Database', :as => :check_boxes
+  = form.association :database, :Label => 'Database', :prompt => "Choose a Database"
   = form.input :stage_name, :label => 'Stage Name'
   = form.input :deploy_to, :label => 'Deploy To'
   = form.input :deploy_user, :label => 'Deploy User'
@@ -22,6 +22,7 @@
   = form.input :url, :label => 'Url'
   = form.input :git_revision, :label => 'Git Revision'
   = form.input :rails_env, :label => 'Rails Env'
+  = form.input :platform, :label => 'Platform'
   = form.input :cache_cluster_link, :label => 'Cache Cluster Link'
   = form.input :infrastructure_link, :label => 'Infrastructure Link'
   = form.input :newrelic_account_link, :label => 'Newrelic Account Link'

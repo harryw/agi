@@ -44,16 +44,9 @@
 %p
   %b Rails env:
   = @app.rails_env
- 
 %p
-  %b Cache cluster link:
-  = @app.cache_cluster_link
-%p
-  %b Infrastructure link:
-  = @app.infrastructure_link
-%p
-  %b Newrelic account link:
-  = @app.newrelic_account_link
+  %b Platform:
+  = @app.platform
 %p
   %b Updated at:
   = @app.updated_at
@@ -70,5 +63,4 @@
 = link_to 'Edit', edit_app_path(@app)
 \|
 = link_to 'Destroy', @app, :confirm => 'Are you sure?', :method => :delete
-\|
-= link_to 'Back', apps_path
+

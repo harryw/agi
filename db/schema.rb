@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111104191008) do
+ActiveRecord::Schema.define(:version => 20111104203005) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20111104191008) do
     t.integer  "chef_account_id"
     t.boolean  "multi_tenant"
     t.boolean  "uses_bundler",          :default => true
+    t.string   "platform"
   end
 
   create_table "chef_accounts", :force => true do |t|

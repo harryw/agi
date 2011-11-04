@@ -3,6 +3,6 @@ class Database < ActiveRecord::Base
   
   
    def configuration
-       attributes.symbolize_keys.extract!(:name,:db_name,:username,:password,:type)
+       attributes.symbolize_keys.extract!(:name,:db_name,:username,:password,:type,:hostname)
    end
 end
