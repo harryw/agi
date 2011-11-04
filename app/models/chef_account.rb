@@ -29,7 +29,7 @@ class ChefAccount < ActiveRecord::Base
   end
   
   def data_bag_name
-    'application_environment'
+    'agi_applications'
   end
   
   def validator_name

@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction
   request: !ruby/struct:VCR::Request
     method: :post
-    uri: https://api.opscode.com:443/organizations/scratch/data/application_environment
+    uri: https://api.opscode.com:443/organizations/scratch/data/agi_applications
     body: !!null 
     headers:
       accept:
@@ -52,6 +52,6 @@
       - chunked
       status:
       - 200 OK
-    body: ! '{"_rev":"6-b7aa7a709569454f7e3bda265084c10a","project":null,"id":"Mediflex-mdsol-production","database":null,"data_bag":"application_environment","customer":null,"deployment":{"name":"Mediflex-mdsol-production","stage_name":"production","deploy_user":"medidata","alert_emails":"restebanez@mdsol.com,
+    body: ! '{"_rev":"6-b7aa7a709569454f7e3bda265084c10a","project":null,"id":"Mediflex-mdsol-production","database":null,"data_bag":"agi_applications","customer":null,"deployment":{"name":"Mediflex-mdsol-production","stage_name":"production","deploy_user":"medidata","alert_emails":"restebanez@mdsol.com,
       jzimmerman@mdsol.com","url":"mediflex.cloudteam.com","multi_tenant":"true","uses_bundler":"true","rails_env":"production","deploy_group":"medidata","deploy_to":"/mnt/mediflex","git_revision":"1234567"},"chef_type":"data_bag_item","deployment_timestamp":"2011-10-21T18:24:35Z"}'
     http_version: '1.1'

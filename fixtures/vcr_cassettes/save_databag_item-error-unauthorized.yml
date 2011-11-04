@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction
   request: !ruby/struct:VCR::Request
     method: :post
-    uri: https://api.opscode.com:443/organizations/scratch/data/application_environment
+    uri: https://api.opscode.com:443/organizations/scratch/data/agi_applications
     body: !!null 
     headers:
       accept:
