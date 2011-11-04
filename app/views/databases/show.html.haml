@@ -39,4 +39,5 @@
 
 = link_to 'Edit', edit_database_path(@database)
 \|
-= link_to 'Back', databases_path
+= link_to 'Destroy', @database, :confirm => 'Are you sure?', :method => :delete
+

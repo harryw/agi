@@ -10,13 +10,13 @@
   = @app.stage_name
 %p
   %b Customer name:
-  = @app.customer_name
+  = link_to @app.customer_name, @app.customer
 %p
   %b Project name:
-  = @app.project_name
+  = link_to @app.project_name, @app.project
 %p
   %b Database Name:
-  = @app.database_name
+  = link_to_if @app.database_name, @app.database_name, @app.database
 %p
   %b Deploy to:
   = @app.deploy_to
