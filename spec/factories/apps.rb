@@ -18,6 +18,9 @@ FactoryGirl.define do
       infrastructure_link "cid3rails-production-1"
       newrelic_account_link "production"
       updated_at "Fri, 21 Oct 2011 18:24:35 UTC +00:00"
+      association :chef_account, :factory => :chef_account
+      association :customer, :factory => :customer
+      association :project, :factory => :project
     end
 end
 

@@ -7,7 +7,6 @@
         - @app.errors.full_messages.each do |msg|
           %li= msg  
 
-  = form.input :name, :label => 'Name'
   = form.input :description, :label => 'Description'
   = form.association :customer, :label => 'Customer', :prompt => "Choose a Customer"
   = form.association :project, :label => 'Project', :prompt => "Choose a Project"

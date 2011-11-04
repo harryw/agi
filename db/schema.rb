@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111102200935) do
+ActiveRecord::Schema.define(:version => 20111104160214) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(:version => 20111102200935) do
     t.string   "git_commit"
     t.boolean  "send_email"
     t.string   "task"
-    t.boolean  "do_migrations"
+    t.boolean  "run_migrations"
     t.string   "migration_command"
     t.integer  "app_id"
     t.datetime "started_at"

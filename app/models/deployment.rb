@@ -1,12 +1,10 @@
 class Deployment < ActiveRecord::Base
     belongs_to :app
     
-    #delegate :update_data_bag_item, :to => :app, :prefix => true
     delegate :chef_account_update_data_bag_item, :to => :app, :prefix => true
-    
-    #before_save :app_update_data_bag_item
-    
+        
     serialize :deployed_data
+    
     # :update_databag will be moved to an asyncronous state later
     before_save :set_initial_status, :save_deployed_data, :update_databag
     
@@ -32,12 +30,14 @@ class Deployment < ActiveRecord::Base
     end
     
     def configuration
-      attributes.symbolize_keys.extract!(:force_deploy,:send_email,:task,:do_migrations,
+      attributes.symbolize_keys.extract!(:force_deploy,:send_email,:task,:run_migrations,
                                                   :migration_command,:deployment_timestamp)
     end
     
     def merged_configuration
-      app.generate_deployment_data.merge(:extra => configuration)
+      conf = app.generate_deployment_data
+      conf[:main].merge!(configuration)
+      conf
     end
     
     

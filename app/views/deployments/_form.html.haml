@@ -11,7 +11,7 @@
   = form.input :force_deploy, :label => 'force_deploy'
   = form.input :send_email, :label => 'Send Email'
   = form.input :task, :label => 'Task'
-  = form.input :do_migrations, :label => 'Do Migrations'
+  = form.input :run_migrations, :label => 'Do Migrations'
   = form.input :migration_command, :label => 'Migration Command'
   = form.input :deployment_timestamp, :as => :hidden, :input_html => { :value => @app.app_timestamp }
 
