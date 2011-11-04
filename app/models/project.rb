@@ -4,10 +4,15 @@ class Project < ActiveRecord::Base
   validates_presence_of :name, :name_tag
   before_validation :clean_keys
   
+  after_save :update_apps
+  
   def configuration
     attributes.symbolize_keys.extract!(:name,:name_tag,:homepage,:repository,:repo_private_key)
   end
   
+  def update_apps
+    apps.each {|a|a.touch }
+  end
   
   private
     # Fix newlines and trailing lines

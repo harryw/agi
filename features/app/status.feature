@@ -55,4 +55,26 @@ Feature: App Status Page  (App-Status)
 		And I fill in "Homepage" with "www.changed.com"
 		And I press "Update"
 		When I go to the app's page
-#		Then I should see "Undeployed Changes"
+		Then I should see "Undeployed Changes"
+		
+  Scenario: An App's customer has changed since last deployment will show "Undeployed Changes" alert
+  	Given a customer exists with name: "mdsol"
+  	And an app_with_deployment exists with customer: that customer
+  	And I go to the app's page
+  	And I follow "mdsol"
+  	And I follow "Edit"
+  	And I fill in "Name" with "Medidata"
+  	And I press "Update"
+  	When I go to the app's page
+  	Then I should see "Undeployed Changes"
+  	
+  Scenario: An App's database has changed since last deployment will show "Undeployed Changes" alert
+  	Given a database exists with name: "awesomeDB"
+  	And an app_with_deployment exists with database: that database
+  	And I go to the app's page
+  	And I follow "awesomeDB"
+  	And I follow "Edit"
+  	And I fill in "Username" with "NewUser"
+  	And I press "Update"
+  	When I go to the app's page
+  	Then I should see "Undeployed Changes"  			
