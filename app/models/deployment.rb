@@ -1,5 +1,7 @@
 class Deployment < ActiveRecord::Base
+    
     belongs_to :app
+    belongs_to :user
     
     delegate :chef_account_update_data_bag_item, :to => :app, :prefix => true
         
@@ -7,6 +9,7 @@ class Deployment < ActiveRecord::Base
     
     # :update_databag will be moved to an asyncronous state later
     before_save :set_initial_status, :save_deployed_data, :update_databag
+    
     
     def set_initial_status
       self.started_at = Time.now

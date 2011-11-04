@@ -2,8 +2,8 @@
   %b Final deployment result:
   = @deployment.final_result
 %p
-  %b User link:
-  = @deployment.user_link
+  %b Deployed by:
+  = @deployment.user.email
 %p
   %b Git repo:
   = @deployment.git_repo
@@ -30,7 +30,7 @@
   = @deployment.opscode_log
 %p
   %b App:
-  = @deployment.app_id
+  = link_to @deployment.app.name, @deployment.app
 %p
   %b Started at:
   = @deployment.started_at

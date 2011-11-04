@@ -42,7 +42,7 @@ class DeploymentsController < ApplicationController
   # POST /deployments.json
   def create
     @deployment = @app.deployments.build(params[:deployment])
-
+    @deployment.user = current_user
     respond_to do |format|
       if @deployment.save
         format.html { redirect_to [@app,@deployment], notice: "A deployment has been created" }
