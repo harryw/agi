@@ -102,7 +102,7 @@ end
         "name": "imagegateway_sandbox",
         "db_name": "imagegateway_sandbox",
         "username": "imagegateway",
-        "type": "mysql",
+        "db_type": "mysql",
         "hostname": "test-sandbox-aaaaaa.cz4lsbnwubdn.us-east-1.rds.amazonaws.com",
         "password": "ddddddddca5f89b7a95c44b8bb9b"
     },

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111104203005) do
+ActiveRecord::Schema.define(:version => 20111107221745) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20111104203005) do
     t.string   "username"
     t.string   "password"
     t.text     "client_cert"
-    t.string   "type"
+    t.string   "db_type"
     t.string   "instance_class"
     t.integer  "instance_storage"
     t.boolean  "multi_az"

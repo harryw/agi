@@ -8,7 +8,7 @@ FactoryGirl.define do
       password "MyString"
       hostname "127.0.0.1"
       client_cert "MyText"
-      type ""
+      db_type "MySql"
       instance_class "MyString"
       instance_storage 1
       multi_az false

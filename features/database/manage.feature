@@ -3,7 +3,7 @@ Feature: Allow me to manage my databases
 	I want to create, edit and delete databases
 	
 	Background: A user must be loged-in to use Agi
-    	Given I am a user named "foo" with an email "user@test.com" and password "please"
+    Given I am a user named "foo" with an email "user@test.com" and password "please"
 		And I sign in as "user@test.com/please"
 		
 	Scenario: Create a Database and Show
@@ -11,7 +11,7 @@ Feature: Allow me to manage my databases
 		And I follow "New Database"
 		And the current route should match /databases/new
 	  When I fill in "Name" with "Awsome DB"
-	  When I fill in "Db Name" with "develop"
+	  When I fill in "Db Name" with "developdb"
 	  When I fill in "Username" with "root"
 	  When I fill in "Password" with "pass"
 	  When I fill in "Client Cert" with "jjjjjj"
@@ -20,6 +20,8 @@ Feature: Allow me to manage my databases
 		And I press "Create Database"
 		Then I should see "Database was successfully created."
 		And I should see "Awsome DB"
+		And I should see "developdb"
+		And I should see "mysql"
 		
 	Scenario: Edit a Database
 		Given a database exists with db_name: "firstdatabase", name: "First Database"

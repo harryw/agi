@@ -12,6 +12,6 @@ class Database < ActiveRecord::Base
   end
   
    def configuration
-       attributes.symbolize_keys.extract!(:name,:db_name,:username,:password,:type,:hostname)
+       attributes.symbolize_keys.extract!(:name,:db_name,:username,:password,:db_type,:hostname)
    end
 end
