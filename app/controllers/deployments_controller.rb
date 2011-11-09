@@ -1,7 +1,5 @@
 class DeploymentsController < ApplicationController
   
-  before_filter :authenticate_user!
-  
   before_filter :load_app
   before_filter :load_deployment_from_id, :only => :show
   # GET /deployments
