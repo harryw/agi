@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @customization.name
+%p
+  %b Location:
+  = @customization.location
+%p
+  %b Value:
+  = @customization.value
+%p
+  %b Prompt on deploy:
+  = @customization.prompt_on_deploy
+%p
+  %b Customizable:
+  = @customization.customizable_id
+%p
+  %b Customizable type:
+  = @customization.customizable_type
+
+= link_to 'Edit', [:edit, @customizable, @customization]
+\|
+= link_to 'Back', [@customizable, Customization]

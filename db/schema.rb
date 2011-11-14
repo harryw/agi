@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107221745) do
+ActiveRecord::Schema.define(:version => 20111114214836) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(:version => 20111107221745) do
   create_table "customers", :force => true do |t|
     t.string   "name_tag"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customizations", :force => true do |t|
+    t.string   "name"
+    t.string   "location"
+    t.string   "value"
+    t.boolean  "prompt_on_deploy"
+    t.integer  "customizable_id"
+    t.string   "customizable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

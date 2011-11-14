@@ -1,10 +1,16 @@
 Agi::Application.routes.draw do
 
+  
+
   resources :databases
 
-  resources :projects
+  resources :projects do
+    resources :customizations
+  end
 
-  resources :customers
+  resources :customers do 
+    resources :customizations
+  end
 
   resources :chef_accounts
   
@@ -12,6 +18,7 @@ Agi::Application.routes.draw do
 
   resources :apps do # look into shallow routes
       resources :deployments, :except => [:edit, :destroy]
+      resources :customizations
   end
   
   root :to => "apps#index"

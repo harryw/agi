@@ -6,6 +6,7 @@ class App < ActiveRecord::Base
     belongs_to :chef_account
 
     has_many :deployments
+    has_many :customizations, :as => :customizable
     
     delegate :name, :name_tag, :configuration, :to => :project, :prefix => true, :allow_nil => true
     delegate :name, :name_tag, :configuration, :to => :customer,:prefix => true, :allow_nil => true

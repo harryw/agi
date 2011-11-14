@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   has_many :apps
+  has_many :customizations, :as => :customizable
   
   validates_presence_of :name, :name_tag
   before_validation :clean_keys
