@@ -2,7 +2,7 @@ Feature: Project configuration
 	In order to add or override customizations to a project
 	As a user
 	I want to manage customizations
-	
+
 	Background: Log-in and create a Project
 	  Given I am a user named "foo" with an email "user@test.com" and password "please"
 	  And I sign in as "user@test.com/please"
