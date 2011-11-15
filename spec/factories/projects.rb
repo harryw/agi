@@ -2,11 +2,11 @@
 
 FactoryGirl.define do
   factory :project do
-      name "MyString"
-      name_tag "MyString"
-      homepage "MyString"
-      description "MyText"
-      repository "MyString"
-      repo_private_key "MyText"
+      name "Balance"
+      name_tag "balance"
+      homepage "www.balance.com"
+      description "This is a balance project"
+      repository "github.com/mdsol/balance"
+      repo_private_key "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     end
 end

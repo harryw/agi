@@ -2,11 +2,9 @@
 
 FactoryGirl.define do
   factory :customization do
-      name "MyString"
-      location "MyString"
-      value "MyString"
+      name "foo"
+      location "bla.yaml"
+      value "bar"
       prompt_on_deploy false
-      customizable_id 1
-      customizable_type "MyString"
     end
 end
