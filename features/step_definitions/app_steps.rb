@@ -11,6 +11,6 @@ Given /^I fake the calls to opscode$/ do
 end
 
 
-When /^(.*) using a cassette named "([^"]*)"$/ do |step, cassette_name|
-  VCR.use_cassette(cassette_name) { When step }
+When /^(.*) using a cassette named "([^"]*)"$/ do |step_to_run, cassette_name|
+  VCR.use_cassette(cassette_name) { step step_to_run }
 end

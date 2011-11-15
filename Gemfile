@@ -49,5 +49,5 @@ group :test do
   gem "spork", "> 0.9.0.rc" # Improve loading times during testing
   gem "guard-spork"
   gem 'fakeweb'
-  gem "vcr"
+  gem "vcr", "=2.0.0.beta1" #using beta2 you get: save_databag_item-databag_doesnt_exist.yml does not appear to be a valid VCR 2.0 cassette
 end
