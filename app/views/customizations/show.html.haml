@@ -22,3 +22,6 @@
 = link_to 'Edit', [:edit, @customizable, @customization]
 \|
 = link_to 'Back', [@customizable, Customization]
+\|
+= link_to 'Destroy', [@customizable, @customization], :confirm => 'Are you sure?', :method => :delete
+
