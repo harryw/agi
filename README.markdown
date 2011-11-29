@@ -7,9 +7,9 @@ _*"Agi provides a Web UI to Medidata's Opscode Chef-based deployment system and 
 Agi provides a role-based, authenticated user interface for deploying Medidata project code and for configuring IaaS/PaaS infrastructures for that code to run on.  Agi is intended as a front end for specific REST-based services which isolate external PaaS/SaaS REST-based API calls and maintain access control and auditing records.
 
 ##Owners
-J.B. Zimmerman (jzimmerman@mdsol.com)
-Rodrigo Estebanez-Larzo (restebanez@mdsol.com)
-Johnlouis Petitbon (jpetitbon@mdsol.com)
+J.B. Zimmerman (jzimmerman@mdsol.com)  
+Rodrigo Estebanez-Larzo (restebanez@mdsol.com)  
+Johnlouis Petitbon (jpetitbon@mdsol.com)  
 DevOps Team (devops@mdsol.com)
 
 ##SLT
