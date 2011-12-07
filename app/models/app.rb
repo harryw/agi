@@ -10,7 +10,7 @@ class App < ActiveRecord::Base
     
     delegate :name, :name_tag, :configuration, :to => :project, :prefix => true, :allow_nil => true
     delegate :name, :name_tag, :configuration, :to => :customer,:prefix => true, :allow_nil => true
-    delegate :name, :configuration, :to => :database,:prefix => true, :allow_nil => true
+#    delegate :name, :configuration, :to => :database,:prefix => true, :allow_nil => true
     delegate :name, :update_data_bag_item, :to => :chef_account, :prefix => true, :allow_nil => true
     
     before_validation :set_name

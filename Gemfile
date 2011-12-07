@@ -32,6 +32,8 @@ gem 'chef', '>= 0.10.4' # opscode authentication
 # once a client library gem is created, you can replace the below ones
 gem 'typhoeus'
 gem 'yajl-ruby'
+#
+gem 'reactive_resource'
 
 group :test do
   gem 'database_cleaner'
