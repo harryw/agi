@@ -1,17 +1,11 @@
-class Database < ActiveRecord::Base
+class Database < ActiveResource::Base
+  self.site = "http://localhost:3000/"
+  self.element_name = "instance"
+  alias_attribute :name, :id
   
-  has_one :app
-  
-  validates_presence_of :name
-  
-  after_save :update_apps
-  
-  
-  def update_apps
-    app.touch if app
+  # otherwise it wont find the attributes when you go to the new page
+  def method_missing(method_name)
+    attributes[method_name]
   end
-  
-   def configuration
-       attributes.symbolize_keys.extract!(:name,:db_name,:username,:password,:db_type,:hostname)
-   end
+#  validates_presence_of :name
 end

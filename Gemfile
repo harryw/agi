@@ -29,7 +29,9 @@ gem 'haml-coderay' # provides syntax highlighting for certain programming langua
 gem 'devise' # User authentication
 gem 'chef', '>= 0.10.4' # opscode authentication
 
-
+# once a client library gem is created, you can replace the below ones
+gem 'typhoeus'
+gem 'yajl-ruby'
 
 group :test do
   gem 'database_cleaner'

@@ -7,18 +7,16 @@
         - @database.errors.full_messages.each do |msg|
           %li= msg  
 
-  = form.input :name, :label => 'Name'
+  = form.input :id, :label => 'Name'
+  = form.input :engine, :label => 'Engine'
   = form.input :db_name, :label => 'Db Name'
-  = form.input :username, :label => 'Username'
+  = form.input :master_username, :label => 'Username'
   = form.input :password, :label => 'Password'
-  = form.input :hostname, :label => 'Hostname'
-  = form.input :client_cert, :label => 'Client Cert'
-  = form.input :db_type, :label => 'Type'
-  = form.input :instance_class, :label => 'Instance Class'
-  = form.input :instance_storage, :label => 'Instance Storage'
+  = form.input :allocated_storage, :label => 'Instance Storage'
   = form.input :multi_az, :label => 'Multi Az'
   = form.input :availability_zone, :label => 'Availability Zone'
   = form.input :engine_version, :label => 'Engine Version'
+  = form.input :flavor_id, :label => 'Instance Class'
 
   .actions
     = form.button :submit
