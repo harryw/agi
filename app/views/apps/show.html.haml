@@ -16,7 +16,7 @@
   = link_to @app.project_name, @app.project
 %p
   %b Database Name:
-  = link_to_if @app.database_name, @app.database_name, @app.database
+  = link_to_if @app.database, @app.database.try(:name), @app.database
 %p
   %b Deploy to:
   = @app.deploy_to

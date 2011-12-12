@@ -19,7 +19,7 @@
       %td= app.stage_name
       %td= app.url
       %td= link_to_if app.chef_account_name, app.chef_account_name, app.chef_account
-      %td= link_to_if app.database, app.database.name, app.database 
+      %td= link_to_if app.database, app.database.try(:name), app.database 
       %td= link_to_if app.customer_name, app.customer_name, app.customer
       %td= link_to_if app.project_name, app.project_name, app.project
       %td= app.git_revision

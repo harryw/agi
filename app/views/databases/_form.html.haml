@@ -8,15 +8,15 @@
           %li= msg  
 
   = form.input :id, :label => 'Name'
-  = form.input :engine, :label => 'Engine'
+  = form.input :engine, :placeholder => 'MySql', :disabled => true, :label => 'Engine'
+  = form.input :engine_version, :placeholder => '5.1.57', :label => 'Engine Version'
   = form.input :db_name, :label => 'Db Name'
   = form.input :master_username, :label => 'Username'
   = form.input :password, :label => 'Password'
   = form.input :allocated_storage, :label => 'Instance Storage'
-  = form.input :multi_az, :label => 'Multi Az'
-  = form.input :availability_zone, :label => 'Availability Zone'
-  = form.input :engine_version, :label => 'Engine Version'
-  = form.input :flavor_id, :label => 'Instance Class'
+  = form.input :multi_az, :as => :radio, :label => 'Multi Az'
+  = form.input :availability_zone, :collection => %w{ us-east-1a us-east-1b us-east-1c us-east-1d }, :label => 'Availability Zone'
+  = form.input :flavor_id, :priority => [ "db.m1.small" ], :collection => %w{ db.m1.small db.m1.large db.m1.xlarge db.m2.xlarge db.m2.2xlarge db.m2.4xlarge }, :label => 'Instance Class'
 
   .actions
     = form.button :submit

@@ -2,7 +2,8 @@ class App < ActiveRecord::Base
     
     belongs_to :customer
     belongs_to :project
-    belongs_to :database
+    # this is a hack because database is an active_resource and it doesn't support associations like has_one
+    belongs_to :database # this is necessary at least for views/apps/edit form.association :database
     belongs_to :chef_account
 
     has_many :deployments
@@ -17,6 +18,26 @@ class App < ActiveRecord::Base
     
     validates_presence_of :customer, :project, :chef_account, :stage_name
     validates_uniqueness_of :name
+    
+    # hacking a has_one association with database
+    def database
+      return nil unless self.database_id
+      begin
+        Database.find(self.database_id)
+      rescue
+        nil
+      end
+    end
+    
+    def database=(db_object)
+      begin
+        self.database_id = db_object.id
+        true
+      rescue
+        nil
+      end
+    end
+    ##############################################
     
     def set_name
       self.name = generate_name
