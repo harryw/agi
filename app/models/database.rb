@@ -1,13 +1,18 @@
-class Database < ActiveResource::Base
-#class Database < ReactiveResource::Base
-  self.site = "http://localhost:3000/"
-  self.element_name = "instance"
-#  has_one :app
-  alias_attribute :name, :id
+class Database < ActiveRecord::Base
   
-  # otherwise it wont find the attributes when you go to the new page
-  def method_missing(method_name)
-    attributes[method_name]
+  has_one :app
+  
+  validates_presence_of :name,:db_name,:username,:password, :instance_class, :instance_storage, :availability_zone, :engine_version, :multi_az, :db_type
+  
+  after_save :update_apps
+  
+  
+  def update_apps
+    app.touch if app
   end
-#  validates_presence_of :name
+  
+   def configuration
+       attributes.symbolize_keys.extract!(:name,:db_name,:username,:password,:db_type,:hostname)
+   end
 end
+

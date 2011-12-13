@@ -4,29 +4,26 @@
   %b Name:
   = @database.name
 %p
+  %b State:
+  = @database.state
+%p
   %b Db name:
   = @database.db_name
 %p
   %b Username:
-  = @database.username
-%p
-  %b Password:
-  = @database.password
+  = @database.master_username
 %p
   %b Hostname:
-  = @database.hostname
-%p
-  %b Client cert:
-  = @database.client_cert
+  = @database.endpoint.attributes["Address"]
 %p
   %b Type:
-  = @database.db_type
+  = @database.engine
 %p
   %b Instance class:
-  = @database.instance_class
+  = @database.flavor_id
 %p
   %b Instance storage:
-  = @database.instance_storage
+  = @database.allocated_storage
 %p
   %b Multi az:
   = @database.multi_az
@@ -36,7 +33,11 @@
 %p
   %b Engine version:
   = @database.engine_version
+%p
+  %b Pending Modified Values Hash:
+  = @database.pending_modified_values.attributes
 
 = link_to 'Edit', edit_database_path(@database)
 \|
 = link_to 'Destroy', @database, :confirm => 'Are you sure?', :method => :delete
+

@@ -1,8 +1,8 @@
-class DatabasesController < ApplicationController
+class DatabaseClientsController < ApplicationController
   # GET /databases
   # GET /databases.json
   def index
-    @databases = Database.all
+    @databases = DatabaseClient.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class DatabasesController < ApplicationController
   # GET /databases/1
   # GET /databases/1.json
   def show
-    @database = Database.find(params[:id])
+    @database = DatabaseClient.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class DatabasesController < ApplicationController
   # GET /databases/new
   # GET /databases/new.json
   def new
-    @database = Database.new
+    @database = DatabaseClient.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,17 +34,17 @@ class DatabasesController < ApplicationController
 
   # GET /databases/1/edit
   def edit
-    @database = Database.find(params[:id])
+    @database = DatabaseClient.find(params[:id])
   end
 
   # POST /databases
   # POST /databases.json
   def create
-    @database = Database.new(params[:database])
+    @database = DatabaseClient.new(params[:database_client])
 
     respond_to do |format|
       if @database.save
-        format.html { redirect_to @database, notice: 'Database was successfully created.' }
+        format.html { redirect_to @database, notice: 'DatabaseClient was successfully created.' }
         format.json { render json: @database, status: :created, location: @database }
       else
         format.html { render action: "new" }
@@ -56,11 +56,11 @@ class DatabasesController < ApplicationController
   # PUT /databases/1
   # PUT /databases/1.json
   def update
-    @database = Database.find(params[:id])
+    @database = DatabaseClient.find(params[:id])
 
     respond_to do |format|
-      if @database.update_attributes(params[:database])
-        format.html { redirect_to @database, notice: 'Database was successfully updated.' }
+      if @database.update_attributes(params[:database_client])
+        format.html { redirect_to @database, notice: 'DatabaseClient was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -72,11 +72,11 @@ class DatabasesController < ApplicationController
   # DELETE /databases/1
   # DELETE /databases/1.json
   def destroy
-    @database = Database.find(params[:id])
+    @database = DatabaseClient.find(params[:id])
     @database.destroy
 
     respond_to do |format|
-      format.html { redirect_to databases_url }
+      format.html { redirect_to database_clients_url }
       format.json { head :ok }
     end
   end

@@ -3,6 +3,7 @@ Agi::Application.routes.draw do
   
 
   resources :databases
+  resources :database_clients
 
   resources :projects do
     resources :customizations
