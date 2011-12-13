@@ -2,7 +2,12 @@ Agi::Application.routes.draw do
 
   
 
-  resources :databases
+  resources :databases do
+    member do
+      get 'start'
+      get 'stop'
+    end
+  end
   resources :database_clients
 
   resources :projects do

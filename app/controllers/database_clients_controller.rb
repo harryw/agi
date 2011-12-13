@@ -81,9 +81,5 @@ class DatabaseClientsController < ApplicationController
     end
   end
   
-  def start
-  end
-  
-  def stop
-  end
+
 end

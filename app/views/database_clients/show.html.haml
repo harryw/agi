@@ -37,7 +37,7 @@
   %b Pending Modified Values Hash:
   = @database.pending_modified_values.attributes
 
-= link_to 'Edit', edit_database_path(@database)
+= link_to 'Database Configurations', databases_url
 \|
-= link_to 'Destroy', @database, :confirm => 'Are you sure?', :method => :delete
+= link_to 'Shutdown', @database, :confirm => 'This RDS instance will be shutdown, Are you sure?', :method => :delete
 

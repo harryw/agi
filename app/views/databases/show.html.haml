@@ -4,6 +4,9 @@
   %b Name:
   = @database.name
 %p
+  %b State:
+  = @database.state
+%p
   %b Db name:
   = @database.db_name
 %p
@@ -37,6 +40,11 @@
   %b Engine version:
   = @database.engine_version
 
-= link_to 'Edit', edit_database_path(@database)
+= link_to 'Database Configurations', databases_url
 \|
-= link_to 'Destroy', @database, :confirm => 'Are you sure?', :method => :delete
+= link_to_unless @database.started, 'Edit', edit_database_path(@database)
+\|
+= link_to 'Destroy', @database, :confirm => 'This will also shutdown the rds instance, Are you sure?', :method => :delete
+\|
+= link_to_unless @database.started, 'Start', start_database_path(@database)
+= link_to_if @database.started, 'Stop', stop_database_path(@database)

@@ -1,8 +1,9 @@
-%h1 Listing databases
+%h1 Listing RDS Instances
 
 %table
   %tr
     %th Name
+    %th State
     %th Db name
     %th Username
     %th Type
@@ -18,6 +19,7 @@
   - @databases.each do |database|
     %tr
       %td= link_to database.name, database
+      %td= database.state
       %td= database.db_name
       %td= database.master_username
       %td= database.engine
