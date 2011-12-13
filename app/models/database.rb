@@ -1,9 +1,34 @@
 class Database < ActiveRecord::Base
   
   has_one :app
-  
-  validates_presence_of :name, :db_name, :username, :password, :instance_class, :instance_storage, :engine_version, :db_type
+#  http://docs.amazonwebservices.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html
+  validates_presence_of :name, :db_name, :username, :password, :instance_class, :engine_version, :db_type
   validates_presence_of :availability_zone, :unless => :multi_az
+  validates_uniqueness_of :name
+  validates_numericality_of :instance_storage, :greater_than_or_equal_to => 5, :less_than_or_equal_to => 1024
+  #  Constraints:
+  #
+  #  Must contain from 1 to 63 alphanumeric characters or hyphens.
+  #  First character must be a letter.
+  #  Cannot end with a hyphen or contain two consecutive hyphens.
+  validates_format_of :name, :with => /\A[a-z0-9-]+\z/,  :message => "Please use only lowercase letters, numbers and hyphens"
+  
+  # Constraints:
+  # 
+  # Must contain 1 to 64 alphanumeric characters
+  # Cannot be a word reserved by the specified database engine
+  validates_format_of :db_name, :with => /\A[A-Za-z0-9-]+\z/,  :message => "Please use only alphanumeric characters"
+  
+  
+  # Constraints:
+  # 
+  # Must be 1 to 16 alphanumeric characters.
+  # First character must be a letter.
+  # Cannot be a reserved word for the chosen database engine.
+  validates_format_of :username, :with => /\A[A-Za-z0-9-]+\z/,  :message => "Please use only alphanumeric characters"
+  
+  # Constraints: Cannot contain more than 41 alphanumeric characters.
+  validates_format_of :password, :with => /\A[A-Za-z0-9-]+\z/,  :message => "Please use only alphanumeric characters"
   
   after_save :update_apps
   
