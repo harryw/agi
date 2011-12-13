@@ -118,30 +118,31 @@ class DatabasesController < ApplicationController
   end
   
   def start
-    @database = Database.find(params[:id])
+    @database_conf = Database.find(params[:id])
     rds_attributes = {}
-    rds_attributes[:id] = @database.name
-    rds_attributes[:engine] = @database.db_type
-    rds_attributes[:engine_version] = @database.engine_version
-    rds_attributes[:db_name] = @database.db_name
-    rds_attributes[:master_username] = @database.username
-    rds_attributes[:password] = @database.password
-    rds_attributes[:allocated_storage] = @database.instance_storage
-    rds_attributes[:multi_az] = @database.multi_az
-    rds_attributes[:availability_zone] = @database.availability_zone
-    rds_attributes[:flavor_id] = @database.instance_class
+    rds_attributes[:id] = @database_conf.name
+    rds_attributes[:engine] = @database_conf.db_type
+    rds_attributes[:engine_version] = @database_conf.engine_version
+    rds_attributes[:db_name] = @database_conf.db_name
+    rds_attributes[:master_username] = @database_conf.username
+    rds_attributes[:password] = @database_conf.password
+    rds_attributes[:allocated_storage] = @database_conf.instance_storage
+    rds_attributes[:multi_az] = @database_conf.multi_az
+    # Requesting a specific availability zone is not valid for Multi-AZ instances
+    rds_attributes[:availability_zone] = @database_conf.availability_zone unless @database_conf.multi_az
+    rds_attributes[:flavor_id] = @database_conf.instance_class
     
-    @database_client = DatabaseClient.new(rds_attributes)
+    @database = DatabaseClient.new(rds_attributes)
     respond_to do |format|
-      if @database_client.save
-        @database.started = true
-        @database.state = 'creating'
-        @database.save
-        format.html { redirect_to @database, notice: 'DatabaseClient was successfully created.' }
-        format.json { render json: @database, status: :created, location: @database_client }
+      if @database.save
+        @database_conf.started = true
+        @database_conf.state = 'creating'
+        @database_conf.save
+        format.html { redirect_to @database_conf, notice: 'DatabaseClient was successfully created.' }
+        format.json { render json: @database_conf, status: :created, location: @database }
       else
         format.html { render action: "new" }
-        format.json { render json: @database_client.errors, status: :unprocessable_entity }
+        format.json { render json: @database.errors, status: :unprocessable_entity }
       end
     end
   end
