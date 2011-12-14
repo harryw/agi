@@ -4,6 +4,9 @@
   %b Name:
   = @database.name
 %p
+  %b Is it in AGI?:
+  = link_to_if find_database_in_agi(@database.name), find_database_in_agi(@database.name) ? "Agi Conf" : "NO", find_database_in_agi(@database.name)
+%p
   %b State:
   = @database.state
 %p
@@ -37,7 +40,9 @@
   %b Pending Modified Values Hash:
   = @database.pending_modified_values.attributes
 
-= link_to 'Database Configurations', databases_url
+= link_to 'RDS Instances', database_clients_path
 \|
-= link_to 'Shutdown', @database, :confirm => 'This RDS instance will be shutdown, Are you sure?', :method => :delete
+= link_to_unless find_database_in_agi(@database.name), 'Shutdown', @database, :confirm => 'This RDS instance will be shutdown, Are you sure?', :method => :delete
+\|
+= link_to_if find_database_in_agi(@database.name), 'Stop', stop_database_path(find_database_in_agi(@database.name))
 

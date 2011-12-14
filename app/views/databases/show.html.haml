@@ -4,6 +4,9 @@
   %b Name:
   = @database.name
 %p
+  %b Attached App:
+  = link_to_if @database.app, @database.app.try(:name) || "none", @database.app 
+%p
   %b State:
   = @database.state
 %p

@@ -3,16 +3,15 @@
 %table
   %tr
     %th Name
+    %th Attached App
     %th State
     %th Db name
     %th Username
     %th Hostname
-    %th Type
     %th Instance class
     %th Size
     %th Multi az
     %th Availability zone
-    %th Engine version
     %th Operation
     %th
     %th
@@ -21,16 +20,15 @@
   - @databases.each do |database|
     %tr
       %td= link_to database.name, database
+      %td= link_to_if database.app, database.app.try(:name) || "none", database.app
       %td= database.state || 'N/A'
       %td= database.db_name
       %td= database.username
       %td= database.hostname
-      %td= database.db_type
       %td= database.instance_class
       %td= database.instance_storage
       %td= database.multi_az
       %td= database.availability_zone
-      %td= database.engine_version
       %td= link_to_unless database.started, 'Start', start_database_path(database) 
       %td= link_to_if database.started, 'Stop', stop_database_path(database)
 

@@ -35,13 +35,13 @@ class DatabasesController < ApplicationController
         @database_client = DatabaseClient.find(@database.name)
         @database.state = @database_client.state
         @database.hostname = @database_client.endpoint.attributes["Address"]
-        @database.save
       rescue
         @database.started = false
         @database.state = 'missing'
         @database.hostname = nil
-        @database.save
       end
+      @database.save
+      
     end
     
 

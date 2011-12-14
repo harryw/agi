@@ -18,26 +18,6 @@ class App < ActiveRecord::Base
     validates_presence_of :customer, :project, :chef_account, :stage_name
     validates_uniqueness_of :name
     
-    # hacking a has_one association with database
-#    def database
-#      return nil unless self.database_id
-#      begin
-#        Database.find(self.database_id)
-#      rescue
-#        nil
-#      end
-#    end
-#    
-#    def database=(db_object)
-#      begin
-#        self.database_id = db_object.id
-#        true
-#      rescue
-#        nil
-#      end
-#    end
-    ##############################################
-    
     def set_name
       self.name = generate_name
     end

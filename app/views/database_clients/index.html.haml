@@ -8,10 +8,11 @@
     %th Username
     %th Type
     %th Instance class
-    %th allocated_storage
+    %th Size
     %th Multi az
     %th Availability zone
     %th Engine version
+    %th Is it in AGI?
     %th
     %th
     %th
@@ -28,7 +29,8 @@
       %td= database.multi_az
       %td= database.availability_zone
       %td= database.engine_version
+      %td= link_to_if find_database_in_agi(database.name), find_database_in_agi(database.name) ? "Agi Conf" : "NO", find_database_in_agi(database.name)
 
 %br
 
-= link_to 'New Database', new_database_client_path
+= link_to 'New RDS instance', new_database_client_path

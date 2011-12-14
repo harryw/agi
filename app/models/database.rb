@@ -2,7 +2,7 @@ class Database < ActiveRecord::Base
   
   has_one :app
 #  http://docs.amazonwebservices.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html
-  validates_presence_of :name, :db_name, :username, :password, :instance_class, :engine_version, :db_type
+  validates_presence_of :name, :db_name, :username, :password, :instance_class, :engine_version, :db_type, :instance_storage
   validates_presence_of :availability_zone, :unless => :multi_az
   validates_uniqueness_of :name
   validates_numericality_of :instance_storage, :greater_than_or_equal_to => 5, :less_than_or_equal_to => 1024
@@ -39,5 +39,6 @@ class Database < ActiveRecord::Base
   def configuration
       attributes.symbolize_keys.extract!(:name,:db_name,:username,:password,:db_type,:hostname)
   end
+  
 end
 
