@@ -47,7 +47,23 @@ class Database < ActiveRecord::Base
   end
   
   def ready?
+    refresh_database_state
     self.state == 'available'
+  end
+  
+  def refresh_database_state
+    if started and state != 'available'
+      begin
+        database_client = DatabaseClient.find(self.name)
+        self.state = database_client.state
+        self.hostname = database_client.endpoint.attributes["Address"]
+      rescue
+        self.started = false
+        self.state = 'missing'
+        self.hostname = nil
+      end
+      self.save 
+    end
   end
   
 end

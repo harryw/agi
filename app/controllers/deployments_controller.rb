@@ -35,8 +35,6 @@ class DeploymentsController < ApplicationController
       "WARNING: database is not ready yet, please wait until the rds instance is available"
     end
     
-      
-    'this is a test'
     @deployment_data = @app.generate_deployment_data
     
     respond_to do |format|

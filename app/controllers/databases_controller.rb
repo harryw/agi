@@ -4,21 +4,8 @@ class DatabasesController < ApplicationController
   def index
     @databases = Database.all
     @databases.each do |database|
-      if database.started and database.state != 'available'
-        begin
-          database_client = DatabaseClient.find(database.name)
-          database.state = database_client.state
-          database.hostname = database_client.endpoint.attributes["Address"]
-          database.save
-        rescue
-          database.started = false
-          database.state = 'missing'
-          database.hostname = nil
-          database.save
-        end
-      end
+      database.refresh_database_state
     end
-    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,20 +17,7 @@ class DatabasesController < ApplicationController
   # GET /databases/1.json
   def show
     @database = Database.find(params[:id])
-    if @database.started and @database.state != 'available'
-      begin
-        @database_client = DatabaseClient.find(@database.name)
-        @database.state = @database_client.state
-        @database.hostname = @database_client.endpoint.attributes["Address"]
-      rescue
-        @database.started = false
-        @database.state = 'missing'
-        @database.hostname = nil
-      end
-      @database.save
-      
-    end
-    
+    @database.refresh_database_state
 
     respond_to do |format|
       format.html # show.html.erb
