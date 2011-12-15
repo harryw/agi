@@ -1,6 +1,8 @@
 class Database < ActiveRecord::Base
   
   has_one :app
+  before_validation :set_default_rds_attributes
+  
 #  http://docs.amazonwebservices.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html
   validates_presence_of :name, :db_name, :username, :password, :instance_class, :engine_version, :db_type, :instance_storage
   validates_presence_of :availability_zone, :unless => :multi_az
@@ -38,6 +40,14 @@ class Database < ActiveRecord::Base
   
   def configuration
       attributes.symbolize_keys.extract!(:name,:db_name,:username,:password,:db_type,:hostname)
+  end
+  
+  def set_default_rds_attributes
+    self.password = ActiveSupport::SecureRandom.hex(16) if password.blank?
+  end
+  
+  def ready?
+    self.state == 'available'
   end
   
 end

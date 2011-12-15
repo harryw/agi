@@ -27,6 +27,16 @@ class DeploymentsController < ApplicationController
   # GET /deployments/new.json
   def new
     @deployment = @app.deployments.new
+    flash[:warning]= if !@app.database_attached?
+      "WARNING: database not attached, please attach a database to this app before deploying"
+    elsif !@app.database_started
+      "WARNING: database hasn't been started, please start it before deploying"
+    elsif !@app.database_ready?
+      "WARNING: database is not ready yet, please wait until the rds instance is available"
+    end
+    
+      
+    'this is a test'
     @deployment_data = @app.generate_deployment_data
     
     respond_to do |format|

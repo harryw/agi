@@ -10,7 +10,6 @@
   = form.input :name, :label => 'Name'
   = form.input :db_name, :label => 'Db Name'
   = form.input :username, :label => 'Username'
-  = form.input :password, :input_html => { :value => @database.password }, :label => 'Password'
   = form.input :client_cert, :label => 'Client Cert'
   = form.input :db_type, :input_html => { :value => 'MySql' }, :label => 'Type'
   = form.input :instance_class, :collection => %w{ db.m1.small db.m1.large db.m1.xlarge db.m2.xlarge db.m2.2xlarge db.m2.4xlarge }, :label => 'Instance Class'
