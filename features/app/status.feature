@@ -69,10 +69,10 @@ Feature: App Status Page  (App-Status)
   	Then I should see "Undeployed Changes"
   	
   Scenario: An App's database has changed since last deployment will show "Undeployed Changes" alert
-  	Given a database exists with name: "awesomeDB"
+  	Given a database exists with name: "awesomedb"
   	And an app_with_deployment exists with database: that database
   	And I go to the app's page
-  	And I follow "awesomeDB"
+  	And I follow "awesomedb"
   	And I follow "Edit"
   	And I fill in "Username" with "NewUser"
   	And I press "Update"

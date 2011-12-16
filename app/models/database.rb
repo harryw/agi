@@ -43,7 +43,7 @@ class Database < ActiveRecord::Base
   end
   
   def set_default_rds_attributes
-    self.password = ActiveSupport::SecureRandom.hex(16) if password.blank?
+    self.password = SecureRandom.hex(16) if password.blank?
   end
   
   def ready?
