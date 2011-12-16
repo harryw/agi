@@ -22,3 +22,6 @@ Then /^the current route should match \/(.+?)$/ do |route|
     current_path.should  =~ /#{regexp}$/
 end
 
+When /^I sleep for (\d+) seconds$/ do |seconds|
+  sleep seconds.to_i
+end
