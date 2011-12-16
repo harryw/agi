@@ -15,3 +15,8 @@ FactoryGirl.define do
       engine_version "5.1.57"
     end
 end
+
+Factory.define :database_in_creating_state, :parent => :database do |db|
+    db.state "creating"
+    db.started true
+end

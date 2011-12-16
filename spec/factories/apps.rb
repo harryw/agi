@@ -30,6 +30,16 @@ end
 
 Factory.define :working_app, :parent => :app do |a|
   a.association :chef_account, :factory => :chef_account
+  a.association :database, :factory => :database
+end
+
+Factory.define :working_app_with_creating_db, :parent => :app do |a|
+  a.association :chef_account, :factory => :chef_account
+  a.association :database, :factory => :database_in_creating_state
+end
+
+Factory.define :working_app_with_no_db, :parent => :app do |a|
+  a.association :chef_account, :factory => :chef_account
 end
   
                
