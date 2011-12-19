@@ -66,5 +66,9 @@ class Database < ActiveRecord::Base
     end
   end
   
+  def mysql_command
+    "mysql -u #{username} -p#{password} -h #{hostname} #{db_name}"
+  end
+  
 end
 
