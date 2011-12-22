@@ -1,6 +1,6 @@
 class DatabaseClient < ActiveResource::Base
-  self.site = "http://localhost:3000/"
-  self.element_name = "instance"
+  self.site = "http://localhost:3000/api/v1/rds/"
+  self.element_name = "server"
   alias_attribute :name, :id
   
   # otherwise it wont find the attributes when you go to the new page
