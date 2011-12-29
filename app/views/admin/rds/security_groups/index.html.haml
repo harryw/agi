@@ -1,0 +1,37 @@
+%h1 Listing RDS Instances
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th ec2_security_groups
+    %th ip_ranges
+    %th owner_id
+    %th
+    %th
+    %th
+
+  - @security_groups.each do |security_group|
+    %tr
+      %td= link_to security_group.name, [:admin, security_group]
+      %td= security_group.description
+      %td
+        %table
+          - security_group.ec2_security_groups.each do |ec2sec|
+            %tr
+              %td= ec2sec.EC2SecurityGroupName
+              %td= ec2sec.Status
+              %td= ec2sec.EC2SecurityGroupOwnerId
+      %td
+        %table
+          - security_group.ip_ranges.each do |iprange|
+            %tr
+              %td= iprange.CIDRIP
+              %td= iprange.Status
+      %td= security_group.owner_id
+
+
+
+%br
+
+= link_to 'New Security Group', [:new, :admin, :rds, :security_group]

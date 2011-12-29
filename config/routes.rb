@@ -9,7 +9,19 @@ Agi::Application.routes.draw do
     end
   end
   resources :database_clients
-
+  
+  namespace :admin do
+    namespace :rds do
+ #    resources :servers
+      resources :security_groups do
+        member do
+          put 'authorize'
+          put 'revoke'
+        end
+      end
+      
+    end
+  end
   resources :projects do
     resources :customizations
   end

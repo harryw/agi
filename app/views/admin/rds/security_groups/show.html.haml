@@ -1,0 +1,41 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @security_group.name
+%p
+  %b Db name:
+  = @security_group.description
+%p
+  %b EC2 Security Groups:
+  %table
+    - @security_group.ec2_security_groups.each do |ec2sec|
+      %tr
+        %td= ec2sec.EC2SecurityGroupName
+        %td= link_to "Revoke",revoke_admin_rds_security_group_path(@security_group, :rds_security_group => { :ec2name => ec2sec.EC2SecurityGroupName, :ec2owner => ec2sec.EC2SecurityGroupOwnerId}),:method => :put, :confirm => "Are you sure?"
+        %td= ec2sec.Status
+        %td= ec2sec.EC2SecurityGroupOwnerId
+  = render(:partial => 'authorize_ec2secgroup')
+
+      
+%p
+  %b Authorized CIDR:
+  %table
+    - @security_group.ip_ranges.each do |iprange|
+      %tr
+        %td= iprange.CIDRIP 
+        %td= link_to "Revoke",revoke_admin_rds_security_group_path(@security_group, :rds_security_group => { :cidr => iprange.CIDRIP}),:method => :put, :confirm => "Are you sure?" 
+        %td= iprange.Status
+  = render(:partial => 'authorize_cidr')
+            
+        
+%p
+  %b Owner:
+  = @security_group.owner
+
+
+= link_to 'RDS Security Groups', admin_rds_security_groups_path
+\|
+= link_to 'Delete', [:admin, @security_group], :confirm => 'This RDS instance will be shutdown, Are you sure?', :method => :delete
+
+
