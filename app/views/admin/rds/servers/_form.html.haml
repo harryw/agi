@@ -1,10 +1,10 @@
-= simple_form_for @database do |form|
+= simple_form_for @server do |form|
 
-  -if @database.errors.any?
+  -if @server.errors.any?
     #errorExplanation
-      %h2= "#{pluralize(@database.errors.count, "error")} prohibited this #{Database.name.titleize} from being saved:"
+      %h2= "#{pluralize(@server.errors.count, "error")} prohibited this #{Database.name.titleize} from being saved:"
       %ul
-        - @database.errors.full_messages.each do |msg|
+        - @server.errors.full_messages.each do |msg|
           %li= msg  
 
   = form.input :id, :label => 'Name'

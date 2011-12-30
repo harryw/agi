@@ -29,7 +29,6 @@ class DatabasesController < ApplicationController
   # GET /databases/new.json
   def new
     @database = Database.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @database }
@@ -39,6 +38,7 @@ class DatabasesController < ApplicationController
   # GET /databases/1/edit
   def edit
     @database = Database.find(params[:id])
+    
   end
 
   # POST /databases
@@ -80,7 +80,7 @@ class DatabasesController < ApplicationController
   def destroy
     @database = Database.find(params[:id])
     if @database.started
-      @database_client = DatabaseClient.find(@database.name)
+      @database_client = RdsServer.find(@database.name)
       @database_client.destroy
     end
     @database.destroy
@@ -106,13 +106,14 @@ class DatabasesController < ApplicationController
     rds_attributes[:availability_zone] = @database_conf.availability_zone unless @database_conf.multi_az
     rds_attributes[:flavor_id] = @database_conf.instance_class
     
-    @database = DatabaseClient.new(rds_attributes)
+    @database = RdsServer.new(rds_attributes)
+    @prop_url = [:admin, @database]
     respond_to do |format|
       if @database.save
         @database_conf.started = true
         @database_conf.state = 'creating'
         @database_conf.save
-        format.html { redirect_to @database_conf, notice: 'DatabaseClient was successfully created.' }
+        format.html { redirect_to @database_conf, notice: 'RdsServer was successfully created.' }
         format.json { render json: @database_conf, status: :created, location: @database }
       else
         format.html { render action: "new" }
@@ -124,7 +125,7 @@ class DatabasesController < ApplicationController
   def stop
     @database = Database.find(params[:id])
     begin
-      @database_client = DatabaseClient.find(@database.name)
+      @database_client = RdsServer.find(@database.name)
       @database_client.destroy
       @database.state = 'Terminated'
       @database.started = false

@@ -1,4 +1,4 @@
-class DatabaseClient < ActiveResource::Base
+class RdsServer < ActiveResource::Base
   self.site = "http://localhost:3000/api/v1/rds/"
   self.element_name = "server"
   alias_attribute :name, :id

@@ -17,9 +17,9 @@
     %th
     %th
 
-  - @databases.each do |database|
+  - @servers.each do |database|
     %tr
-      %td= link_to database.name, database
+      %td= link_to database.name, [:admin, database]
       %td= database.state
       %td= database.db_name
       %td= database.master_username
@@ -33,4 +33,4 @@
 
 %br
 
-= link_to 'New RDS instance', new_database_client_path
+= link_to 'New RDS instance', [:new, :admin, :rds_server]

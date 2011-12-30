@@ -1,6 +1,6 @@
 Agi::Application.routes.draw do
 
-  
+match 'rds_servers' => 'admin_rds_servers' # this is when start method fails and renders new, simple_form will fail to generate the proper error
 
   resources :databases do
     member do
@@ -8,11 +8,10 @@ Agi::Application.routes.draw do
       get 'stop'
     end
   end
-  resources :database_clients
   
   namespace :admin do
     namespace :rds do
- #    resources :servers
+      resources :servers
       resources :security_groups do
         member do
           put 'authorize'
