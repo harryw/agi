@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
-gem 'rack', '1.3.3' #1.3.4 gives warning: already initialized constant WFKV_
+#gem 'rails', '3.1.1'
+#gem 'rack', '1.3.3' #1.3.4 gives warning: already initialized constant WFKV_
+gem 'rails', '3.1.2.rc1'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -12,8 +13,8 @@ gem 'sqlite3'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
 end
 
