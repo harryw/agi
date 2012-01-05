@@ -31,10 +31,15 @@ gem 'devise' # User authentication
 gem 'chef', '>= 0.10.4' # opscode authentication
 
 # once a client library gem is created, you can replace the below ones
-gem 'typhoeus'
+#gem 'typhoeus'
 gem 'yajl-ruby'
 #
-gem 'reactive_resource'
+#gem 'reactive_resource'
+gem 'mauth_signer', :git => 'git@github.com:mdsol/mauth_signer.git', :tag => 'v0.6.3'
+
+group :development do
+  gem 'ruby-debug19'
+end
 
 group :test do
   gem 'database_cleaner'

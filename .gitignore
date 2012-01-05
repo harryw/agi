@@ -6,3 +6,4 @@ tmp/
 *.swp
 *DS_STORE
 spec/factories/chef_accounts.rb.real_data
+config/mauth_settings.yml
