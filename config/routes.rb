@@ -1,8 +1,6 @@
 Agi::Application.routes.draw do
 
 match 'rds_servers' => 'admin_rds_servers' # this is when start method fails and renders new, simple_form will fail to generate the proper error
-
-  match "/app_status" => "application#app_status"
   
   resources :databases do
     member do

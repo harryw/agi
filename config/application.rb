@@ -57,5 +57,8 @@ module Agi
       g.form_builder :simple_form
       g.template_engine :haml
     end
+    
+    config.middleware.use Rack::ActiveRecordStatus
+    
   end
 end
