@@ -36,7 +36,7 @@ gem 'chef', '>= 0.10.4' # opscode authentication
 gem 'yajl-ruby'
 #
 gem 'mauth_signer', :git => 'git@github.com:mdsol/mauth_signer.git', :tag => 'v0.6.3'
-gem 'eureka-client', :git => 'git@github.com:/mdsol/eureka-client.git', :ref => '91b3db5'
+#gem 'eureka-client', :git => 'git@github.com:/mdsol/eureka-client.git', :ref => '91b3db5'
 
 
 group :development do
