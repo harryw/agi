@@ -12,6 +12,9 @@ gem 'mysql'
 
 gem 'rack-active_record_status', :require => 'rack/active_record_status'
 
+# http://stackoverflow.com/questions/6282307/rails-3-1-execjs-and-could-not-find-a-javascript-runtime
+gem 'therubyracer'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
