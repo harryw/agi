@@ -1,7 +1,7 @@
 class RdsServer < ActiveResource::Base
-  include ActiveResource::Extend::MauthSigner
-  
-  self.site = "http://localhost:3000/api/v1/rds/"
+#  include ActiveResource::Extend::MauthSigner
+  agifog_settings = YAML.load_file(File.join(Rails.root, "config", "agifog_settings.yml"))[:agifog]
+  self.site = "http://#{agifog_settings[:hostname]}:#{agifog_settings[:port]}/api/v1/rds/"
   self.element_name = "server"
   alias_attribute :name, :id
   
