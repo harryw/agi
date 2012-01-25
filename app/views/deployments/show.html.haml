@@ -42,10 +42,9 @@
   = @deployment.deployment_timestamp
 
 %p
-  %b deployed_data:
-  :coderay
-    #!json
-    #{@deployment.deployed_data}
+  %b Deployed Data:
+  %pre
+    = JSON.pretty_generate(JSON.parse(@deployment.deployed_data.to_json))
 
 
 = link_to 'Back', app_deployments_path(@app)

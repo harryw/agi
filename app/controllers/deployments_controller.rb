@@ -2,6 +2,7 @@ class DeploymentsController < ApplicationController
   
   before_filter :load_app
   before_filter :load_deployment_from_id, :only => :show
+
   # GET /deployments
   # GET /deployments.json
   def index

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111213231157) do
+ActiveRecord::Schema.define(:version => 20120125170406) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20111213231157) do
     t.boolean  "uses_bundler",          :default => true
     t.string   "platform"
     t.string   "database_id"
+    t.string   "git_branch"
   end
 
   create_table "chef_accounts", :force => true do |t|

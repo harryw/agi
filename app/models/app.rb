@@ -46,7 +46,7 @@ class App < ActiveRecord::Base
     
     def configuration
         attributes.symbolize_keys.extract!(:name,:stage_name,:deploy_to,:deploy_user,:deploy_group,:multi_tenant,
-        :uses_bundler,:alert_emails,:url,:git_revision,:rails_env,:platform).merge(:required_packages => required_packages)
+        :uses_bundler,:alert_emails,:url,:git_branch,:git_revision,:rails_env,:platform).merge(:required_packages => required_packages)
     end
     
     def data_bag_item_data

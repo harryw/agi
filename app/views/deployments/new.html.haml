@@ -2,7 +2,7 @@
 
 = render 'form'
 
-
-#deployment_data= @deployment_data.to_json
+%pre
+  #deployment_data= JSON.pretty_generate(JSON.parse(@deployment_data.to_json))
 
 = link_to 'Back', [@app]
