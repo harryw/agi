@@ -13,10 +13,14 @@ class App < ActiveRecord::Base
     delegate :name, :configuration, :ready?, :started, :to => :database,:prefix => true, :allow_nil => true
     delegate :name, :update_data_bag_item, :to => :chef_account, :prefix => true, :allow_nil => true
     
-    before_validation :set_name
+    before_validation :set_name, :remove_trailing_slash
     
     validates_presence_of :customer, :project, :chef_account, :stage_name
     validates_uniqueness_of :name
+    
+    def remove_trailing_slash
+      self.deploy_to.sub!(/(\/)+$/,'')
+    end
     
     def set_name
       self.name = generate_name
