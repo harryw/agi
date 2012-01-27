@@ -14,7 +14,7 @@ Feature: Allow me to manage my databases
 	  When I fill in "Db Name" with "developdb"
 	  When I fill in "Username" with "root"
 	  When I fill in "Client Cert" with "jjjjjj"
-	  When I fill in "Type" with "mysql"
+	  When I select "mysql" from "Type"
 	  When I fill in "Instance Storage" with "5"
 	  When I select "db.m1.small" from "Instance Class"
 	  When I select "us-east-1a" from "Availability Zone"

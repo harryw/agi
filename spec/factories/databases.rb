@@ -7,7 +7,7 @@ FactoryGirl.define do
       username "usuario"
       password "contrasena"
       client_cert "MyText"
-      db_type "MySql"
+      db_type "mysql"
       instance_class "db.m1.xlarge"
       instance_storage 5
       multi_az true

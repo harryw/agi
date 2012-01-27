@@ -11,7 +11,7 @@
   = form.input :db_name, :label => 'Db Name'
   = form.input :username, :label => 'Username'
   = form.input :client_cert, :label => 'Client Cert'
-  = form.input :db_type, :input_html => { :value => 'MySql' }, :label => 'Type'
+  = form.input :db_type, :collection => %w{ mysql }, :label => 'Type'
   = form.input :instance_class, :collection => %w{ db.m1.small db.m1.large db.m1.xlarge db.m2.xlarge db.m2.2xlarge db.m2.4xlarge }, :label => 'Instance Class'
   = form.input :instance_storage, :label => 'Instance Storage'
   = form.input :multi_az, :label => 'Multi Az'
