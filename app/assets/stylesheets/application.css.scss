@@ -6,6 +6,17 @@
  *= require_tree . 
 */
 
+
+@import 'flutie';
+
+
+
+    .content {
+      background: #fff;
+      padding: 40px;
+      margin: 40px;
+    }
+
 ul.hmenu {
   list-style: none;	
   margin: 0 0 2em;
