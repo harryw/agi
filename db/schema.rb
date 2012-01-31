@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120127215210) do
+ActiveRecord::Schema.define(:version => 20120131221753) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -60,9 +60,9 @@ ActiveRecord::Schema.define(:version => 20120127215210) do
 
   create_table "customizations", :force => true do |t|
     t.string   "name"
-    t.string   "location"
+    t.string   "location",          :default => ""
     t.string   "value"
-    t.boolean  "prompt_on_deploy"
+    t.boolean  "prompt_on_deploy",  :default => false
     t.integer  "customizable_id"
     t.string   "customizable_type"
     t.datetime "created_at"
