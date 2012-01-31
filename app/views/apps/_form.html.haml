@@ -13,7 +13,6 @@
   = form.association :chef_account, :label => 'Chef Account', :prompt => "Choose a Chef Account"
   = form.association :database, :Label => 'Database', :prompt => "Choose a Database"
   = form.input :stage_name, :label => 'Stage Name'
-  = form.input :deploy_to, :label => 'Deploy To'
   = form.input :deploy_user, :label => 'Deploy User'
   = form.input :deploy_group, :label => 'Deploy Group'
   = form.input :multi_tenant, :label => 'Multi Tenant'
@@ -22,11 +21,8 @@
   = form.input :url, :label => 'Url'
   = form.input :git_branch, :label => 'Git Branch'
   = form.input :git_revision, :label => 'Git Revision'
-  = form.input :rails_env, :label => 'Rails Env'
-  = form.input :platform, :label => 'Platform'
-  = form.input :cache_cluster_link, :label => 'Cache Cluster Link'
-  = form.input :infrastructure_link, :label => 'Infrastructure Link'
-  = form.input :newrelic_account_link, :label => 'Newrelic Account Link'
+  = form.input :rails_env, :label => 'Rails Env', :collection => %w{ production development }
+  = form.input :platform, :label => 'Platform', :collection => %w{ rails ctms }
 
   .actions
     = form.button :submit

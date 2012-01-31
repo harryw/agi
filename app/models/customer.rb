@@ -12,6 +12,11 @@ class Customer < ActiveRecord::Base
     end
     
     def configuration
-        attributes.symbolize_keys.extract!(:name,:name_tag)
+        attributes.symbolize_keys.extract!(:name,:name_tag).merge(:custom_data => custom_data).reject{|k,v| v.blank? }
+    end
+    
+    def custom_data
+      data = customizations.where(:location=> "").where(:prompt_on_deploy => false)
+      Hash[*data.map {|c| c.attributes.symbolize_keys.extract!(:name,:value).values }.flatten]
     end
 end

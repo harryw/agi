@@ -13,17 +13,20 @@ class App < ActiveRecord::Base
     delegate :name, :configuration, :ready?, :started, :to => :database,:prefix => true, :allow_nil => true
     delegate :name, :update_data_bag_item, :to => :chef_account, :prefix => true, :allow_nil => true
     
-    before_validation :set_name, :remove_trailing_slash
+    after_initialize :set_default_values
+    before_validation :generate_default_values, :remove_trailing_slash
     
     validates_presence_of :customer, :project, :chef_account, :stage_name
     validates_uniqueness_of :name
+    
     
     def remove_trailing_slash
       self.deploy_to.sub!(/(\/)+$/,'')
     end
     
-    def set_name
+    def generate_default_values
       self.name = generate_name
+      self.deploy_to = '/mnt/' + generate_name
     end
     
     def generate_name
@@ -45,23 +48,32 @@ class App < ActiveRecord::Base
     end
     
     def required_packages
-      %w{ libxml2-dev libxslt-dev libmysqlclient-dev }
+      if platform == "ctms"
+        %w{ ttf-dejavu ttf-liberation libxerces2-java libxerces2-java-gcj mysql-client }
+      else
+        %w{ libxml2-dev libxslt-dev libmysqlclient-dev }
+      end
     end
     
     def configuration
         attributes.symbolize_keys.extract!(:name,:stage_name,:deploy_to,:deploy_user,:deploy_group,:multi_tenant,
-        :uses_bundler,:alert_emails,:url,:git_branch,:git_revision,:rails_env,:platform).merge(:required_packages => required_packages)
+        :uses_bundler,:alert_emails,:url,:git_branch,:git_revision,:rails_env,:platform).merge(:required_packages => required_packages).merge(:custom_data => custom_data).reject{|k,v| v.blank? }
+    end
+    
+    def custom_data
+      data = customizations.where(:location=> "").where(:prompt_on_deploy => false)
+      Hash[*data.map {|c| c.attributes.symbolize_keys.extract!(:name,:value).values }.flatten]
     end
     
     def data_bag_item_data
-        {
-            :id => name,
-            :deployment_timestamp => app_timestamp,
-            :main => configuration,
-            :project => project_configuration,
-            :customer => customer_configuration,
-            :database => database_configuration
-        }
+      {  
+         :id => name,
+         :deployment_timestamp => app_timestamp,
+         :main => configuration,
+         :project => project_configuration,
+         :customer => customer_configuration,
+         :database => database_configuration
+      }.reject{|k,v| v.blank? }
     end
     
     def update_data_bag_item
@@ -71,6 +83,16 @@ class App < ActiveRecord::Base
     def database_attached?
       self.database
     end
+    
+    private
+    
+      def set_default_values
+        if new_record?
+          self.deploy_user ||= 'medidata'
+          self.deploy_group ||= 'medidata'
+          self.git_branch ||= 'master'
+        end
+      end
         
 end
 

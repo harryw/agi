@@ -8,11 +8,16 @@ class Project < ActiveRecord::Base
   after_save :update_apps
   
   def configuration
-    attributes.symbolize_keys.extract!(:name,:name_tag,:homepage,:repository,:repo_private_key)
+    attributes.symbolize_keys.extract!(:name,:name_tag,:homepage,:repository,:repo_private_key).merge(:custom_data => custom_data).reject{|k,v| v.blank? }
   end
   
   def update_apps
     apps.each {|a|a.touch }
+  end
+  
+  def custom_data
+    data = customizations.where(:location=> "").where(:prompt_on_deploy => false)
+    Hash[*data.map {|c| c.attributes.symbolize_keys.extract!(:name,:value).values }.flatten]
   end
   
   private

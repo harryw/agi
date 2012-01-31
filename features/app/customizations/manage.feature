@@ -12,14 +12,14 @@ Feature: App configuration
     When I go to the app's customization's new page
     And I fill in "Name" with "foo"
     And I fill in "Value" with "bar"
-    And I fill in "Location" with "file.yaml"
-    And I check "Prompt On Deploy"
+#    And I fill in "Location" with "file.yaml"
+#    And I check "Prompt On Deploy"
     And I press "Create Customization"
     Then I should see "Customization was successfully created"
     And I should see "foo"
     And I should see "bar"
-    And I should see "file.yaml"
-    And I should see "true"
+#    And I should see "file.yaml"
+#    And I should see "true"
 
   Scenario: Index customization
     Given a customization exists with name: "FooApp", value: "testing", customizable: that app
