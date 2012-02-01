@@ -12,6 +12,7 @@
   = form.association :project, :label => 'Project', :prompt => "Choose a Project"
   = form.association :chef_account, :label => 'Chef Account', :prompt => "Choose a Chef Account"
   = form.association :database, :Label => 'Database', :prompt => "Choose a Database"
+  = form.input :auto_generate_database, :label => "Create a new DB"
   = form.input :stage_name, :label => 'Stage Name'
   = form.input :deploy_user, :label => 'Deploy User'
   = form.input :deploy_group, :label => 'Deploy Group'

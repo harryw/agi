@@ -19,7 +19,7 @@ class Database < ActiveRecord::Base
   # 
   # Must contain 1 to 64 alphanumeric characters
   # Cannot be a word reserved by the specified database engine
-  validates_format_of :db_name, :with => /\A[A-Za-z0-9-_]+\z/,  :message => "Please use only alphanumeric characters and hypens"
+  validates_format_of :db_name, :with => /\A[A-Za-z0-9_-]+\z/,  :message => "Please use only alphanumeric characters and hypens"
   
   
   # Constraints:

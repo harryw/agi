@@ -50,14 +50,23 @@ class AppsController < ApplicationController
   # POST /apps.json
   def create
     @app = App.new(params[:app])
-
-    respond_to do |format|
-      if @app.save
-        format.html { redirect_to @app, notice: 'App was successfully created.' }
-        format.json { render json: @app, status: :created, location: @app }
+    
+    # This is not right. I should write a dashboard view that talks to the controllers restfully
+    if @app.auto_generate_database
+      # when valid? is call, self-generated app attibues are populated
+      if @app.valid?
+        if generate_database
+          @app.save
+          redirect_to @app, notice: 'App was successfully created.' 
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @app.errors, status: :unprocessable_entity }
+        render action: "new" 
+      end
+    else
+      if @app.save
+        redirect_to @app, notice: 'App was successfully created.' 
+      else
+        render action: "new" 
       end
     end
   end
@@ -89,4 +98,32 @@ class AppsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  private
+  
+    def generate_database
+      database_params = {
+        :name => @app.name,
+        :db_name => @app.name.gsub(/-/,"_"),
+        :username => "agi",
+        :client_cert => "",
+        :db_type => "mysql",
+        :instance_class => "db.m1.small",
+        :instance_storage => 5,
+        :multi_az => false,
+        :availability_zone => "us-east-1b",
+        :engine_version => "5.1.57",
+        :started => false,
+        :state => 'stopped'
+      }
+     
+      @database = Database.new(database_params)
+      if @database.save
+        @app.database = @database
+        return true
+      else
+        render 'databases/new'
+        return false
+      end
+    end
 end
