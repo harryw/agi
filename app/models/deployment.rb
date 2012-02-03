@@ -37,7 +37,7 @@ class Deployment < ActiveRecord::Base
     
     def configuration
       attributes.symbolize_keys.extract!(:force_deploy,:send_email,:task,:run_migrations,
-                                                  :migration_command,:deployment_timestamp)
+                                                  :migration_command,:deployment_timestamp).merge(:deploy_by => self.user.email)
     end
     
     def merged_configuration
