@@ -112,7 +112,7 @@ class AppsController < ApplicationController
         :instance_storage => 5,
         :multi_az => false,
         :availability_zone => "us-east-1b",
-        :engine_version => "5.1.57",
+        :engine_version => "5.5.12",
         :started => false,
         :state => 'stopped'
       }
