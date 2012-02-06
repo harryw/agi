@@ -57,6 +57,13 @@
 %p
   %b Engine version:
   = @database.engine_version
+%p
+  %b Security groups:
+  %table
+    - @database.security_group_names.each do |sg_name|
+      %tr
+        %td= link_to sg_name, admin_rds_security_group_path(sg_name)
+
 
 = link_to 'Database Configurations', databases_url
 \|

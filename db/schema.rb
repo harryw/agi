@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120201195828) do
+ActiveRecord::Schema.define(:version => 20120206154518) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20120201195828) do
     t.string   "state"
     t.boolean  "started"
     t.string   "hostname"
+    t.string   "security_group_names", :default => "--- []\n"
   end
 
   create_table "deployments", :force => true do |t|
