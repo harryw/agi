@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 #gem 'rails', '3.1.1'
 #gem 'rack', '1.3.3' #1.3.4 gives warning: already initialized constant WFKV_
-gem 'rails', '3.2.0'
+gem 'rails', '3.2.1'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
