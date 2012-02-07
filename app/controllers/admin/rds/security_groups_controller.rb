@@ -101,11 +101,17 @@ class Admin::Rds::SecurityGroupsController < ApplicationController
   # DELETE /security_groups/1.json
   def destroy
     @security_group = RdsSecurityGroup.find(params[:id])
-    @security_group.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_rds_security_groups_url }
-      format.json { head :ok }
+      begin
+        @security_group.destroy
+        format.html { redirect_to admin_rds_security_groups_url }
+        format.json { head :ok }
+      rescue =>e
+        format.html { redirect_to [:admin, @security_group], flash_error: pretty_error(e.message) }
+        format.json { render json: @security_group.errors, status: :unprocessable_entity }
+      end
+        
     end
   end
   
