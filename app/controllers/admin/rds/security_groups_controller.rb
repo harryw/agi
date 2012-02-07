@@ -72,11 +72,12 @@ class Admin::Rds::SecurityGroupsController < ApplicationController
     @security_group = RdsSecurityGroup.find(params[:id])
     
     respond_to do |format|
-      if @security_group.put(:revoke, nil,params[:rds_security_group].to_json)
+      begin
+        @security_group.put(:revoke, nil,params[:rds_security_group].to_json)
         format.html { redirect_to [:admin, @security_group], notice: 'RdsSecurityGroup was revoked.' }
         format.json { head :ok }
-      else
-        format.html { render action: "show" }
+      rescue => e
+        format.html { flash[:alert] = pretty_error(e.message) ;render action: "show" }
         format.json { render json: @security_group.errors, status: :unprocessable_entity }
       end
     end      
@@ -86,11 +87,12 @@ class Admin::Rds::SecurityGroupsController < ApplicationController
     @security_group = RdsSecurityGroup.find(params[:id])
     
     respond_to do |format|
-      if @security_group.put(:authorize, nil,params[:rds_security_group].to_json)
+      begin
+        @security_group.put(:authorize, nil,params[:rds_security_group].to_json)
         format.html { redirect_to [:admin, @security_group], notice: 'RdsSecurityGroup was authorized.' }
         format.json { head :ok }
-      else
-        format.html { render action: "show" }
+      rescue => e
+        format.html { flash[:alert] = pretty_error(e.message) ;render action: "show" }
         format.json { render json: @security_group.errors, status: :unprocessable_entity }
       end
     end      
@@ -107,8 +109,8 @@ class Admin::Rds::SecurityGroupsController < ApplicationController
         @security_group.destroy
         format.html { redirect_to admin_rds_security_groups_url }
         format.json { head :ok }
-      rescue =>e
-        format.html { redirect_to [:admin, @security_group], flash_error: pretty_error(e.message) }
+      rescue => e
+        format.html { redirect_to [:admin, @security_group], alert: pretty_error(e.message) }
         format.json { render json: @security_group.errors, status: :unprocessable_entity }
       end
         
