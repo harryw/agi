@@ -17,7 +17,7 @@ module ActiveResource #:nodoc:
            mauth_params = {
              :verb => method.to_s.upcase,
              :request_url => URI.parse(path).path,
-             :body => arguments.first,
+             :body => [:post, :put].include?(method) ? arguments.first : nil,
              :app_uuid => mauth_config[:app_uuid]
            }
            signed_headers = mauth_signer.signed_request_headers(mauth_params)
@@ -40,5 +40,6 @@ module ActiveResource #:nodoc:
      end
   end
 end
+
 
 
