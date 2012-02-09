@@ -9,14 +9,21 @@ module ActiveResource #:nodoc:
          # post request(:post, path, body.to_s, build_request_headers(headers, :post, self.site.merge(path)))
                   
          def request(method, path, *arguments)
-           mauth_settings= YAML.load_file(File.join(Rails.root, "config", "mauth.yml"))[Rails.env]
+           mauth_config = YAML.load_file(File.join(Rails.root, "config", "mauth.yml"))[Rails.env]
+           mauth_config = mauth_config.symbolize_keys
+           mauth_config[:private_key] = File.read(mauth_config[:private_key_file])
+           mauth_signer = MAuth::Signer.new(@config['mauth_config'])
+           mauth_signer = MAuth::Signer.new(mauth_config)
 
-           post_data = [:put, :post].include?(method) ? arguments.first : nil
-           mauth_settings['private_key'] = File.read(mauth_settings['private_key_file'])
-           
-           h = MAuth::Signer.new(mauth_settings['private_key']).signed_headers(:app_uuid => mauth_settings['app_uuid'], :request_url => path, :post_data => post_data, :verb => method.upcase.to_s)
-           arguments.last["Authorization"]=h["Authorization"]
-           arguments.last["x-mws-time"]=h["x-mws-time"]
+           mauth_params = {
+             :verb => method.to_s.upcase,
+             :request_url => path,
+             :body => arguments.first,
+             :app_uuid => mauth_settings[:app_uuid]
+           }
+           signed_headers = mauth_signer.signed_headers(mauth_params)
+
+           arguments.last.update(signed_headers)
            
            # this is the original part
            result = ActiveSupport::Notifications.instrument("request.active_resource") do |payload|
@@ -34,3 +41,7 @@ module ActiveResource #:nodoc:
      end
   end  
 end
+
+
+
+
