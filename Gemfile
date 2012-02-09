@@ -40,7 +40,7 @@ gem 'chef', '>= 0.10.4' # opscode authentication
 # once a client library gem is created, you can replace the below ones
 gem 'yajl-ruby'
 #
-#gem 'mauth_signer', :git => 'git@github.com:mdsol/mauth_signer.git', :tag => 'v0.6.3'
+gem 'mauth_signer', :git => 'git@github.com:mdsol/mauth_signer.git', :ref => '4e03b8e'
 #gem 'eureka-client', :git => 'git@github.com:mdsol/eureka-client.git', :ref => 'c4c98a4'
 
 
