@@ -7,24 +7,23 @@ module ActiveResource #:nodoc:
          # delete request(:delete, path, build_request_headers(headers, :delete, self.site.merge(path)))
          # put request(:put, path, body.to_s, build_request_headers(headers, :put, self.site.merge(path)))
          # post request(:post, path, body.to_s, build_request_headers(headers, :post, self.site.merge(path)))
-                  
+
          def request(method, path, *arguments)
            mauth_config = YAML.load_file(File.join(Rails.root, "config", "mauth.yml"))[Rails.env]
            mauth_config = mauth_config.symbolize_keys
            mauth_config[:private_key] = File.read(mauth_config[:private_key_file])
-           mauth_signer = MAuth::Signer.new(@config['mauth_config'])
            mauth_signer = MAuth::Signer.new(mauth_config)
 
            mauth_params = {
              :verb => method.to_s.upcase,
-             :request_url => path,
+             :request_url => URI.parse(path).path,
              :body => arguments.first,
-             :app_uuid => mauth_settings[:app_uuid]
+             :app_uuid => mauth_config[:app_uuid]
            }
-           signed_headers = mauth_signer.signed_headers(mauth_params)
+           signed_headers = mauth_signer.signed_request_headers(mauth_params)
 
            arguments.last.update(signed_headers)
-           
+
            # this is the original part
            result = ActiveSupport::Notifications.instrument("request.active_resource") do |payload|
              payload[:method]      = method
@@ -39,9 +38,7 @@ module ActiveResource #:nodoc:
          end
        end
      end
-  end  
+  end
 end
-
-
 
 
