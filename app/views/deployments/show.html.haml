@@ -2,6 +2,9 @@
   %b Final deployment result:
   = @deployment.final_result
 %p
+  %b PDF:
+  = link_to "IQ", app_deployment_path(@app ,@deployment, format: "pdf")
+%p
   %b Deployed by:
   = @deployment.user.email if @deployment.user
 %p

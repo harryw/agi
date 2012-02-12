@@ -21,6 +21,12 @@ class DeploymentsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @deployment }
+      format.pdf do
+            pdf = IqDeployment.new(@deployment)
+            send_data pdf.render, filename: "pir_#{@app.name}",
+                                  type: "application/pdf",
+                                  disposition: "inline"
+      end
     end
   end
 

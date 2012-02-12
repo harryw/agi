@@ -8,6 +8,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    Ascii85 (1.0.1)
     actionmailer (3.2.1)
       actionpack (= 3.2.1)
       mail (~> 2.4.0)
@@ -166,10 +167,16 @@ GEM
       systemu (~> 2.2.0)
       yajl-ruby
     orm_adapter (0.0.6)
+    pdf-reader (1.0.0)
+      Ascii85 (~> 1.0.0)
+      ruby-rc4
     pickle (0.4.10)
       cucumber (>= 0.8)
       rake
     polyglot (0.3.3)
+    prawn (0.12.0)
+      pdf-reader (>= 0.9.0)
+      ttfunk (~> 1.0.2)
     rack (1.4.1)
     rack-active_record_status (0.6.0)
       activerecord
@@ -224,6 +231,7 @@ GEM
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
       ruby-debug-base19 (>= 0.11.19)
+    ruby-rc4 (0.1.5)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.5)
@@ -254,6 +262,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    ttfunk (1.0.3)
     tzinfo (0.3.31)
     uglifier (1.2.3)
       execjs (>= 0.3.0)
@@ -292,6 +301,7 @@ DEPENDENCIES
   mauth_signer!
   mysql
   pickle
+  prawn
   rack-active_record_status
   rails (= 3.2.1)
   rails3-generators
