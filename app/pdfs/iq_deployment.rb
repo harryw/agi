@@ -1,10 +1,34 @@
 class IqDeployment < Prawn::Document
-  FILTERED_KEYS = %w{ password }
+  FILTERED_KEYS = [:password, :repo_private_key]
   
   def initialize(deployment)
     super()
     @deployment = deployment
+    @data_bag = @deployment.deployed_data
+    iq_header
     text iq_data
+  end
+  
+  def iq_header
+    text "MEDIDATA IQ"
+    text " "
+    text "FOR APPLICATION #{@data_bag[:main][:name]}"
+    text "Deployment time: #{@data_bag[:main][:deployment_timestamp]}"
+    text "----------------------------------------------------"
+    text "Last Deployed by: #{@data_bag[:main][:deploy_by]}"
+    text " "
+    text "Repository: #{@data_bag[:project][:repository]}"
+    text "Commit/Branch/Tag: #{@data_bag[:main][:git_branch]}"
+    text " "
+    text "Application Platform: #{@data_bag[:main][:platform]}"
+    text "Application URL: #{@data_bag[:project][:homepage]}"
+    text "Deploy User: #{@data_bag[:main][:deploy_user]} Deploy Group: #{@data_bag[:main][:deploy_group]}"
+    text " "
+    text "DB Host: #{@data_bag[:database][:hostname]}"
+    text "DB Name: #{@data_bag[:database][:db_name]}"
+    text "DB User: #{@data_bag[:database][:username]}"
+    text "DB Type: #{@data_bag[:database][:db_type]}"
+    text "----------------------------------------------------"
   end
   
   def iq_data
@@ -12,8 +36,10 @@ class IqDeployment < Prawn::Document
   end
   
   def filter_deployed_data
-    strip_value(@deployment.deployed_data, :password)
-    @deployment.deployed_data
+    FILTERED_KEYS.each do |filter_key|
+      strip_value(@data_bag, filter_key)
+    end
+    @data_bag
   end
   
   # Removes any key/value pair from the Hash-of-Hashes deep_hash,
