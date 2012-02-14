@@ -19,7 +19,12 @@ class Project < ActiveRecord::Base
     data = customizations.where(:location=> "").where(:prompt_on_deploy => false)
     Hash[*data.map {|c| c.attributes.symbolize_keys.extract!(:name,:value).values }.flatten]
   end
-  
+
+# please make the private key from medidata load on start
+#  def repo_private_key
+#   DEPLOYER_KEY 
+#  end
+
   private
     # Fix newlines and trailing lines
     def clean_keys

@@ -1,0 +1,14 @@
+development:
+    :cas_base_url: https://login.imedidata.com/
+    :validate_url: https://login.imedidata.com/serviceValidate
+    :logout_url: https://login.imedidata.com/logout
+ 
+test:
+    :cas_base_url: https://login-sandbox.imedidata.com/
+    :validate_url: https://login-sandbox.imedidata.com/serviceValidate
+    :logout_url: https://login-sandbox.imedidata.com/logout
+ 
+production:
+    :cas_base_url: https://login.imedidata.com/
+    :validate_url: https://login.imedidata.com/serviceValidate
+    :logout_url: https://login.imedidata.com/logout
