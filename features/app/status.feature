@@ -52,7 +52,6 @@ Feature: App Status Page  (App-Status)
 		And I go to the app's page
 		And I follow "balance"
 		And I follow "Edit"
-		And I fill in "Homepage" with "www.changed.com"
 		And I press "Update"
 		When I go to the app's page
 		Then I should see "Undeployed Changes"
