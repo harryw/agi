@@ -13,6 +13,7 @@ gem 'mysql'
 gem 'rack-active_record_status', :require => 'rack/active_record_status'
 
 gem 'flutie'
+gem 'fog'
 
 # http://stackoverflow.com/questions/6282307/rails-3-1-execjs-and-could-not-find-a-javascript-runtime
 gem 'therubyracer'

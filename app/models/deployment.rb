@@ -7,10 +7,32 @@ class Deployment < ActiveRecord::Base
         
     serialize :deployed_data
     
+    after_initialize :load_fog_credentials
     # :update_databag will be moved to an asyncronous state later
     before_save :set_initial_status, :save_deployed_data, :update_databag
+    after_save :save_iq_file
     
     validates_presence_of :description
+      
+    def save_iq_file
+      pdf = IqDeployment.new(self)
+      pdf_file_content = pdf.render
+      s3_file_name = "application-iqs/#{app.name}-#{deployed_data[:deployment_timestamp]}.pdf"
+      s3.directories.get('columbo-portal-test').files.create(:key => s3_file_name, :body=> pdf_file_content)
+    end
+    
+    def s3
+      @s3 ||= Fog::Storage::AWS.new
+    end
+    
+    def load_fog_credentials
+      Fog.credentials_path= "config/.fog"
+      unless Fog.respond_to?('credentials')
+         raise('Please create a config/.fog file with the right credentials')
+      else
+         puts "S3 credentials loaded!"
+      end
+    end
     
     def set_initial_status
       self.started_at = Time.now

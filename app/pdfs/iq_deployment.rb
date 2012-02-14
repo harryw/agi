@@ -6,7 +6,7 @@ class IqDeployment < Prawn::Document
     @deployment = deployment
     @data_bag = @deployment.deployed_data
     iq_header
-    text iq_data
+    iq_data
   end
   
   def iq_header
@@ -32,11 +32,13 @@ class IqDeployment < Prawn::Document
   end
   
   def iq_data
-    JSON.pretty_generate(JSON.parse(filter_deployed_data.to_json))
+    text "Data Bag Content:"
+    text JSON.pretty_generate(JSON.parse(filter_deployed_data.to_json))
   end
   
   def filter_deployed_data
     FILTERED_KEYS.each do |filter_key|
+      # @data_bag is modified by strip_value
       strip_value(@data_bag, filter_key)
     end
     @data_bag
