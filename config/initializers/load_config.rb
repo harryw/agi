@@ -1,5 +1,5 @@
 require 'ostruct'
 
-amazon_s3 = YAML.load_file("#{Rails.root}/config/amazon_s3.yml")[Rails.env]
-mauth = YAML.load_file("#{Rails.root}/config/mauth.yml")[Rails.env]
+amazon_s3 = YAML.load_file("#{Rails.root}/config/amazon_s3.yml")[Rails.env] rescue {}
+mauth = YAML.load_file("#{Rails.root}/config/mauth.yml")[Rails.env] rescue {}
 ::AppConfig = OpenStruct.new(amazon_s3.merge(mauth))
