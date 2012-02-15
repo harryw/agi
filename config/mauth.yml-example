@@ -1,0 +1,4 @@
+development:
+  app_uuid: 91111111-1111-1111-1111-111111111111
+  private_key_file: /mnt/bla/bla
+  enable_mauth: false

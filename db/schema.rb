@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206154518) do
+ActiveRecord::Schema.define(:version => 20120215211252) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -50,6 +50,14 @@ ActiveRecord::Schema.define(:version => 20120206154518) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "client_name"
+  end
+
+  create_table "configurations", :force => true do |t|
+    t.string   "aws_access_key_id"
+    t.string   "aws_secret_access_key"
+    t.string   "iq_bucket_name"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "customers", :force => true do |t|
@@ -111,6 +119,8 @@ ActiveRecord::Schema.define(:version => 20120206154518) do
     t.text     "opscode_log"
     t.string   "description"
     t.integer  "user_id"
+    t.string   "s3_url_iq",            :default => ""
+    t.datetime "deployed_time"
   end
 
   create_table "projects", :force => true do |t|

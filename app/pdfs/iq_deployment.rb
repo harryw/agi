@@ -1,10 +1,11 @@
 class IqDeployment < Prawn::Document
   FILTERED_KEYS = [:password, :repo_private_key]
   
-  def initialize(deployment)
+  def initialize(deployment,deployed_time=Time.now)
     super()
     @deployment = deployment
     @data_bag = @deployment.deployed_data
+    @deployed_time = deployed_time
     iq_header
     iq_data
   end
@@ -13,7 +14,7 @@ class IqDeployment < Prawn::Document
     text "MEDIDATA IQ"
     text " "
     text "FOR APPLICATION #{@data_bag[:main][:name]}"
-    text "Deployment time: #{@data_bag[:main][:deployment_timestamp]}"
+    text "Deployment time: #{@deployed_time}"
     text "----------------------------------------------------"
     text "Last Deployed by: #{@data_bag[:main][:deploy_by]}"
     text " "

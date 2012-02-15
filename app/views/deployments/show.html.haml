@@ -2,8 +2,8 @@
   %b Final deployment result:
   = @deployment.final_result
 %p
-  %b PDF:
-  = link_to "IQ", app_deployment_path(@app ,@deployment, format: "pdf")
+  %b IQ:
+  = link_to_unless @deployment.s3_url_iq.blank?, "IQ URL", @deployment.s3_url_iq
 %p
   %b Deployed by:
   = @deployment.user.email if @deployment.user
