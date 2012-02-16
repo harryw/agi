@@ -28,7 +28,7 @@ class Deployment < ActiveRecord::Base
     
     def s3_key_name
       iq_folder = AppConfig.bucket_name.split('/')[1..-1].join('/')
-      @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time}.pdf"
+      @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time.to_s(:number)}.pdf"
     end
     
     def iq_bucket
@@ -74,7 +74,7 @@ class Deployment < ActiveRecord::Base
     
     def configuration
       attributes.symbolize_keys.extract!(:force_deploy,:send_email,:task,:run_migrations,
-                                                  :migration_command,:deployment_timestamp).merge(:deploy_by => self.user.email, :deployed_at => Time.now)
+                                                  :migration_command,:deployment_timestamp).merge(:deploy_by => self.user.email, :deployed_at => deploying_time)
     end
     
     def merged_configuration

@@ -25,10 +25,14 @@ class IqDeployment < Prawn::Document
     text "Application URL: #{@data_bag[:project][:homepage]}"
     text "Deploy User: #{@data_bag[:main][:deploy_user]} Deploy Group: #{@data_bag[:main][:deploy_group]}"
     text " "
-    text "DB Host: #{@data_bag[:database][:hostname]}"
-    text "DB Name: #{@data_bag[:database][:db_name]}"
-    text "DB User: #{@data_bag[:database][:username]}"
-    text "DB Type: #{@data_bag[:database][:db_type]}"
+    if @data_bag[:database]
+      text "DB Host: #{@data_bag[:database][:hostname]}"
+      text "DB Name: #{@data_bag[:database][:db_name]}"
+      text "DB User: #{@data_bag[:database][:username]}"
+      text "DB Type: #{@data_bag[:database][:db_type]}"
+    else
+      text "NON Database was specified"
+    end
     text "----------------------------------------------------"
   end
   
