@@ -18,6 +18,9 @@
   %b Database Name:
   = link_to_if @app.database, @app.database.try(:name), @app.database
 %p
+  %b EC2 Security Group Authorized in RDS:
+  = @app.ec2_sg_to_authorize
+%p
   %b Deploy to:
   = @app.deploy_to
 %p

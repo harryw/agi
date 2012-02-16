@@ -17,6 +17,8 @@
   = form.input :multi_az, :label => 'Multi Az'
   = form.input :availability_zone, :collection => %w{ us-east-1a us-east-1b us-east-1c us-east-1d }, :label => 'Availability Zone'
   = form.input :engine_version, :input_html => { :value => '5.5.12' }, :label => 'Engine Version'
+  = form.input :ec2_sg_to_authorize, :label => 'EC2 Security Group to Authorize'
+
 
   .actions
     = form.button :submit

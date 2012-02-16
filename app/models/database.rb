@@ -45,7 +45,7 @@ class Database < ActiveRecord::Base
   
   def set_default_rds_attributes
     self.password = SecureRandom.hex(16) if password.blank?
-    self.security_group_names = [self.name]
+    self.security_group_names = [ self.name ]
   end
   
   def ready?

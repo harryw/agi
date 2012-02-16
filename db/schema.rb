@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120215211252) do
+ActiveRecord::Schema.define(:version => 20120216182302) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20120215211252) do
     t.string   "database_id"
     t.string   "git_branch"
     t.boolean  "auto_generate_database"
+    t.string   "ec2_sg_to_authorize",    :default => ""
   end
 
   create_table "chef_accounts", :force => true do |t|
@@ -96,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20120215211252) do
     t.boolean  "started"
     t.string   "hostname"
     t.string   "security_group_names", :default => "--- []\n"
+    t.string   "ec2_sg_to_authorize",  :default => ""
   end
 
   create_table "deployments", :force => true do |t|

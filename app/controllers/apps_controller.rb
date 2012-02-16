@@ -114,7 +114,8 @@ class AppsController < ApplicationController
         :availability_zone => "us-east-1b",
         :engine_version => "5.5.12",
         :started => false,
-        :state => 'stopped'
+        :state => 'stopped',
+        :ec2_sg_to_authorize => @app.ec2_sg_to_authorize
       }
      
       @database = Database.new(database_params)
