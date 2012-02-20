@@ -29,6 +29,7 @@ class DatabasesController < ApplicationController
   # GET /databases/new.json
   def new
     @database = Database.new
+    load_parameter_groups
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @database }
@@ -38,7 +39,7 @@ class DatabasesController < ApplicationController
   # GET /databases/1/edit
   def edit
     @database = Database.find(params[:id])
-    
+    load_parameter_groups
   end
 
   # POST /databases
@@ -63,7 +64,8 @@ class DatabasesController < ApplicationController
   # PUT /databases/1.json
   def update
     @database = Database.find(params[:id])
-
+    load_parameter_groups
+    
     respond_to do |format|
       if @database.update_attributes(params[:database])
         format.html { redirect_to @database, notice: 'Database was successfully updated.' }
@@ -109,6 +111,8 @@ class DatabasesController < ApplicationController
     rds_attributes[:availability_zone] = @database_conf.availability_zone unless @database_conf.multi_az
     rds_attributes[:flavor_id] = @database_conf.instance_class
     rds_attributes[:security_group_names] = @database_conf.security_group_names
+    rds_attributes[:parameter_group_name] = @database_conf.parameter_group
+    
     
     @database = RdsServer.new(rds_attributes)
     @prop_url = [:admin, @database]
@@ -145,7 +149,18 @@ class DatabasesController < ApplicationController
     end
   end
   
+
+  
   private
+    def load_parameter_groups
+      if parameter_groups.blank?
+        @database.errors.add(:parameter_group, "it failed to load rds parameter groups from agifog, using the the default one")
+      end
+    end
+  
+    def parameter_groups
+      @parameter_groups ||= RdsParameterGroup.all.map(&:id) rescue nil
+    end
   
     def create_rds_security_group(security_group_name,ec2_sg_to_authorize)
       # verify if the security group doesn't exist yet
@@ -167,6 +182,7 @@ class DatabasesController < ApplicationController
           puts "Fail #{ec2_sg_to_authorize}"
         end
       end
-
     end
+    
+
 end

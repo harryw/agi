@@ -5,7 +5,7 @@ class Database < ActiveRecord::Base
   before_validation :set_default_rds_attributes
   
 #  http://docs.amazonwebservices.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html
-  validates_presence_of :name, :db_name, :username, :password, :instance_class, :engine_version, :db_type, :instance_storage
+  validates_presence_of :name, :db_name, :username, :password, :instance_class, :engine_version, :db_type, :instance_storage, :parameter_group
   validates_presence_of :availability_zone, :unless => :multi_az
   validates_uniqueness_of :name
   validates_numericality_of :instance_storage, :greater_than_or_equal_to => 5, :less_than_or_equal_to => 1024

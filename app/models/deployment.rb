@@ -10,9 +10,7 @@ class Deployment < ActiveRecord::Base
     # :update_databag will be moved to an asyncronous state later
     before_save :set_initial_status, :save_deployed_data, :update_databag, :save_iq_file
 
-    
-    validates_presence_of :description
-    
+        
     #### IQ generation
       
     def save_iq_file
