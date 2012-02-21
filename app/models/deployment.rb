@@ -48,6 +48,7 @@ class Deployment < ActiveRecord::Base
     def set_initial_status
       self.started_at = Time.now
       self.final_result = 'Pending'
+      self.description = app.name if description.blank?
     end
     
     def save_deployed_data
