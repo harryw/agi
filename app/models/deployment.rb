@@ -26,7 +26,8 @@ class Deployment < ActiveRecord::Base
     
     def s3_key_name
       iq_folder = AppConfig.bucket_name.split('/')[1..-1].join('/')
-      @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time.to_s(:number)}.pdf"
+      @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time.to_s(:number)}.pdf".gsub!(/^\/,"")
+      
     end
     
     def iq_bucket
