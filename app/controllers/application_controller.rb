@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     
   
   def parse_json_body_errors(message)
-    # it returns and array of an array because grouping () is using, join flats and turns it into a string
+    # it returns an array of an array because grouping () is used, join flats it and turns it into a string
     body = message.scan(/Response body = (.*)\./).join
     decoded = ActiveSupport::JSON.decode(body) || {} rescue {}
     error = decoded['errors'] || []

@@ -10,3 +10,9 @@ production:
   iq_bucket: columbo-portal-test
   iq_folder: application-iqs/
   use_mauth: true
+test:
+  aws_access_key_id: AKIAIABI7QYVHWBRWXXX
+  aws_secret_access_key: xxxxxxxxxxxxxxx
+  iq_bucket: columbo-portal-test
+  iq_folder: application-iqs/
+  use_mauth: false

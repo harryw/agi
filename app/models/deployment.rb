@@ -26,8 +26,7 @@ class Deployment < ActiveRecord::Base
     
     def s3_key_name
       iq_folder = AppConfig.bucket_name.split('/')[1..-1].join('/')
-      @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time.to_s(:number)}.pdf".gsub!(/^\/,"")
-      
+      @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time.to_s(:number)}.pdf".gsub(/^\//,"")
     end
     
     def iq_bucket
@@ -39,7 +38,6 @@ class Deployment < ActiveRecord::Base
     end
     
     def gen_s3_url_iq
-      puts "https://#{iq_bucket}.s3.amazonaws.com/#{s3_key_name}"
       "https://#{iq_bucket}.s3.amazonaws.com/#{s3_key_name}"
     end
     
