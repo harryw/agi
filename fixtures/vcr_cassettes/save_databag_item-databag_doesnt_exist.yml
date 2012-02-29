@@ -1,168 +1,182 @@
 ---
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
-    method: :post
-    uri: https://api.opscode.com:443/organizations/scratch/data/agi_applications
-    body: !!null 
+http_interactions:
+- request:
+    method: post
+    uri: https://api.opscode.com/organizations/scratch/data/agi_applications
+    body:
+      encoding: US-ASCII
+      string: ''
     headers:
-      accept:
+      Accept:
       - application/json
-      content-type:
+      Content-Type:
       - application/json
-      content-length:
+      Content-Length:
       - '467'
-      x-ops-sign:
+      X-Ops-Sign:
       - version=1.0
-      x-ops-userid:
+      X-Ops-Userid:
       - restebanez
-      x-ops-timestamp:
+      X-Ops-Timestamp:
       - '2011-10-31T20:09:27Z'
-      x-ops-content-hash:
+      X-Ops-Content-Hash:
       - G5dyNcfaxojRoaOzicuGcspBmU4=
-      x-ops-authorization-1:
+      X-Ops-Authorization-1:
       - AEF0pFjKMUvHQ6/xNsJPh5FGG5P3KHGq9XEsdbuL+MV+8ksAQFN+G8ek7Ov+
-      x-ops-authorization-2:
+      X-Ops-Authorization-2:
       - foVeOT2LDXVDOxC0nm3HL4xEESOcFNPViAhLqiNv66vK5Cid8+Ay/pjGYsGx
-      x-ops-authorization-3:
+      X-Ops-Authorization-3:
       - KqS+4bHCzc/nCbzlMnEJXrIXWSmEVG3Qn2EXFqJZWEUDtx8YMF0zEIGkdZ/D
-      x-ops-authorization-4:
+      X-Ops-Authorization-4:
       - wUhlkfG6nOlykU1ODCuK98TpMcEnXtDRN0wbEwi+vEETwzvD8xjMYe31awc8
-      x-ops-authorization-5:
+      X-Ops-Authorization-5:
       - 90Fn3ru0WJp4KJ9p5tyulTwmZMnMXGNPm0tFCUDoqxv4Uj9B+7QPQWgqM7AP
-      x-ops-authorization-6:
+      X-Ops-Authorization-6:
       - eOeaDqCE8069e8eGzeuBGfvN1i4NorvpcvdVQBroRg==
-      host:
+      Host:
       - api.opscode.com:443
-      x-chef-version:
+      X-Chef-Version:
       - 0.10.4
-      user-agent:
+      User-Agent:
       - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
+  response:
+    status:
       code: 404
       message: Not Found
     headers:
-      server:
+      Server:
       - nginx/1.0.5
-      date:
+      Date:
       - Mon, 31 Oct 2011 20:09:28 GMT
-      content-type:
+      Content-Type:
       - application/json; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      status:
+      Status:
       - 404 Not Found
-    body: ! '{"error":["No data bag ''agi_applications'' could be found. Please
-      create this data bag before adding items to it."]}'
+    body:
+      encoding: UTF-8
+      string: ! '{"error":["No data bag ''agi_applications'' could be found. Please
+        create this data bag before adding items to it."]}'
     http_version: '1.1'
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
-    method: :post
-    uri: https://api.opscode.com:443/organizations/scratch//data
-    body: !!null 
+  recorded_at: Mon, 13 Feb 2012 02:38:27 GMT
+- request:
+    method: post
+    uri: https://api.opscode.com/organizations/scratch//data
+    body:
+      encoding: US-ASCII
+      string: ''
     headers:
-      accept:
+      Accept:
       - application/json
-      content-type:
+      Content-Type:
       - application/json
-      content-length:
+      Content-Length:
       - '34'
-      x-ops-sign:
+      X-Ops-Sign:
       - version=1.0
-      x-ops-userid:
+      X-Ops-Userid:
       - restebanez
-      x-ops-timestamp:
+      X-Ops-Timestamp:
       - '2011-10-31T20:09:28Z'
-      x-ops-content-hash:
+      X-Ops-Content-Hash:
       - urK+t/SDwieHUOLAblyyLkIgomM=
-      x-ops-authorization-1:
+      X-Ops-Authorization-1:
       - YDd0xqlCuZkkW5/F9oVFwvsGaRb9mvNi4dVoLC1lW47kDFwWcEevnIQBq0gw
-      x-ops-authorization-2:
+      X-Ops-Authorization-2:
       - b7fgpIrUwHtSVJ8hsT1VjN01/olVYtiUyZ+NQA17BNIltEl5Vp8xL+A0+d/R
-      x-ops-authorization-3:
+      X-Ops-Authorization-3:
       - moUG/QpGXeCsUe6wSow2Gb+8Lln1p9FJzX9QRbRAQqEyJse3oA6vGt+p1/+X
-      x-ops-authorization-4:
+      X-Ops-Authorization-4:
       - dCHuBQkJc+m1xY1J0Ci4Rc9K+rpOOlxvEEeuv4gU/MDOEM9NNBD9XS4Z83cV
-      x-ops-authorization-5:
+      X-Ops-Authorization-5:
       - DJHXkpYvqtt+zJjpKdKhFzlcsPDEnRPcudeMY2kfZZIj1hgK+yzVDdjDdfPk
-      x-ops-authorization-6:
+      X-Ops-Authorization-6:
       - qgUe1/N21rJ/tSkrErR4sEMQ5qEJVVHMMfI43gdSBg==
-      host:
+      Host:
       - api.opscode.com:443
-      x-chef-version:
+      X-Chef-Version:
       - 0.10.4
-      user-agent:
+      User-Agent:
       - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
+  response:
+    status:
       code: 201
       message: Created
     headers:
-      server:
+      Server:
       - nginx/1.0.5
-      date:
+      Date:
       - Mon, 31 Oct 2011 20:09:29 GMT
-      content-type:
+      Content-Type:
       - application/json; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      status:
+      Status:
       - 201 Created
-    body: ! '{"uri":"https://api.opscode.com/organizations/scratch/data/agi_applications"}'
+    body:
+      encoding: UTF-8
+      string: ! '{"uri":"https://api.opscode.com/organizations/scratch/data/agi_applications"}'
     http_version: '1.1'
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
-    method: :post
-    uri: https://api.opscode.com:443/organizations/scratch/data/agi_applications
-    body: !!null 
+  recorded_at: Mon, 13 Feb 2012 02:38:27 GMT
+- request:
+    method: post
+    uri: https://api.opscode.com/organizations/scratch/data/agi_applications
+    body:
+      encoding: US-ASCII
+      string: ''
     headers:
-      accept:
+      Accept:
       - application/json
-      content-type:
+      Content-Type:
       - application/json
-      content-length:
+      Content-Length:
       - '467'
-      x-ops-sign:
+      X-Ops-Sign:
       - version=1.0
-      x-ops-userid:
+      X-Ops-Userid:
       - restebanez
-      x-ops-timestamp:
+      X-Ops-Timestamp:
       - '2011-10-31T20:09:29Z'
-      x-ops-content-hash:
+      X-Ops-Content-Hash:
       - G5dyNcfaxojRoaOzicuGcspBmU4=
-      x-ops-authorization-1:
+      X-Ops-Authorization-1:
       - ToDlYGhLpNf4Bw0nt1Xbo4vGDBNrO3NAnsu0pQlALKnU7LCVIqlzi55jGieJ
-      x-ops-authorization-2:
+      X-Ops-Authorization-2:
       - SbbuJmkboMSrGsJ17HYa+oeq/EyGmTTYbBhaYwv3OAaSwCdIPMmUE1yGTfA1
-      x-ops-authorization-3:
+      X-Ops-Authorization-3:
       - 7WUFZ4J4h9L/Ll1eekqlIOC5wv6UyAhmeobbFBh7T/v4FxCj5xU94Z5DPzIV
-      x-ops-authorization-4:
+      X-Ops-Authorization-4:
       - RJiI82kiz7FfMveFg4JmEOL2FwZ9NUutD0IDGVo6ccph4+iY0XlD87hahq89
-      x-ops-authorization-5:
+      X-Ops-Authorization-5:
       - 7eMguc6xYGg1BoaNB8AkFs3JHkC1j6Z2sY8Jf9HJZDVA0X+zNFfM4bt6x3Vh
-      x-ops-authorization-6:
+      X-Ops-Authorization-6:
       - hQTz/mtZTsC2cw31axd9nHxgf7Ay8nRm4EJaZy/RIQ==
-      host:
+      Host:
       - api.opscode.com:443
-      x-chef-version:
+      X-Chef-Version:
       - 0.10.4
-      user-agent:
+      User-Agent:
       - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
+  response:
+    status:
       code: 200
       message: OK
     headers:
-      server:
+      Server:
       - nginx/1.0.5
-      date:
+      Date:
       - Mon, 31 Oct 2011 20:09:30 GMT
-      content-type:
+      Content-Type:
       - application/json; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      status:
+      Status:
       - 200 OK
-    body: ! '{"project":null,"id":"Mediflex-mdsol-production","database":null,"data_bag":"agi_applications","customer":null,"deployment":{"name":"Mediflex-mdsol-production","stage_name":"production","deploy_user":"medidata","alert_emails":"restebanez@mdsol.com,
-      jzimmerman@mdsol.com","url":"mediflex.cloudteam.com","multi_tenant":"true","uses_bundler":"true","rails_env":"production","deploy_group":"medidata","deploy_to":"/mnt/mediflex","git_revision":"1234567"},"chef_type":"data_bag_item","deployment_timestamp":"2011-10-21T18:24:35Z"}'
+    body:
+      encoding: UTF-8
+      string: ! '{"project":null,"id":"Mediflex-mdsol-production","database":null,"data_bag":"agi_applications","customer":null,"deployment":{"name":"Mediflex-mdsol-production","stage_name":"production","deploy_user":"medidata","alert_emails":"restebanez@mdsol.com,
+        jzimmerman@mdsol.com","url":"mediflex.cloudteam.com","multi_tenant":"true","uses_bundler":"true","rails_env":"production","deploy_group":"medidata","deploy_to":"/mnt/mediflex","git_revision":"1234567"},"chef_type":"data_bag_item","deployment_timestamp":"2011-10-21T18:24:35Z"}'
     http_version: '1.1'
+  recorded_at: Mon, 13 Feb 2012 02:38:27 GMT
+recorded_with: VCR 2.0.0.rc2

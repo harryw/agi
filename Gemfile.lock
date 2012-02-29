@@ -283,7 +283,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     uuidtools (2.1.2)
-    vcr (2.0.0.beta1)
+    vcr (2.0.0.rc2)
     warden (1.1.0)
       rack (>= 1.0)
     xpath (0.1.4)
@@ -329,5 +329,5 @@ DEPENDENCIES
   spork (> 0.9.0.rc)
   therubyracer
   uglifier (>= 1.0.3)
-  vcr (= 2.0.0.beta1)
+  vcr (> 2.0.0.rc)
   yajl-ruby
