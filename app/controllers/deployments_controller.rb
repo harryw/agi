@@ -42,7 +42,7 @@ class DeploymentsController < ApplicationController
       "WARNING: database is not ready yet, please wait until the rds instance is available"
     end
     
-    @deployment_data = @app.generate_deployment_data
+    load_deployment_data
     
     respond_to do |format|
       format.html # new.html.erb
@@ -61,6 +61,7 @@ class DeploymentsController < ApplicationController
         format.html { redirect_to [@app,@deployment], notice: "A deployment has been created" }
         format.json { render json: @deployment, status: :created, location: @deployment }
       else
+        load_deployment_data
         format.html { render action: "new" }
         format.json { render json: @deployment.errors, status: :unprocessable_entity }
       end
@@ -72,5 +73,10 @@ class DeploymentsController < ApplicationController
       @deployment = @app.deployments.find(params[:id])
   end
   
+  private
+  
+    def load_deployment_data
+      @deployment_data = @app.generate_deployment_data
+    end
 
 end

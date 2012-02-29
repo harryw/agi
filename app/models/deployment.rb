@@ -16,7 +16,19 @@ class Deployment < ActiveRecord::Base
     def save_iq_file
       pdf = IqDeployment.new(self,deploying_time)
       pdf_file_content = pdf.render
-      s3.directories.get(iq_bucket).files.create(:key => s3_key_name, :body=> pdf_file_content)
+      begin
+        s3.directories.get(iq_bucket).files.create(:key => s3_key_name, :body=> pdf_file_content)
+      rescue => e
+        error=""
+        if match = e.message.match(/<Code>(.*)<\/Code>[\s\\\w]*<Message>(.*)<\/Message>/m)
+          error="#{match[1].split('.').last} => #{match[2]}"
+        else
+          error=e.message
+        end
+        Rails.logger.info "S3 FAILURE - #{e.message}"
+        self.errors.add(:s3_failure, "it failed to save the IQ file in S3, #{error}")
+        return false
+      end
     end
     
     def s3

@@ -31,7 +31,7 @@ class IqDeployment < Prawn::Document
       text "DB User: #{@data_bag[:database][:username]}"
       text "DB Type: #{@data_bag[:database][:db_type]}"
     else
-      text "NON Database was specified"
+      text "None Database was specified"
     end
     text "----------------------------------------------------"
   end
