@@ -2,7 +2,10 @@
 
   -if @deployment.errors.any?
     #errorExplanation
-      %h2= "#{pluralize(@deployment.errors.count, "error")} prohibited this #{Deployment.name.titleize} from being saved:"
+      -if @deployment.errors.full_messages.first =~ /Remote connection/
+        %h2= "#{pluralize(@deployment.errors.count, "error")} when connecting with a remote service on #{Deployment.name.titleize}:"
+      -else
+        %h2= "#{pluralize(@deployment.errors.count, "error")} prohibited this #{Deployment.name.titleize} from being saved:"
       %ul
         - @deployment.errors.full_messages.each do |msg|
           %li= msg  

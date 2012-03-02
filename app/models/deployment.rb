@@ -16,7 +16,9 @@ class Deployment < ActiveRecord::Base
     def save_iq_file
       pdf = IqDeployment.new(self,deploying_time)
       pdf_file_content = pdf.render
+      
       begin
+        s3.get_bucket(iq_bucket) rescue s3.put_bucket(iq_bucket)
         s3.directories.get(iq_bucket).files.create(:key => s3_key_name, :body=> pdf_file_content)
       rescue => e
         error=""
@@ -26,7 +28,7 @@ class Deployment < ActiveRecord::Base
           error=e.message
         end
         Rails.logger.info "S3 FAILURE - #{e.message}"
-        self.errors.add(:s3_failure, "it failed to save the IQ file in S3, #{error}")
+        self.errors.add(:remote_connection_to_s3, "it failed to save the IQ file in S3, #{error}")
         return false
       end
     end
