@@ -46,6 +46,9 @@ gem 'mauth_signer', :git => 'git@github.com:mdsol/mauth_signer.git', :ref => '4e
 
 gem 'prawn' # pdf generator
 
+gem "newrelic_rpm"
+
+
 group :development do
   gem 'ruby-debug19'
 end
