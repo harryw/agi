@@ -34,17 +34,17 @@ class Deployment < ActiveRecord::Base
     end
     
     def s3
-      @s3 ||= Fog::Storage::AWS.new(:aws_access_key_id => AppConfig.amazon_s3["access_key_id"], 
-                                    :aws_secret_access_key => AppConfig.amazon_s3["secret_access_key"])
+      @s3 ||= Fog::Storage::AWS.new(:aws_access_key_id => AppConfig["amazon_s3"]["access_key_id"], 
+                                    :aws_secret_access_key => AppConfig["amazon_s3"]["secret_access_key"])
     end
     
     def s3_key_name
-      iq_folder = AppConfig.amazon_s3["bucket_name"].split('/')[1..-1].join('/')
+      iq_folder = AppConfig["amazon_s3"]["bucket_name"].split('/')[1..-1].join('/')
       @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time.to_s(:number)}.pdf".gsub(/^\//,"")
     end
     
     def iq_bucket
-      AppConfig.amazon_s3["bucket_name"].split('/').first
+      AppConfig["amazon_s3"]["bucket_name"].split('/').first
     end
     
     def deploying_time
