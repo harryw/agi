@@ -1,0 +1,24 @@
+%h1 Listing projects
+
+%table
+  %tr
+    %th Name
+    %th Name tag
+    %th Homepage
+    %th Description
+    %th Repository
+    %th
+    %th
+    %th
+
+  - @projects.each do |project|
+    %tr
+      %td= link_to project.name, project
+      %td= project.name_tag
+      %td= project.homepage
+      %td= project.description
+      %td= project.repository
+
+%br
+
+= link_to 'New Project', new_project_path

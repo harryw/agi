@@ -1,0 +1,30 @@
+= simple_form_for @app do |form|
+
+  -if @app.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@app.errors.count, "error")} prohibited this #{App.name.titleize} from being saved:"
+      %ul
+        - @app.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :description, :label => 'Description'
+  = form.association :customer, :label => 'Customer', :prompt => "Choose a Customer"
+  = form.association :project, :label => 'Project', :prompt => "Choose a Project"
+  = form.association :chef_account, :label => 'Chef Account', :prompt => "Choose a Chef Account"
+  = form.association :database, :Label => 'Database', :prompt => "Choose a Database"
+  = form.input :auto_generate_database, :label => "Create a new DB"
+  = form.input :ec2_sg_to_authorize, :label => 'EC2 Security Group to Authorize in RDS'
+  = form.input :stage_name, :label => 'Stage Name'
+  = form.input :deploy_user, :label => 'Deploy User'
+  = form.input :deploy_group, :label => 'Deploy Group'
+  = form.input :multi_tenant, :label => 'Multi Tenant'
+  = form.input :uses_bundler, :label => 'Uses Bundler'
+  = form.input :alert_emails, :label => 'Alert Emails'
+  = form.input :url, :label => 'Url'
+  = form.input :git_branch, :label => 'Git Branch'
+  = form.input :git_revision, :label => 'Git Revision'
+  = form.input :rails_env, :label => 'Rails Env', :collection => %w{ production development }
+  = form.input :platform, :label => 'Platform', :collection => %w{ rails ctms }
+
+  .actions
+    = form.button :submit

@@ -1,0 +1,18 @@
+= simple_form_for @chef_account do |form|
+
+  -if @chef_account.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@chef_account.errors.count, "error")} prohibited this #{ChefAccount.name.titleize} from being saved:"
+      %ul
+        - @chef_account.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :name, :label => 'Name'
+  = form.input :client_name, :label => 'Client Name'
+  = form.input :validator_key, :label => 'Validator Key'
+  = form.input :client_key, :label => 'Client Key'
+  = form.input :databag_key, :label => 'Databag Key'
+  = form.input :api_url, :label => 'Api Url'
+
+  .actions
+    = form.button :submit

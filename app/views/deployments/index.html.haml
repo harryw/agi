@@ -1,0 +1,25 @@
+%h1 Listing deployments
+
+%table
+  %tr
+    %th Description
+    %th Result
+    %th Git repo
+    %th Git commit
+    %th Task
+    %th App
+    %th Started at
+    %th
+    %th
+    %th
+
+  - @deployments.each do |deployment|
+    %tr
+      %td= link_to_if deployment.description, deployment.description, [@app,deployment]
+      %td= deployment.final_result
+      %td= deployment.git_repo
+      %td= deployment.git_commit
+      %td= deployment.task
+      %td= link_to deployment.app.name, deployment.app
+      %td= deployment.started_at
+%br

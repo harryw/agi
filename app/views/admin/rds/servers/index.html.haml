@@ -1,0 +1,36 @@
+%h1 Listing RDS Instances
+
+%table
+  %tr
+    %th Name
+    %th State
+    %th Db name
+    %th Username
+    %th Type
+    %th Instance class
+    %th Size
+    %th Multi az
+    %th Availability zone
+    %th Engine version
+    %th Is it in AGI?
+    %th
+    %th
+    %th
+
+  - @servers.each do |database|
+    %tr
+      %td= link_to database.name, [:admin, database]
+      %td= database.state
+      %td= database.db_name
+      %td= database.master_username
+      %td= database.engine
+      %td= database.flavor_id
+      %td= database.allocated_storage
+      %td= database.multi_az
+      %td= database.availability_zone
+      %td= database.engine_version
+      %td= link_to_if find_database_in_agi(database.name), find_database_in_agi(database.name) ? "Agi Conf" : "NO", find_database_in_agi(database.name)
+
+%br
+
+= link_to 'New RDS instance', [:new, :admin, :rds_server]

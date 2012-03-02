@@ -1,0 +1,22 @@
+
+
+%p
+  %b Name:
+  = @project.name
+%p
+  %b Name tag
+  = @project.name_tag
+%p
+  %b Repository:
+  = @project.repository
+%p
+  %b Repo private key:
+  = @project.repo_private_key
+
+= link_to 'Edit', edit_project_path(@project)
+\|
+= link_to 'Destroy', @project, :confirm => 'Are you sure?', :method => :delete
+\|
+= link_to 'New Customization', [:new, @project, :customization]
+\|
+= link_to 'Customizations', [@project, :customizations]

@@ -1,0 +1,22 @@
+= simple_form_for [@app,@deployment] do |form|
+
+  -if @deployment.errors.any?
+    #errorExplanation
+      -if @deployment.errors.full_messages.first =~ /Remote connection/
+        %h2= "#{pluralize(@deployment.errors.count, "error")} when connecting with a remote service on #{Deployment.name.titleize}:"
+      -else
+        %h2= "#{pluralize(@deployment.errors.count, "error")} prohibited this #{Deployment.name.titleize} from being saved:"
+      %ul
+        - @deployment.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :description, :label => 'Description'
+  = form.input :force_deploy, :label => 'force_deploy'
+  = form.input :send_email, :label => 'Send Email'
+  = form.input :task, :label => 'Task'
+  = form.input :run_migrations, :label => 'Do Migrations'
+  = form.input :migration_command, :label => 'Migration Command'
+  = form.input :deployment_timestamp, :as => :hidden, :input_html => { :value => @app.app_timestamp }
+
+  .actions
+    = form.button :submit

@@ -1,0 +1,53 @@
+%p
+  %b Final deployment result:
+  = @deployment.final_result
+%p
+  %b IQ:
+  = link_to_unless @deployment.s3_url_iq.blank?, "IQ URL", @deployment.s3_url_iq
+%p
+  %b Deployed by:
+  = @deployment.user.email if @deployment.user
+%p
+  %b Git repo:
+  = @deployment.git_repo
+%p
+  %b Git commit:
+  = @deployment.git_commit
+%p
+  %b Description:
+  = @deployment.description
+%p
+  %b Send email:
+  = @deployment.send_email
+%p
+  %b Task:
+  = @deployment.task
+%p
+  %b Run migrations:
+  = @deployment.run_migrations
+%p
+  %b Migration command:
+  = @deployment.migration_command
+%p
+  %b Opscode error log:
+  = @deployment.opscode_log
+%p
+  %b App:
+  = link_to @deployment.app.name, @deployment.app
+%p
+  %b Started at:
+  = @deployment.started_at
+%p
+  %b Completed at:
+  = @deployment.completed_at
+%p
+  %b deployment_timestamp:
+  = @deployment.deployment_timestamp
+
+%p
+  %b Deployed Data:
+  %pre
+    = JSON.pretty_generate(JSON.parse(@deployment.deployed_data.to_json))
+
+
+= link_to 'Back', app_deployments_path(@app)

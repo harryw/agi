@@ -1,0 +1,76 @@
+
+%p
+  %b Name:
+  = @app.name
+%p
+  %b Description:
+  = @app.description
+%p
+  %b Stage name:
+  = @app.stage_name
+%p
+  %b Customer name:
+  = link_to @app.customer_name, @app.customer
+%p
+  %b Project name:
+  = link_to @app.project_name, @app.project
+%p
+  %b Database Name:
+  = link_to_if @app.database, @app.database.try(:name), @app.database
+%p
+  %b EC2 Security Group Authorized in RDS:
+  = @app.ec2_sg_to_authorize
+%p
+  %b Deploy to:
+  = @app.deploy_to
+%p
+  %b Deploy user:
+  = @app.deploy_user
+%p
+  %b Deploy group:
+  = @app.deploy_group
+%p
+  %b Multi tenant:
+  = @app.multi_tenant
+%p
+  %b Uses bundler:
+  = @app.uses_bundler
+%p
+  %b Alert emails:
+  = @app.alert_emails
+%p
+  %b Url:
+  = @app.url
+%p
+  %b Git branch:
+  = @app.git_branch
+%p
+  %b Git revision:
+  = @app.git_revision
+%p
+  %b Rails env:
+  = @app.rails_env
+%p
+  %b Platform:
+  = @app.platform
+%p
+  %b Timestamp in the Databag (Last deployment):
+  = @app.databag_item_timestamp
+%p
+  %b Deployments
+  = link_to 'Deployments', app_deployments_path(@app)
+
+
+
+#deployment_status= @deployment_status 
+
+= link_to 'Deploy', new_app_deployment_path(@app)
+
+= link_to 'Edit', edit_app_path(@app)
+\|
+= link_to 'Destroy', @app, :confirm => 'Are you sure?', :method => :delete
+\|
+= link_to 'New Customization', [:new, @app, :customization]
+\|
+= link_to 'Customizations', [@app, :customizations]
+

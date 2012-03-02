@@ -1,0 +1,10 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
+.sass-cache/
+*.swp
+*DS_STORE
+spec/factories/chef_accounts.rb.real_data
+config/mauth_settings.yml
+config/amazon_s3.yml

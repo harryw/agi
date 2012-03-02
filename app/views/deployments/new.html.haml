@@ -1,0 +1,8 @@
+%h1 New deployment
+
+= render 'form'
+
+%pre
+  #deployment_data= JSON.pretty_generate(JSON.parse(@deployment_data.to_json))
+
+= link_to 'Back', [@app]

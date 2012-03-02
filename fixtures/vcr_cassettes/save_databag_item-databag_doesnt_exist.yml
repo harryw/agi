@@ -1,0 +1,182 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.opscode.com/organizations/scratch/data/agi_applications
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '467'
+      X-Ops-Sign:
+      - version=1.0
+      X-Ops-Userid:
+      - restebanez
+      X-Ops-Timestamp:
+      - '2011-10-31T20:09:27Z'
+      X-Ops-Content-Hash:
+      - G5dyNcfaxojRoaOzicuGcspBmU4=
+      X-Ops-Authorization-1:
+      - AEF0pFjKMUvHQ6/xNsJPh5FGG5P3KHGq9XEsdbuL+MV+8ksAQFN+G8ek7Ov+
+      X-Ops-Authorization-2:
+      - foVeOT2LDXVDOxC0nm3HL4xEESOcFNPViAhLqiNv66vK5Cid8+Ay/pjGYsGx
+      X-Ops-Authorization-3:
+      - KqS+4bHCzc/nCbzlMnEJXrIXWSmEVG3Qn2EXFqJZWEUDtx8YMF0zEIGkdZ/D
+      X-Ops-Authorization-4:
+      - wUhlkfG6nOlykU1ODCuK98TpMcEnXtDRN0wbEwi+vEETwzvD8xjMYe31awc8
+      X-Ops-Authorization-5:
+      - 90Fn3ru0WJp4KJ9p5tyulTwmZMnMXGNPm0tFCUDoqxv4Uj9B+7QPQWgqM7AP
+      X-Ops-Authorization-6:
+      - eOeaDqCE8069e8eGzeuBGfvN1i4NorvpcvdVQBroRg==
+      Host:
+      - api.opscode.com:443
+      X-Chef-Version:
+      - 0.10.4
+      User-Agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - nginx/1.0.5
+      Date:
+      - Mon, 31 Oct 2011 20:09:28 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 404 Not Found
+    body:
+      encoding: UTF-8
+      string: ! '{"error":["No data bag ''agi_applications'' could be found. Please
+        create this data bag before adding items to it."]}'
+    http_version: '1.1'
+  recorded_at: Mon, 13 Feb 2012 02:38:27 GMT
+- request:
+    method: post
+    uri: https://api.opscode.com/organizations/scratch//data
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '34'
+      X-Ops-Sign:
+      - version=1.0
+      X-Ops-Userid:
+      - restebanez
+      X-Ops-Timestamp:
+      - '2011-10-31T20:09:28Z'
+      X-Ops-Content-Hash:
+      - urK+t/SDwieHUOLAblyyLkIgomM=
+      X-Ops-Authorization-1:
+      - YDd0xqlCuZkkW5/F9oVFwvsGaRb9mvNi4dVoLC1lW47kDFwWcEevnIQBq0gw
+      X-Ops-Authorization-2:
+      - b7fgpIrUwHtSVJ8hsT1VjN01/olVYtiUyZ+NQA17BNIltEl5Vp8xL+A0+d/R
+      X-Ops-Authorization-3:
+      - moUG/QpGXeCsUe6wSow2Gb+8Lln1p9FJzX9QRbRAQqEyJse3oA6vGt+p1/+X
+      X-Ops-Authorization-4:
+      - dCHuBQkJc+m1xY1J0Ci4Rc9K+rpOOlxvEEeuv4gU/MDOEM9NNBD9XS4Z83cV
+      X-Ops-Authorization-5:
+      - DJHXkpYvqtt+zJjpKdKhFzlcsPDEnRPcudeMY2kfZZIj1hgK+yzVDdjDdfPk
+      X-Ops-Authorization-6:
+      - qgUe1/N21rJ/tSkrErR4sEMQ5qEJVVHMMfI43gdSBg==
+      Host:
+      - api.opscode.com:443
+      X-Chef-Version:
+      - 0.10.4
+      User-Agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx/1.0.5
+      Date:
+      - Mon, 31 Oct 2011 20:09:29 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 201 Created
+    body:
+      encoding: UTF-8
+      string: ! '{"uri":"https://api.opscode.com/organizations/scratch/data/agi_applications"}'
+    http_version: '1.1'
+  recorded_at: Mon, 13 Feb 2012 02:38:27 GMT
+- request:
+    method: post
+    uri: https://api.opscode.com/organizations/scratch/data/agi_applications
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '467'
+      X-Ops-Sign:
+      - version=1.0
+      X-Ops-Userid:
+      - restebanez
+      X-Ops-Timestamp:
+      - '2011-10-31T20:09:29Z'
+      X-Ops-Content-Hash:
+      - G5dyNcfaxojRoaOzicuGcspBmU4=
+      X-Ops-Authorization-1:
+      - ToDlYGhLpNf4Bw0nt1Xbo4vGDBNrO3NAnsu0pQlALKnU7LCVIqlzi55jGieJ
+      X-Ops-Authorization-2:
+      - SbbuJmkboMSrGsJ17HYa+oeq/EyGmTTYbBhaYwv3OAaSwCdIPMmUE1yGTfA1
+      X-Ops-Authorization-3:
+      - 7WUFZ4J4h9L/Ll1eekqlIOC5wv6UyAhmeobbFBh7T/v4FxCj5xU94Z5DPzIV
+      X-Ops-Authorization-4:
+      - RJiI82kiz7FfMveFg4JmEOL2FwZ9NUutD0IDGVo6ccph4+iY0XlD87hahq89
+      X-Ops-Authorization-5:
+      - 7eMguc6xYGg1BoaNB8AkFs3JHkC1j6Z2sY8Jf9HJZDVA0X+zNFfM4bt6x3Vh
+      X-Ops-Authorization-6:
+      - hQTz/mtZTsC2cw31axd9nHxgf7Ay8nRm4EJaZy/RIQ==
+      Host:
+      - api.opscode.com:443
+      X-Chef-Version:
+      - 0.10.4
+      User-Agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.5
+      Date:
+      - Mon, 31 Oct 2011 20:09:30 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+    body:
+      encoding: UTF-8
+      string: ! '{"project":null,"id":"Mediflex-mdsol-production","database":null,"data_bag":"agi_applications","customer":null,"deployment":{"name":"Mediflex-mdsol-production","stage_name":"production","deploy_user":"medidata","alert_emails":"restebanez@mdsol.com,
+        jzimmerman@mdsol.com","url":"mediflex.cloudteam.com","multi_tenant":"true","uses_bundler":"true","rails_env":"production","deploy_group":"medidata","deploy_to":"/mnt/mediflex","git_revision":"1234567"},"chef_type":"data_bag_item","deployment_timestamp":"2011-10-21T18:24:35Z"}'
+    http_version: '1.1'
+  recorded_at: Mon, 13 Feb 2012 02:38:27 GMT
+recorded_with: VCR 2.0.0.rc2

@@ -1,0 +1,55 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @server.name
+%p
+  %b Is it in AGI?:
+  = link_to_if find_database_in_agi(@server.name), find_database_in_agi(@server.name) ? "Agi Conf" : "NO", find_database_in_agi(@server.name)
+%p
+  %b State:
+  = @server.state
+%p
+  %b Db name:
+  = @server.db_name
+%p
+  %b Username:
+  = @server.master_username
+%p
+  %b Hostname:
+  = @server.endpoint.attributes["Address"]
+%p
+  %b Type:
+  = @server.engine
+%p
+  %b Instance class:
+  = @server.flavor_id
+%p
+  %b Instance storage:
+  = @server.allocated_storage
+%p
+  %b Multi az:
+  = @server.multi_az
+%p
+  %b Availability zone:
+  = @server.availability_zone
+%p
+  %b Engine version:
+  = @server.engine_version
+%p
+  - @server.db_parameter_groups.each do |param_group|
+    %b Parameter Group Name:
+    = param_group.attributes["DBParameterGroupName"]
+    %b Status:
+    = param_group.attributes["ParameterApplyStatus"]
+
+%p
+  %b Pending Modified Values Hash:
+  = @server.pending_modified_values.attributes
+
+= link_to 'Rds Servers', [:admin, :rds_servers]
+\|
+= link_to_unless find_database_in_agi(@server.name), 'Shutdown', [:admin, @server], :confirm => 'This RDS instance will be shutdown, Are you sure?', :method => :delete
+\|
+= link_to_if find_database_in_agi(@server.name), 'Stop', stop_database_path(find_database_in_agi(@server.name))
+

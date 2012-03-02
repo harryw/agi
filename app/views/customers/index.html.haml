@@ -1,0 +1,17 @@
+%h1 Listing customers
+
+%table
+  %tr
+    %th Name
+    %th Tag name
+    %th
+    %th
+    %th
+
+  - @customers.each do |customer|
+    %tr
+      %td= link_to customer.name, customer
+      %td= customer.name_tag
+%br
+
+= link_to 'New Customer', new_customer_path

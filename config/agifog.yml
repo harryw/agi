@@ -1,0 +1,6 @@
+development:
+  hostname: agifog.dev
+  port: 80
+test:
+  hostname: agifog.dev
+  port: 80

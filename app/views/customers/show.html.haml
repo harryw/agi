@@ -1,0 +1,15 @@
+
+%p
+  %b Name:
+  = @customer.name
+%p
+  %b Tag name:
+  = @customer.name_tag
+
+= link_to 'Edit', edit_customer_path(@customer)
+\|
+= link_to 'Destroy', @customer, :confirm => 'Are you sure?', :method => :delete
+\|
+= link_to 'New Customization', [:new, @customer, :customization]
+\|
+= link_to 'Customizations', [@customer, :customizations]

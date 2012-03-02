@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.opscode.com/organizations/scratch/data/agi_applications
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '467'
+      X-Ops-Sign:
+      - version=1.0
+      X-Ops-Userid:
+      - restebanez
+      X-Ops-Timestamp:
+      - '2011-10-31T21:12:37Z'
+      X-Ops-Content-Hash:
+      - G5dyNcfaxojRoaOzicuGcspBmU4=
+      X-Ops-Authorization-1:
+      - AK2+U97mS3fBld90DRC+uzVu7YmBKcYCgwqQPcqenrHqFio3zDejXpEfmvC0
+      X-Ops-Authorization-2:
+      - 18YN2Do3ww++1z0CqOAbdUmVFMbTEMEGFtYxTrybR4Jh6sUQBJoiMLjGzAWN
+      X-Ops-Authorization-3:
+      - XEvvXKM+rW2E3ON8S2ak4LqB5m/RC3brEf9ilHIQoIza41K+CWInfrzwmeA7
+      X-Ops-Authorization-4:
+      - EyX2Bv4Ik2fIoPRFYtK05jLYDTuAxP2575X5NGCsdKnpJkg3oOpRQkjij/9X
+      X-Ops-Authorization-5:
+      - G2YXTW5X9uzKzwH1LgaH7yqUQ4cM/N9EiiV2tEzqpr4cGjV9OC6+M40sfyAV
+      X-Ops-Authorization-6:
+      - M8302s1E2VgmTzoDMloJCfaFiPULCssCxGIzolO8IQ==
+      Host:
+      - api.opscode.com:443
+      X-Chef-Version:
+      - 0.10.4
+      User-Agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - nginx/1.0.5
+      Date:
+      - Mon, 31 Oct 2011 21:12:37 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 401 Unauthorized
+    body:
+      encoding: UTF-8
+      string: ! '{"error":["Failed to authenticate as restebanez. Ensure that your
+        node_name and client key are correct."]}'
+    http_version: '1.1'
+  recorded_at: Mon, 13 Feb 2012 02:38:27 GMT
+recorded_with: VCR 2.0.0.rc2

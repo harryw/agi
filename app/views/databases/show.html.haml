@@ -1,0 +1,78 @@
+
+%p
+  %b Name:
+  = @database.name
+%p
+  %b Attached App:
+  = link_to_if @database.app, @database.app.try(:name) || "none", @database.app 
+%p
+  %b State:
+  = @database.state
+%p
+  %b Db name:
+  = @database.db_name
+%p
+  %b Username:
+  = @database.username
+%p
+  %b Hostname:
+  = @database.hostname
+
+  - if @database.ready? 
+    \|
+    %font{:color => "orange"} [connection string]
+    :javascript
+      function getCopiedText() {
+        return document.getElementById('texttocopy').value;
+      }
+    %object#clippy{:classid => "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000", :height => "14", :width => "110"}
+      %param{:name => "movie", :value => "/flash/clippy.swf"}/
+      %param{:name => "allowScriptAccess", :value => "always"}/
+      %param{:name => "quality", :value => "high"}/
+      %param{:name => "scale", :value => "noscale"}/
+      %param{:name => "FlashVars", :value => "func=getCopiedText"}/
+      %param{:name => "bgcolor", :value => "#FFFFFF"}/
+      %embed{:allowscriptaccess => "always", :bgcolor => "#FFFFFF", :flashvars => "func=getCopiedText", :height => "14", :name => "clippy", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :quality => "high", :src => "/flash/clippy.swf", :type => "application/x-shockwave-flash", :width => "110"}/
+    %input#texttocopy{:type => "hidden", :value => @database.mysql_command}/
+
+%p
+  %b Client cert:
+  = @database.client_cert
+%p
+  %b Type:
+  = @database.db_type
+%p
+  %b Instance class:
+  = @database.instance_class
+%p
+  %b Instance storage:
+  = @database.instance_storage
+%p
+  %b Multi az:
+  = @database.multi_az
+%p
+  %b Availability zone:
+  = @database.availability_zone
+%p
+  %b Engine version:
+  = @database.engine_version
+%p
+  - @database.security_group_names.each do |sg_name|
+    %b Security group
+    = link_to sg_name, admin_rds_security_group_path(sg_name)
+%p
+  %b Parameter Group:
+  = @database.parameter_group
+%p
+  %b EC2 Security Group To Authorize:
+  = @database.ec2_sg_to_authorize
+
+
+= link_to 'Database Configurations', databases_url
+\|
+= link_to_unless @database.started, 'Edit', edit_database_path(@database)
+\|
+= link_to 'Destroy', @database, :confirm => 'This will also shutdown the rds instance, Are you sure?', :method => :delete
+\|
+= link_to_unless @database.started, 'Start', start_database_path(@database)
+= link_to_if @database.started, 'Stop', stop_database_path(@database)

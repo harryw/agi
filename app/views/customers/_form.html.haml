@@ -1,0 +1,14 @@
+= simple_form_for @customer do |form|
+
+  -if @customer.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@customer.errors.count, "error")} prohibited this #{Customer.name.titleize} from being saved:"
+      %ul
+        - @customer.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :name, :label => 'Name'
+  = form.input :name_tag, :label => 'Name Tag'
+
+  .actions
+    = form.button :submit

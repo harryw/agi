@@ -1,0 +1,19 @@
+%h1 Listing chef_accounts
+
+%table
+  %tr
+    %th Name
+    %th Client Name
+    %th Api url
+    %th
+    %th
+    %th
+
+  - @chef_accounts.each do |chef_account|
+    %tr
+      %td= link_to chef_account.name, chef_account
+      %td= chef_account.client_name
+      %td= chef_account.api_url
+%br
+
+= link_to 'New Chef account', new_chef_account_path

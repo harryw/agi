@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.opscode.com/organizations/scratch/data/agi_applications
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '467'
+      X-Ops-Sign:
+      - version=1.0
+      X-Ops-Userid:
+      - restebanez
+      X-Ops-Timestamp:
+      - '2011-10-31T20:00:50Z'
+      X-Ops-Content-Hash:
+      - G5dyNcfaxojRoaOzicuGcspBmU4=
+      X-Ops-Authorization-1:
+      - kTXyvJzaUFI87jKlq2Zi4Is6dG2VkXlhTZ0LOhjirRKHPPiqdqosyIWbvjF9
+      X-Ops-Authorization-2:
+      - LfgpUIcE+OZoxKv+8XROaCaZW6Qxbu/Po+O/cvhu83181cCgOVL7HZZGO+Su
+      X-Ops-Authorization-3:
+      - XKJHqwo9LZ8ZFmIeBBPgsRGEj+l1eQB3yt4PX/ukTq8MNSSZltBD8w/ZzneZ
+      X-Ops-Authorization-4:
+      - 2GLYmlDJ6VbxDwTIHg/RIRd4cAy8KSHhg6ocQ8mvVvhAwxVrO8moOUNtPOWm
+      X-Ops-Authorization-5:
+      - ZRLvQFDFLx2q6eORwPP2v+Ag6gdJN5jAbTPvSQLhyMj5hdKNRpUXOnH0+/jq
+      X-Ops-Authorization-6:
+      - hnQHPfidwsGmGqQFHqGEBoiB1v+FfVfsOkiAUq3qxg==
+      Host:
+      - api.opscode.com:443
+      X-Chef-Version:
+      - 0.10.4
+      User-Agent:
+      - Chef Client/0.10.4 (ruby-1.9.2-p290; ohai-0.6.10; x86_64-darwin10.8.0; +http://opscode.com)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.0.5
+      Date:
+      - Mon, 31 Oct 2011 20:00:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+    body:
+      encoding: UTF-8
+      string: ! '{"_rev":"6-b7aa7a709569454f7e3bda265084c10a","project":null,"id":"Mediflex-mdsol-production","database":null,"data_bag":"agi_applications","customer":null,"deployment":{"name":"Mediflex-mdsol-production","stage_name":"production","deploy_user":"medidata","alert_emails":"restebanez@mdsol.com,
+        jzimmerman@mdsol.com","url":"mediflex.cloudteam.com","multi_tenant":"true","uses_bundler":"true","rails_env":"production","deploy_group":"medidata","deploy_to":"/mnt/mediflex","git_revision":"1234567"},"chef_type":"data_bag_item","deployment_timestamp":"2011-10-21T18:24:35Z"}'
+    http_version: '1.1'
+  recorded_at: Mon, 13 Feb 2012 02:38:27 GMT
+recorded_with: VCR 2.0.0.rc2

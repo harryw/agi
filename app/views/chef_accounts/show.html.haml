@@ -1,0 +1,26 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @chef_account.name
+%p
+  %b Client name:
+  = @chef_account.client_name
+%p
+  %b Validator key:
+  = @chef_account.validator_key
+%p
+  %b Client key:
+  = @chef_account.client_key
+%p
+  %b Databag key:
+  = @chef_account.databag_key
+%p
+  %b Api url:
+  = @chef_account.api_url
+
+= link_to 'Edit', edit_chef_account_path(@chef_account)
+\|
+= link_to 'Destroy', @chef_account, :confirm => 'Are you sure?', :method => :delete
+\|
+= link_to 'Back', chef_accounts_path
