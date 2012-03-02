@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://agifog.dev/api/v1/rds/parameter_groups.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      etag:
+      - ! '"a387283385e093004059f1cf89eecc09"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-runtime:
+      - '1.210766'
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "[\n  {\n    \"family\": \"mysql5.5\",\n    \"description\": \"Default
+        for all CTMS non-production systems\",\n    \"id\": \"ctms-default-default\"\n
+        \ },\n  {\n    \"family\": \"mysql5.5\",\n    \"description\": \"Clinical
+        Trials Management System hot settings\",\n    \"id\": \"ctms-perf-test\"\n
+        \ },\n  {\n    \"family\": \"mysql5.1\",\n    \"description\": \"Logs all
+        queries\",\n    \"id\": \"debugging\"\n  },\n  {\n    \"family\": \"mysql5.1\",\n
+        \   \"description\": \"Default parameter group for mysql5.1\",\n    \"id\":
+        \"default.mysql5.1\"\n  },\n  {\n    \"family\": \"mysql5.5\",\n    \"description\":
+        \"Default parameter group for mysql5.5\",\n    \"id\": \"default.mysql5.5\"\n
+        \ },\n  {\n    \"family\": \"mysql5.1\",\n    \"description\": \"imedidata-performance-mysql5-1\",\n
+        \   \"id\": \"imedidata-performance-mysql5-1\"\n  },\n  {\n    \"family\":
+        \"mysql5.5\",\n    \"description\": \"imedidata-performance-mysql5-5\",\n
+        \   \"id\": \"imedidata-performance-mysql5-5\"\n  },\n  {\n    \"family\":
+        \"mysql5.1\",\n    \"description\": \"Increased INNODB lock wait timeout\",\n
+        \   \"id\": \"lock-wait-timeout\"\n  },\n  {\n    \"family\": \"mysql5.1\",\n
+        \   \"description\": \"The default mysql5.1 group for Medidata\",\n    \"id\":
+        \"mdsol-mysql5-1\"\n  },\n  {\n    \"family\": \"mysql5.5\",\n    \"description\":
+        \"The default mysql5.5 group for Medidata\",\n    \"id\": \"mdsol-mysql5-5\"\n
+        \ }\n]"
+    http_version: '1.1'
+  recorded_at: Fri, 02 Mar 2012 19:51:00 GMT
+recorded_with: VCR 2.0.0.rc2
