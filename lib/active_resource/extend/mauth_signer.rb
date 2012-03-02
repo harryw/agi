@@ -9,8 +9,7 @@ module ActiveResource #:nodoc:
          # post request(:post, path, body.to_s, build_request_headers(headers, :post, self.site.merge(path)))
 
          def request(method, path, *arguments)
-           mauth_config = YAML.load_file(File.join(Rails.root, "config", "mauth.yml"))[Rails.env]
-           mauth_config = mauth_config.symbolize_keys
+           mauth_config = AppConfig.mauth.symbolize_keys
            mauth_config[:private_key] = File.read(mauth_config[:private_key_file])
            mauth_signer = MAuth::Signer.new(mauth_config)
 

@@ -1,8 +1,7 @@
 class RdsParameterGroup < ActiveResource::Base
-  include ActiveResource::Extend::MauthSigner if AppConfig.enable_mauth
+  include ActiveResource::Extend::MauthSigner if AppConfig.mauth["enable_mauth"]
   include ActiveResource::Extend::ShowErrors
-  agifog_settings = YAML.load_file(File.join(Rails.root, "config", "agifog_settings.yml"))[:agifog]
-  self.site = "http://#{agifog_settings[:hostname]}:#{agifog_settings[:port]}/api/v1/rds/"
+  self.site = "http://#{AppConfig.agifog["hostname"]}:#{AppConfig.agifog["port"]}/api/v1/rds/"
   self.element_name = "parameter_group"
   alias_attribute :name, :id
   
