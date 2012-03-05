@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :customer do
-      name "MyString"
-      name_tag "MyString"
+      name "Medidata"
+      name_tag "medidata"
     end
 end

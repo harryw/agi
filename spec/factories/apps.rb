@@ -13,10 +13,8 @@ FactoryGirl.define do
       alert_emails "restebanez@mdsol.com, jzimmerman@mdsol.com"
       url "mediflex.cloudteam.com"
       git_revision "1234567"
+      platform "rails"
       rails_env "production"
-      cache_cluster_link "mediflex-cache"
-      infrastructure_link "cid3rails-production-1"
-      newrelic_account_link "production"
       updated_at "Fri, 21 Oct 2011 18:24:35 UTC +00:00"
       association :chef_account, :factory => :chef_account
       association :customer, :factory => :customer
