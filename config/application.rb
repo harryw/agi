@@ -59,6 +59,7 @@ module Agi
     end
     
     config.middleware.use Rack::ActiveRecordStatus
+    config.active_record.whitelist_attributes = true
     
   end
 end

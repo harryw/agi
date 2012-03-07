@@ -6,6 +6,7 @@ class Customer < ActiveRecord::Base
     
     after_save :update_apps
     
+    attr_accessible :name_tag, :name
     
     def update_apps
       apps.each {|a|a.touch }

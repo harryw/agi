@@ -10,6 +10,7 @@ class Deployment < ActiveRecord::Base
     # :update_databag will be moved to an asyncronous state later
     before_save :set_initial_status, :save_deployed_data, :update_databag, :save_iq_file
 
+    attr_accessible :git_repo, :git_commit, :send_email, :task, :run_migrations, :migration_command, :app_id, :deployment_timestamp, :deployed_data, :force_deploy, :final_result, :opscode_result, :opscode_log, :description, :user_id, :s3_url_iq, :deployed_time
         
     #### IQ generation
       

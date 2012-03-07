@@ -19,6 +19,8 @@ class App < ActiveRecord::Base
     validates_presence_of :customer, :project, :chef_account, :stage_name
     validates_uniqueness_of :name
     
+    attr_accessible :name, :description, :stage_name, :deploy_to, :deploy_user, :deploy_group, :alert_emails, :url, :git_revision, :rails_env, :cache_cluster_link, :infrastructure_link, :newrelic_account_link, :created_at, :updated_at, :customer_id, :project_id, :chef_account_id, :multi_tenant, :uses_bundler, :platform, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize
+    
     
     def remove_trailing_slash
       self.deploy_to.sub!(/(\/)+$/,'')
