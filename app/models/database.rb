@@ -2,8 +2,9 @@ class Database < ActiveRecord::Base
   serialize :security_group_names
   
   has_one :app
+  after_initialize :default_values
   before_validation :set_default_rds_attributes
-  attr_accessible :name, :db_name, :username, :password, :client_cert, :db_type, :instance_class, :instance_storage, :multi_az, :availability_zone, :engine_version, :created_at, :updated_at, :state, :started, :hostname, :security_group_names, :ec2_sg_to_authorize, :parameter_group
+  attr_accessible :name, :db_name, :username, :password, :client_cert, :db_type, :instance_class, :instance_storage, :multi_az, :availability_zone, :engine_version, :state, :started, :hostname, :security_group_name, :ec2_sg_to_authorize, :parameter_group
   
 #  http://docs.amazonwebservices.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html
   validates_presence_of :name, :db_name, :username, :password, :instance_class, :engine_version, :db_type, :instance_storage, :parameter_group
@@ -46,7 +47,8 @@ class Database < ActiveRecord::Base
   
   def set_default_rds_attributes
     self.password = SecureRandom.hex(16) if password.blank?
-    self.security_group_names = [ self.name ]
+    #self.security_group_names = [ self.name ]
+    self.security_group_name ||= self.name
   end
   
   def ready?
@@ -72,6 +74,15 @@ class Database < ActiveRecord::Base
   def mysql_command
     "mysql -u #{username} -p#{password} -h #{hostname} #{db_name}"
   end
+  
+  private
+  
+    def default_values
+      self.engine_version ||= "5.5.12"
+      self.db_type ||= "mysql"
+      self.instance_class ||= "db.m1.small"
+      self.availability_zone ||= 'us-east-1c'
+    end
   
 end
 
