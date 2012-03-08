@@ -6,10 +6,10 @@ class Project < ActiveRecord::Base
   before_validation :clean_keys
   
   after_save :update_apps
-  attr_accessible :name_tag, :name, :homepage, :description, :repository, :repo_private_key
+  attr_accessible :name_tag, :name, :homepage, :description, :repository, :repo_private_key, :platform
   
   def configuration
-    attributes.symbolize_keys.extract!(:name,:name_tag,:homepage,:repository,:repo_private_key).merge(:custom_data => custom_data).reject{|k,v| v.blank? }
+    attributes.symbolize_keys.extract!(:name,:name_tag,:homepage,:repository,:repo_private_key,:platform).merge(:custom_data => custom_data).reject{|k,v| v.blank? }
   end
   
   def update_apps

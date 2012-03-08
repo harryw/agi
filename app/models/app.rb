@@ -8,7 +8,7 @@ class App < ActiveRecord::Base
     has_many :deployments
     has_many :customizations, :as => :customizable
     
-    delegate :name, :name_tag, :configuration, :to => :project, :prefix => true, :allow_nil => true
+    delegate :name, :name_tag, :configuration, :platform, :to => :project, :prefix => true, :allow_nil => true
     delegate :name, :name_tag, :configuration, :to => :customer,:prefix => true, :allow_nil => true
     delegate :name, :configuration, :ready?, :started, :to => :database,:prefix => true, :allow_nil => true
     delegate :name, :update_data_bag_item, :to => :chef_account, :prefix => true, :allow_nil => true
@@ -19,7 +19,8 @@ class App < ActiveRecord::Base
     validates_presence_of :customer, :project, :chef_account, :stage_name
     validates_uniqueness_of :name
     
-    attr_accessible :name, :description, :stage_name, :deploy_to, :deploy_user, :deploy_group, :alert_emails, :url, :git_revision, :rails_env, :cache_cluster_link, :infrastructure_link, :newrelic_account_link, :created_at, :updated_at, :customer_id, :project_id, :chef_account_id, :multi_tenant, :uses_bundler, :platform, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize
+    attr_accessible :name, :description, :stage_name, :deploy_to, :deploy_user, :deploy_group, :alert_emails, :url, :git_revision,:rails_env,  :customer_id, :project_id, 
+    :chef_account_id, :multi_tenant, :uses_bundler, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize
     
     
     def remove_trailing_slash
@@ -50,7 +51,7 @@ class App < ActiveRecord::Base
     end
     
     def required_packages
-      if platform == "ctms"
+      if project_platform == "ctms"
         %w{ ttf-dejavu ttf-liberation libxerces2-java libxerces2-java-gcj mysql-client }
       else
         %w{ libxml2-dev libxslt-dev libmysqlclient-dev }
@@ -58,8 +59,9 @@ class App < ActiveRecord::Base
     end
     
     def configuration
-        attributes.symbolize_keys.extract!(:name,:stage_name,:deploy_to,:deploy_user,:deploy_group,:multi_tenant,
-        :uses_bundler,:alert_emails,:url,:git_branch,:git_revision,:rails_env,:platform).merge(:required_packages => required_packages).merge(:custom_data => custom_data).reject{|k,v| v.blank? }
+        attributes.symbolize_keys.extract!(:name,:stage_name,:deploy_to,:deploy_user,:deploy_group,
+        :multi_tenant,:uses_bundler,:alert_emails,:url,:git_branch,:git_revision,:rails_env).merge(:required_packages => 
+        required_packages).merge(:custom_data => custom_data).merge(:platform => project_platform).reject{|k,v| v.blank? }
     end
     
     def custom_data
