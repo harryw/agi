@@ -1,0 +1,79 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://agifog.dev/api/v1/rds/security_groups/valid_sg.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      etag:
+      - ! '"b9f5220e0614de7741ccaba91da668b2"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-runtime:
+      - '1.357114'
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"ec2_security_groups":[{"Status":"authorized","EC2SecurityGroupOwnerId":"076395046979","EC2SecurityGroupName":"invalid_ec2_sg.1"}],"ip_ranges":[],"description":"generated
+        by agi","owner_id":"076395046979","id":"valid_sg"}'
+    http_version: '1.1'
+  recorded_at: Mon, 12 Mar 2012 15:40:01 GMT
+- request:
+    method: post
+    uri: http://agifog.dev/api/v1/rds/servers.json
+    body:
+      encoding: US-ASCII
+      string: ! '{"server":{"allocated_storage":5,"availability_zone":"us-east-1a","db_name":"fakedb","engine":"mysql","engine_version":"5.5.12","flavor_id":"db.m1.small","id":"fake-db","master_username":"usuario","multi_az":false,"parameter_group_name":"default.mysql5.5","password":"contrasena","security_group_names":["valid_sg"]}}'
+    headers:
+      content-type:
+      - application/json
+      accept:
+      - ! '*/*'
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      cache-control:
+      - no-cache
+      x-runtime:
+      - '1.283559'
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"errors\": [\n    \"InsufficientDBInstanceCapacity => db.m1.small
+        is not currently supported in the availability zone us-east-1a.  Retry the
+        launch with no availability zone or target: us-east-1e, us-east-1b, us-east-1d,
+        us-east-1c.\"\n  ]\n}"
+    http_version: '1.1'
+  recorded_at: Mon, 12 Mar 2012 15:40:03 GMT
+recorded_with: VCR 2.0.0.rc2

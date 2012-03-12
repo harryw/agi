@@ -6,13 +6,13 @@ FactoryGirl.define do
       db_name "fakedb"
       username "usuario"
       password "contrasena"
-      client_cert "MyText"
+      client_cert "abcdefeg123434"
       db_type "mysql"
-      instance_class "db.m1.xlarge"
+      instance_class "db.m1.small"
       instance_storage 5
-      multi_az true
+      multi_az false
       availability_zone "us-east-1a"
-      engine_version "5.1.57"
+      engine_version "5.5.12"
     end
 end
 
