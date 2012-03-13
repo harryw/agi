@@ -4,7 +4,9 @@ class Database < ActiveRecord::Base
   has_one :app
   after_initialize :default_values
   before_validation :set_default_rds_attributes
-  attr_accessible :name, :db_name, :username, :password, :client_cert, :db_type, :instance_class, :instance_storage, :multi_az, :availability_zone, :engine_version, :state, :started, :hostname, :security_group_name, :ec2_sg_to_authorize, :parameter_group
+  attr_accessible :name, :db_name, :username, :password, :client_cert, :db_type, :instance_class, :instance_storage, :multi_az, :availability_zone, 
+  :engine_version, :updated_at, :state, :started, :hostname, :security_group_names, :ec2_sg_to_authorize, :parameter_group
+  
   
 #  http://docs.amazonwebservices.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html
   validates_presence_of :name, :db_name, :username, :password, :instance_class, :engine_version, :db_type, :instance_storage, :parameter_group

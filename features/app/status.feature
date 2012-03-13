@@ -47,6 +47,18 @@ Feature: App Status Page  (App-Status)
 		And I press "Update"
 		Then I should see "Undeployed Changes"
 		
+  Scenario: An App's customizations that has changed since last deployment will show "Undeployed Changes" alert
+  	Given an app_with_deployment exists
+  	And I go to the app's page
+  	And I should see "Deploy at:"
+  	When I go to the app's page
+  	And I follow "New Customization"
+  	And I fill in "Name" with "foo"
+  	And I fill in "Value" with "bar"
+  	And I press "Create Customization"
+  	And I go to the app's page
+  	Then I should see "Undeployed Changes"
+		
 	Scenario: An App's project has changed since last deployment will show "Undeployed Changes" alert
 		Given a project exists with name: "balance"
 		And an app_with_deployment exists with project: that project
@@ -56,6 +68,19 @@ Feature: App Status Page  (App-Status)
 		And I press "Update"
 		When I go to the app's page
 		Then I should see "Undeployed Changes"
+		
+	Scenario: An App's Project's customizations that has changed since last deployment will show "Undeployed Changes" alert
+  	Given an app_with_deployment exists
+  	And I go to the app's page
+  	And I should see "Deploy at:"
+  	When I go to the app's page
+  	And I follow "Balance"
+  	And I follow "New Customization"
+  	And I fill in "Name" with "foo"
+  	And I fill in "Value" with "bar"
+  	And I press "Create Customization"
+  	And I go to the app's page
+  	Then I should see "Undeployed Changes"
 		
   Scenario: An App's customer has changed since last deployment will show "Undeployed Changes" alert
   	Given a customer exists with name: "mdsol"
@@ -67,6 +92,20 @@ Feature: App Status Page  (App-Status)
   	And I press "Update"
   	When I go to the app's page
   	Then I should see "Undeployed Changes"
+  
+  Scenario: An App's customer's customizations that has changed since last deployment will show "Undeployed Changes" alert
+	  Given a customer exists with name: "mdsol"
+	  And an app_with_deployment exists with customer: that customer
+  	And I go to the app's page
+  	And I should see "Deploy at:"
+  	When I go to the app's page
+  	And I follow "mdsol"
+  	And I follow "New Customization"
+  	And I fill in "Name" with "foo"
+  	And I fill in "Value" with "bar"
+  	And I press "Create Customization"
+  	And I go to the app's page
+  	Then I should see "Undeployed Changes"
   	
   Scenario: An App's database has changed since last deployment will show "Undeployed Changes" alert
   	Given a database exists with name: "awesomedb"
@@ -77,4 +116,5 @@ Feature: App Status Page  (App-Status)
   	And I fill in "Username" with "NewUser"
   	And I press "Update"
   	When I go to the app's page
-  	Then I should see "Undeployed Changes"  			
+  	Then I should see "Undeployed Changes"
+  	
