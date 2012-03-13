@@ -39,3 +39,15 @@ Feature: Allow me to manage my apps
 	  And I go to the apps page
 	  Then I should see "www.cucumber.com"
 	  And the current route should match /apps
+	  
+  Scenario: Shows all the ec2 security groups from agifog
+    Given I go to the apps page
+  	And I follow "New App" using a cassette named "query_filtered_ec2_security_groups"
+  	Then I select "ctms-distro-app001java" from "EC2 Security Group to Authorize in RDS"
+    And I select "cid3-sandbox-app001ruby" from "EC2 Security Group to Authorize in RDS"
+  
+  Scenario: Shows a warning message if it couldn't query the ec2 security groups from agifog
+    Given I go to the apps page
+	  And I follow "New App" using a cassette named "failed-query_filtered_ec2_security_groups"
+    Then I should see "it failed to load ec2 security groups from agifog, you can specifiy manually"
+    And I fill in "EC2 Security Group to Authorize in RDS" with "You can specifiy a manual EC2 SG"

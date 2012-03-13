@@ -34,7 +34,8 @@ class AppsController < ApplicationController
   # GET /apps/new.json
   def new
     @app = App.new
-
+    #@ec2_sg_filtered = ec2_sg_filtered
+    load_ec2_sg_filtered
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @app }
@@ -44,6 +45,7 @@ class AppsController < ApplicationController
   # GET /apps/1/edit
   def edit
     @app = App.find(params[:id])
+    @ec2_sg_filtered = ec2_sg_filtered
   end
 
   # POST /apps
@@ -100,6 +102,15 @@ class AppsController < ApplicationController
   end
   
   private
+    def load_ec2_sg_filtered
+      if ec2_sg_filtered.blank?
+        @app.errors.add(:ec2_sg_to_authorize, "it failed to load ec2 security groups from agifog, you can specifiy manually")
+      end
+    end
+  
+    def ec2_sg_filtered
+      @ec2_sg_filtered ||= ComputeSecurityGroup.get(:search, :contains => 'ruby|java').map {|sg| sg['name']} rescue nil
+    end
   
     def generate_database
       database_params = {
