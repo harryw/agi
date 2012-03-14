@@ -7,6 +7,9 @@ class ChefAccount < ActiveRecord::Base
   
   validates_presence_of :name, :client_name, :validator_key, :client_key, :api_url
   
+  attr_accessible :name, :formal_name, :validator_key, :client_key, :databag_key, :api_url, :created_at, :updated_at, :client_name
+  
+  
   def update_data_bag_item(data_bag_item_data)
     begin
       rest.post_rest("data/#{data_bag_name}", data_bag_item_data)

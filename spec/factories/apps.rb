@@ -14,9 +14,6 @@ FactoryGirl.define do
       url "mediflex.cloudteam.com"
       git_revision "1234567"
       rails_env "production"
-      cache_cluster_link "mediflex-cache"
-      infrastructure_link "cid3rails-production-1"
-      newrelic_account_link "production"
       updated_at "Fri, 21 Oct 2011 18:24:35 UTC +00:00"
       association :chef_account, :factory => :chef_account
       association :customer, :factory => :customer
@@ -31,6 +28,14 @@ end
 Factory.define :working_app, :parent => :app do |a|
   a.association :chef_account, :factory => :chef_account
   a.association :database, :factory => :database
+end
+
+Factory.define :working_app_ctms, :parent => :working_app do |a|
+  a.association :project, :factory => :project, :platform => 'ctms'
+end
+
+Factory.define :working_app_rails, :parent => :working_app do |a|
+  a.association :project, :factory => :project, :platform => 'rails'
 end
 
 Factory.define :working_app_with_creating_db, :parent => :app do |a|

@@ -13,6 +13,7 @@
   -#= form.input :description, :label => 'Description'
   = form.input :repository, :label => 'Repository'
   = form.input :repo_private_key, :label => 'Repo Private Key'
+  = form.input :platform, :label => 'Platform', :collection => %w{ rails ctms }
 
   .actions
     = form.button :submit

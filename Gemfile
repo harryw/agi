@@ -51,6 +51,7 @@ gem "newrelic_rpm"
 
 group :development do
   gem 'ruby-debug19'
+  gem "awesome_print"
 end
 
 group :test do

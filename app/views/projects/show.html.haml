@@ -12,6 +12,9 @@
 %p
   %b Repo private key:
   = @project.repo_private_key
+%p
+  %b Platform:
+  = @project.platform
 
 = link_to 'Edit', edit_project_path(@project)
 \|

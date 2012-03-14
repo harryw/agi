@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://agifog.dev/api/v1/rds/security_groups/fake-db.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      etag:
+      - ! '"4fd476979a19759bb1a3cb9dc16cc4b6"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-runtime:
+      - '9.091702'
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"ec2_security_groups":[],"ip_ranges":[],"description":"generated
+        by agi","owner_id":"076395046979","id":"fake-db"}'
+    http_version: '1.1'
+  recorded_at: Fri, 09 Mar 2012 15:11:05 GMT
+- request:
+    method: post
+    uri: http://agifog.dev/api/v1/rds/servers.json
+    body:
+      encoding: US-ASCII
+      string: ! '{"server":{"allocated_storage":5,"db_name":"fakedb","engine":"posgres","engine_version":"5.1.57","flavor_id":"db.m1.xlarge","id":"fake-db","master_username":"usuario","multi_az":true,"parameter_group_name":"default.mysql5.5","password":"contrasena","security_group_names":["fake-db"]}}'
+    headers:
+      content-type:
+      - application/json
+      accept:
+      - ! '*/*'
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      cache-control:
+      - no-cache
+      x-runtime:
+      - '5.226582'
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"errors\": [\n    \"InvalidParameterValue => Invalid DB engine:
+        posgres\"\n  ]\n}"
+    http_version: '1.1'
+  recorded_at: Fri, 09 Mar 2012 15:11:10 GMT
+recorded_with: VCR 2.0.0.rc2

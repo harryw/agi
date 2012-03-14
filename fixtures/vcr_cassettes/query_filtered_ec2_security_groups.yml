@@ -1,0 +1,124 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://agifog.dev/api/v1/compute/security_groups/search.json?contains=ruby%7Cjava
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      etag:
+      - ! '"6744e96682abc568ca4b32db09fcabd2"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-runtime:
+      - '5.381903'
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "[\n  {\n    \"ip_permissions\": [\n      {\n        \"groups\": [\n\n
+        \       ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 80,\n        \"toPort\": 80\n      },\n      {\n        \"groups\":
+        [\n\n        ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 443,\n        \"toPort\": 443\n      }\n    ],\n    \"ipPermissionsEgress\":
+        [\n\n    ],\n    \"owner_id\": \"767904627276\",\n    \"group_id\": \"sg-3bdcc552\",\n
+        \   \"name\": \"sds-sandbox-service001ruby\",\n    \"description\": \"sds-sandbox-service001ruby\"\n
+        \ },\n  {\n    \"ip_permissions\": [\n      {\n        \"groups\": [\n\n        ],\n
+        \       \"ipRanges\": [\n          {\n            \"cidrIp\": \"0.0.0.0/0\"\n
+        \         }\n        ],\n        \"ipProtocol\": \"tcp\",\n        \"fromPort\":
+        22,\n        \"toPort\": 22\n      },\n      {\n        \"groups\": [\n\n
+        \       ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 80,\n        \"toPort\": 80\n      },\n      {\n        \"groups\":
+        [\n\n        ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 443,\n        \"toPort\": 443\n      }\n    ],\n    \"ipPermissionsEgress\":
+        [\n\n    ],\n    \"owner_id\": \"767904627276\",\n    \"group_id\": \"sg-d5ba6ebd\",\n
+        \   \"name\": \"ctms-distro-app001java\",\n    \"description\": \"ctms-distro-app001java\"\n
+        \ },\n  {\n    \"ip_permissions\": [\n      {\n        \"groups\": [\n\n        ],\n
+        \       \"ipRanges\": [\n          {\n            \"cidrIp\": \"0.0.0.0/0\"\n
+        \         }\n        ],\n        \"ipProtocol\": \"tcp\",\n        \"fromPort\":
+        80,\n        \"toPort\": 80\n      },\n      {\n        \"groups\": [\n\n
+        \       ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 443,\n        \"toPort\": 443\n      }\n    ],\n    \"ipPermissionsEgress\":
+        [\n\n    ],\n    \"owner_id\": \"767904627276\",\n    \"group_id\": \"sg-7e874016\",\n
+        \   \"name\": \"cid3-sandbox-serv001ruby19\",\n    \"description\": \"cid3-sandbox-serv001ruby19\"\n
+        \ },\n  {\n    \"ip_permissions\": [\n      {\n        \"groups\": [\n\n        ],\n
+        \       \"ipRanges\": [\n          {\n            \"cidrIp\": \"0.0.0.0/0\"\n
+        \         }\n        ],\n        \"ipProtocol\": \"tcp\",\n        \"fromPort\":
+        80,\n        \"toPort\": 80\n      },\n      {\n        \"groups\": [\n\n
+        \       ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 443,\n        \"toPort\": 443\n      }\n    ],\n    \"ipPermissionsEgress\":
+        [\n\n    ],\n    \"owner_id\": \"767904627276\",\n    \"group_id\": \"sg-828e49ea\",\n
+        \   \"name\": \"eureka-sandbox-app001ruby\",\n    \"description\": \"eureka-sandbox-app001ruby\"\n
+        \ },\n  {\n    \"ip_permissions\": [\n      {\n        \"groups\": [\n\n        ],\n
+        \       \"ipRanges\": [\n          {\n            \"cidrIp\": \"0.0.0.0/0\"\n
+        \         }\n        ],\n        \"ipProtocol\": \"tcp\",\n        \"fromPort\":
+        80,\n        \"toPort\": 80\n      },\n      {\n        \"groups\": [\n\n
+        \       ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 443,\n        \"toPort\": 443\n      }\n    ],\n    \"ipPermissionsEgress\":
+        [\n\n    ],\n    \"owner_id\": \"767904627276\",\n    \"group_id\": \"sg-952b33fc\",\n
+        \   \"name\": \"soc-sandbox-service001ruby\",\n    \"description\": \"soc-sandbox-service001ruby\"\n
+        \ },\n  {\n    \"ip_permissions\": [\n      {\n        \"groups\": [\n\n        ],\n
+        \       \"ipRanges\": [\n          {\n            \"cidrIp\": \"0.0.0.0/0\"\n
+        \         }\n        ],\n        \"ipProtocol\": \"tcp\",\n        \"fromPort\":
+        22,\n        \"toPort\": 22\n      },\n      {\n        \"groups\": [\n\n
+        \       ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 80,\n        \"toPort\": 80\n      },\n      {\n        \"groups\":
+        [\n\n        ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 443,\n        \"toPort\": 443\n      },\n      {\n        \"groups\":
+        [\n\n        ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"65.121.229.11/32\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 0,\n        \"toPort\": 65535\n      },\n      {\n        \"groups\":
+        [\n\n        ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"65.121.229.11/32\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 8080,\n        \"toPort\": 8080\n      }\n    ],\n    \"ipPermissionsEgress\":
+        [\n\n    ],\n    \"owner_id\": \"767904627276\",\n    \"group_id\": \"sg-dec620b6\",\n
+        \   \"name\": \"ctms-sandbox-app001java\",\n    \"description\": \"ctms-sandbox-app001java\"\n
+        \ },\n  {\n    \"ip_permissions\": [\n      {\n        \"groups\": [\n\n        ],\n
+        \       \"ipRanges\": [\n          {\n            \"cidrIp\": \"0.0.0.0/0\"\n
+        \         }\n        ],\n        \"ipProtocol\": \"tcp\",\n        \"fromPort\":
+        80,\n        \"toPort\": 80\n      },\n      {\n        \"groups\": [\n\n
+        \       ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 443,\n        \"toPort\": 443\n      }\n    ],\n    \"ipPermissionsEgress\":
+        [\n\n    ],\n    \"owner_id\": \"767904627276\",\n    \"group_id\": \"sg-f72df99f\",\n
+        \   \"name\": \"ctms-sandbox-app002java\",\n    \"description\": \"ctms-sandbox-app002java\"\n
+        \ },\n  {\n    \"ip_permissions\": [\n      {\n        \"groups\": [\n\n        ],\n
+        \       \"ipRanges\": [\n          {\n            \"cidrIp\": \"0.0.0.0/0\"\n
+        \         }\n        ],\n        \"ipProtocol\": \"tcp\",\n        \"fromPort\":
+        80,\n        \"toPort\": 80\n      },\n      {\n        \"groups\": [\n\n
+        \       ],\n        \"ipRanges\": [\n          {\n            \"cidrIp\":
+        \"0.0.0.0/0\"\n          }\n        ],\n        \"ipProtocol\": \"tcp\",\n
+        \       \"fromPort\": 443,\n        \"toPort\": 443\n      }\n    ],\n    \"ipPermissionsEgress\":
+        [\n\n    ],\n    \"owner_id\": \"767904627276\",\n    \"group_id\": \"sg-d2ac56ba\",\n
+        \   \"name\": \"cid3-sandbox-app001ruby\",\n    \"description\": \"cid3-sandbox-app001ruby\"\n
+        \ }\n]"
+    http_version: '1.1'
+  recorded_at: Tue, 13 Mar 2012 20:38:25 GMT
+recorded_with: VCR 2.0.0.rc2

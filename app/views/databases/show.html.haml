@@ -57,12 +57,11 @@
   %b Engine version:
   = @database.engine_version
 %p
-  - @database.security_group_names.each do |sg_name|
-    %b Security group
-    = link_to sg_name, admin_rds_security_group_path(sg_name)
-%p
   %b Parameter Group:
   = @database.parameter_group
+%p
+  %b RDS Security group name:
+  = link_to @database.security_group_name, admin_rds_security_group_path(@database.security_group_name)
 %p
   %b EC2 Security Group To Authorize:
   = @database.ec2_sg_to_authorize

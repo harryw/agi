@@ -37,3 +37,19 @@ Feature: Allow me to manage my databases
     And I go to the databases page
     Then I should see "great-database"
     And the current route should match /databases
+
+  Scenario: Shows all the rds parameter groups from agifog
+    Given I go to the databases page
+		And I follow "New Database" using a cassette named "query_rds_parameter_groups"
+		Then I select "default.mysql5.1" from "RDS Parameter group"
+		And I select "default.mysql5.5" from "RDS Parameter group"
+		And I select "mdsol-mysql5-1" from "RDS Parameter group"
+		And I select "mdsol-mysql5-5" from "RDS Parameter group"
+		
+	Scenario: Shows a warning message if it couldn't query the rds parameter groups from agifog
+	  Given I go to the databases page
+	  And I follow "New Database" using a cassette named "query_rds_parameter_groups-when-agifog-doesnt-response"
+	  Then I should see "it failed to load rds parameter groups from agifog, using the the default one"
+	  And I select "default.mysql5.5" from "RDS Parameter group"
+		
+		
