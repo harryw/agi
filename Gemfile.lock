@@ -165,7 +165,6 @@ GEM
     mixlib-log (1.3.0)
     moneta (0.6.0)
     multi_json (1.0.4)
-    mysql (2.8.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.1.4)
@@ -186,6 +185,7 @@ GEM
     pdf-reader (1.0.0)
       Ascii85 (~> 1.0.0)
       ruby-rc4
+    pg (0.13.2)
     pickle (0.4.10)
       cucumber (>= 0.8)
       rake
@@ -318,8 +318,8 @@ DEPENDENCIES
   jquery-rails
   launchy
   mauth_signer!
-  mysql
   newrelic_rpm
+  pg
   pickle
   prawn
   rack-active_record_status
