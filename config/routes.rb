@@ -1,5 +1,7 @@
 Agi::Application.routes.draw do
   
+  resources :addons
+
   resources :databases do
     member do
       get 'start'
@@ -32,9 +34,14 @@ Agi::Application.routes.draw do
   devise_for :users
 
   resources :apps do # look into shallow routes
-      resources :deployments, :except => [:edit, :destroy]
-      resources :customizations
+    resources :deployments, :except => [:edit, :destroy]
+    resources :customizations
   end
+  
+  resources :extensions, :only => [] do
+    resources :customizations
+  end
+  
   
   root :to => "apps#index"
 

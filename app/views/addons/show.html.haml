@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @addon.name
+%p
+  %b Value:
+  = @addon.value
+
+= link_to 'Edit', edit_addon_path(@addon)
+\|
+= link_to 'Back', addons_path

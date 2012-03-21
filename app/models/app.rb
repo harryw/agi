@@ -7,6 +7,8 @@ class App < ActiveRecord::Base
 
     has_many :deployments
     has_many :customizations, :as => :customizable
+    has_many :extensions
+    has_many :addons, :through => :extensions
     
     delegate :name, :name_tag, :configuration, :platform, :to => :project, :prefix => true, :allow_nil => true
     delegate :name, :name_tag, :configuration, :to => :customer,:prefix => true, :allow_nil => true
@@ -20,7 +22,7 @@ class App < ActiveRecord::Base
     validates_uniqueness_of :name
     
     attr_accessible :name, :description, :stage_name, :deploy_to, :deploy_user, :deploy_group, :alert_emails, :url, :git_revision,:rails_env,  :customer_id, :project_id, 
-    :chef_account_id, :multi_tenant, :uses_bundler, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize
+    :chef_account_id, :multi_tenant, :uses_bundler, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize, :addon_ids
     
     
     def remove_trailing_slash

@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308202524) do
+ActiveRecord::Schema.define(:version => 20120320165354) do
+
+  create_table "addons", :force => true do |t|
+    t.string   "name"
+    t.text     "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -125,6 +132,13 @@ ActiveRecord::Schema.define(:version => 20120308202524) do
     t.integer  "user_id"
     t.string   "s3_url_iq",            :default => ""
     t.datetime "deployed_time"
+  end
+
+  create_table "extensions", :force => true do |t|
+    t.integer  "app_id"
+    t.integer  "addon_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "projects", :force => true do |t|

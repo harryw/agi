@@ -44,7 +44,7 @@ class AppsController < ApplicationController
 
   # GET /apps/1/edit
   def edit
-    @app = App.find(params[:id])
+    @app = App.find(params[:id], :include => :addons)
     @ec2_sg_filtered = ec2_sg_filtered
   end
 
@@ -76,7 +76,7 @@ class AppsController < ApplicationController
   # PUT /apps/1
   # PUT /apps/1.json
   def update
-    @app = App.find(params[:id])
+    @app = App.find(params[:id], :include => :addons)
 
     respond_to do |format|
       if @app.update_attributes(params[:app])

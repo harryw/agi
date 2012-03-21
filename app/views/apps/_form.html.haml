@@ -24,6 +24,8 @@
   = form.input :git_branch, :label => 'Git Branch'
   = form.input :git_revision, :label => 'Git Revision'
   = form.input :rails_env, :label => 'Rails Env', :collection => %w{ production development }
+  = form.collection_check_boxes :addon_ids, Addon.all, :id, :name
+  
 
 
   .actions

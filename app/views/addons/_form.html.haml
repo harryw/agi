@@ -1,0 +1,14 @@
+= simple_form_for @addon do |form|
+
+  -if @addon.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@addon.errors.count, "error")} prohibited this #{Addon.name.titleize} from being saved:"
+      %ul
+        - @addon.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :name, :label => 'Name'
+  = form.input :value, :label => 'Value'
+
+  .actions
+    = form.button :submit

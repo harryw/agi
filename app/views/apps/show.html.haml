@@ -54,6 +54,20 @@
   %b Rails env:
   = @app.rails_env
 %p
+  %b Addons:
+  %table
+    - @app.extensions.each do |extension|
+      %tr
+        %td= link_to extension.addon.name, extension.addon
+        %td
+          %table
+            - extension.customizations.each do |c|
+              %tr
+                %td= link_to c.name, [extension, c]
+                %td= c.value
+        %td= link_to 'Configurations', [extension, :customizations]
+        
+%p
   %b Timestamp in the Databag (Last deployment):
   = @app.databag_item_timestamp
 %p
