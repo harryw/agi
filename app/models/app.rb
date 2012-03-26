@@ -29,7 +29,7 @@ class App < ActiveRecord::Base
       addons.each do |addon|
         template = Erubis::Eruby.new(addon.value)
         vars = effective_configuration(addon.name)
-        result = template.result(vars)
+        result = template.result(vars.merge(agi_vars))
         addons_conf.merge!(Hash[addon.name,JSON.parse(result)])
       end
       addons_conf
@@ -47,6 +47,9 @@ class App < ActiveRecord::Base
       key ? conf[key] : conf
     end
     
+    def agi_vars
+      @agi_vars ||= Hash[:agi,data_bag_item_data]
+    end
     
     def remove_trailing_slash
       self.deploy_to.sub!(/(\/)+$/,'')
@@ -72,7 +75,7 @@ class App < ActiveRecord::Base
     end
     
     def generate_deployment_data
-        data_bag_item_data #.to_json
+        data_bag_item_data.merge(:addons => addons_configuration)
     end
     
     def required_packages
@@ -94,6 +97,7 @@ class App < ActiveRecord::Base
       Hash[*data.map {|c| c.attributes.symbolize_keys.extract!(:name,:value).values }.flatten]
     end
     
+    
     def data_bag_item_data
       {  
          :id => name,
@@ -101,8 +105,7 @@ class App < ActiveRecord::Base
          :main => configuration,
          :project => project_configuration,
          :customer => customer_configuration,
-         :database => database_configuration,
-         :addons => addons_configuration
+         :database => database_configuration
       }.reject{|k,v| v.blank? }
     end
     
