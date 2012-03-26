@@ -1,12 +1,16 @@
 %p#notice= notice
 
 %p
-  %b Name:
+  %b Addon Name:
   = @addon.name
-%p
-  %b Value:
-  = @addon.value
+
+%pre
+  #deployment_data= JSON.pretty_generate(JSON.parse(@addon.value))
 
 = link_to 'Edit', edit_addon_path(@addon)
 \|
 = link_to 'Back', addons_path
+\|
+= link_to 'New Customization', [:new, @addon, :customization]
+\|
+= link_to 'Customizations', [@addon, :customizations]

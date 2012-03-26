@@ -1,6 +1,8 @@
 Agi::Application.routes.draw do
   
-  resources :addons
+  resources :addons do
+    resources :customizations
+  end
 
   resources :databases do
     member do

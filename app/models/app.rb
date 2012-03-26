@@ -7,8 +7,8 @@ class App < ActiveRecord::Base
 
     has_many :deployments
     has_many :customizations, :as => :customizable
-    has_many :extensions
-    has_many :addons, :through => :extensions
+    has_many :extensions, :dependent => :destroy
+    has_many :addons, :through => :extensions, :dependent => :destroy
     
     delegate :name, :name_tag, :configuration, :platform, :to => :project, :prefix => true, :allow_nil => true
     delegate :name, :name_tag, :configuration, :to => :customer,:prefix => true, :allow_nil => true
@@ -23,6 +23,29 @@ class App < ActiveRecord::Base
     
     attr_accessible :name, :description, :stage_name, :deploy_to, :deploy_user, :deploy_group, :alert_emails, :url, :git_revision,:rails_env,  :customer_id, :project_id, 
     :chef_account_id, :multi_tenant, :uses_bundler, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize, :addon_ids
+    
+    def addons_configuration
+      addons_conf = {}
+      addons.each do |addon|
+        template = Erubis::Eruby.new(addon.value)
+        vars = effective_configuration(addon.name)
+        result = template.result(vars)
+        addons_conf.merge!(Hash[addon.name,JSON.parse(result)])
+      end
+      addons_conf
+    end
+    
+    # returns a hash that is a result of the addons configuration overridden by the app(extension) configuration
+    def effective_configuration(key=nil)
+      conf = {}
+      extensions.each do |extension|
+        extension_hash = extension.customization_hash
+        addon_hash = extension.addon.customization_hash
+        addon_conf = Hash[extension.addon.name,addon_hash.merge(extension_hash)]
+        conf.merge!(addon_conf)
+      end
+      key ? conf[key] : conf
+    end
     
     
     def remove_trailing_slash
@@ -78,7 +101,8 @@ class App < ActiveRecord::Base
          :main => configuration,
          :project => project_configuration,
          :customer => customer_configuration,
-         :database => database_configuration
+         :database => database_configuration,
+         :addons => addons_configuration
       }.reject{|k,v| v.blank? }
     end
     
