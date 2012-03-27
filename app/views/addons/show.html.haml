@@ -3,6 +3,8 @@
 %p
   %b Addon Name:
   = @addon.name
+- if @customizations.any?  
+  = render "customizations", :customizable => @addon
 
 %pre
   #deployment_data= JSON.pretty_generate(JSON.parse(@addon.value))

@@ -1,0 +1,18 @@
+
+%table
+  %tr
+    %th Name
+    %th Value
+    %th
+    %th
+
+  - @customizations.each do |customization|
+    %tr
+      %td= link_to customization.name, [customizable, customization]
+      %td= customization.value
+      %td= link_to 'Edit', [:edit, customizable, customization]
+      %td= link_to 'Destroy', [customizable, customization], :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Customization', [:new, customizable, :customization]

@@ -14,7 +14,7 @@ class AddonsController < ApplicationController
   # GET /addons/1.json
   def show
     @addon = Addon.find(params[:id])
-
+    @customizations = @addon.customizations
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @addon }
