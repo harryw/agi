@@ -56,17 +56,30 @@
 %p
   %b Addons:
   %table
+    %tr
+      %th Addon Name
+      %th Effective Conf
+      %th App configuration
+      %th 
     - @app.extensions.each do |extension|
       %tr
         %td= link_to extension.addon.name, extension.addon
         %td
           %table
-            - extension.customizations.each do |c|
+            - @effective_configuration[extension.addon.name].each do |k,v|
               %tr
-                %td= link_to c.name, [extension, c]
-                %td= c.value
-        %td= link_to 'Configurations', [extension, :customizations]
-        
+                %td= k
+                %td= v
+        %td
+          %table
+            - extension.customizations.each do |customization|
+              %tr
+                %td= link_to customization.name, [extension, customization]
+                %td= customization.value
+                %td= link_to 'Edit', [:edit, extension, customization]
+                %td= link_to 'Destroy', [extension, customization], :confirm => 'Are you sure?', :method => :delete
+          %p{:style=>"text-align:right"}= link_to 'New Local Customization', [:new, extension, :customization]
+              
 %p
   %b Timestamp in the Databag (Last deployment):
   = @app.databag_item_timestamp

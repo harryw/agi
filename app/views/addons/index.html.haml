@@ -3,16 +3,12 @@
 %table
   %tr
     %th Name
-    %th Value
-    %th
     %th
     %th
 
   - @addons.each do |addon|
     %tr
-      %td= addon.name
-      %td= addon.value
-      %td= link_to 'Show', addon
+      %td= link_to addon.name, addon
       %td= link_to 'Edit', edit_addon_path(addon)
       %td= link_to 'Destroy', addon, :confirm => 'Are you sure?', :method => :delete
 

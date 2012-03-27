@@ -14,6 +14,7 @@ class AppsController < ApplicationController
   # GET /apps/1.json
   def show
     @app = App.find(params[:id])
+    @effective_configuration = @app.effective_configuration
      
     @deployment_status = 
         if !@app.databag_item_timestamp
