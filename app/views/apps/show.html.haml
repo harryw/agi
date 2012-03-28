@@ -88,9 +88,8 @@
   %b Deployments
   = link_to 'Deployments', app_deployments_path(@app)
 
-
-
-#deployment_status= @deployment_status 
+%div{:id => @deployment_status[:css_id]}= @deployment_status[:message]
+%br
 
 = link_to 'Deploy', new_app_deployment_path(@app)
 

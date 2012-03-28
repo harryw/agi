@@ -18,11 +18,11 @@ class AppsController < ApplicationController
      
     @deployment_status = 
         if !@app.databag_item_timestamp
-            "Never Deployed"
+            {:css_id => 'deploy_warning', :message => "Never Deployed" }
         elsif @app.databag_item_timestamp.to_i == @app.app_timestamp.to_i
-            "Deploy at: #{@app.app_timestamp}"
+            {:css_id => 'deploy_notice', :message => "Deploy at: #{@app.app_timestamp}"}
         else
-            "Undeployed Changes"
+            {:css_id => 'deploy_warning', :message => "Undeployed Changes" }
         end
         
     respond_to do |format|
