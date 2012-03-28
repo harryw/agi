@@ -55,23 +55,24 @@
   = @app.rails_env
 %p
   %b Addons:
-  %table
+  %a{:class => 'toggle_configurations', :href => '#'} show/hide confs        
+  %table{:class => 'addons'}
     %tr
       %th Addon Name
-      %th Effective Conf
-      %th App configuration
+      %th{:class => 'effective_configuration', :style => 'display:none'} Effective Conf
+      %th{:class => 'app_configuration', :style => 'display:none'} App configuration
       %th 
     - @app.extensions.each do |extension|
       %tr
         %td= link_to extension.addon.name, extension.addon
-        %td
-          %table
+        %td{:class => 'effective_configuration', :style => 'display:none'}
+          %table{:id => extension.addon.name}
             - @effective_configuration[extension.addon.name].each do |k,v|
               %tr
                 %td= k
                 %td= v
-        %td
-          %table
+        %td{:class => 'app_configuration', :style => 'display:none'}
+          %table{:id => extension.addon.name}
             - extension.customizations.each do |customization|
               %tr
                 %td= link_to customization.name, [extension, customization]
