@@ -35,7 +35,7 @@ Feature: Allow me to manage my apps
 		And I should see "Mediflex-edited"
 		
 	Scenario: Index page
-	  Given a app exists with url: "www.cucumber.com"
+	  Given a app exists with domain: "www.cucumber.com"
 	  And I go to the apps page
 	  Then I should see "www.cucumber.com"
 	  And the current route should match /apps

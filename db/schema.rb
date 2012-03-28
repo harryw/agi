@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320165354) do
+ActiveRecord::Schema.define(:version => 20120328143444) do
 
   create_table "addons", :force => true do |t|
     t.string   "name"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20120320165354) do
     t.string   "deploy_user"
     t.string   "deploy_group"
     t.string   "alert_emails"
-    t.string   "url"
+    t.string   "domain"
     t.string   "git_revision"
     t.string   "rails_env"
     t.string   "cache_cluster_link"

@@ -21,7 +21,7 @@ class App < ActiveRecord::Base
     validates_presence_of :customer, :project, :chef_account, :stage_name
     validates_uniqueness_of :name
     
-    attr_accessible :name, :description, :stage_name, :deploy_to, :deploy_user, :deploy_group, :alert_emails, :url, :git_revision,:rails_env,  :customer_id, :project_id, 
+    attr_accessible :name, :description, :stage_name, :deploy_to, :deploy_user, :deploy_group, :alert_emails, :domain, :git_revision,:rails_env,  :customer_id, :project_id, 
     :chef_account_id, :multi_tenant, :uses_bundler, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize, :addon_ids
     
     def addons_configuration
@@ -88,7 +88,7 @@ class App < ActiveRecord::Base
     
     def configuration
         attributes.symbolize_keys.extract!(:name,:stage_name,:deploy_to,:deploy_user,:deploy_group,
-        :multi_tenant,:uses_bundler,:alert_emails,:url,:git_branch,:git_revision,:rails_env).merge(:required_packages => 
+        :multi_tenant,:uses_bundler,:alert_emails,:domain,:git_branch,:git_revision,:rails_env).merge(:required_packages => 
         required_packages).merge(:custom_data => custom_data).merge(:platform => project_platform).reject{|k,v| v.blank? }
     end
     

@@ -4,7 +4,7 @@
   %tr
     %th Name
     %th Stage name
-    %th Url
+    %th Hostname
     %th Chef Account
     %th Database
     %th Customer
@@ -17,7 +17,7 @@
     %tr
       %td= link_to app.name, app
       %td= app.stage_name
-      %td= app.url
+      %td= app.domain
       %td= link_to_if app.chef_account_name, app.chef_account_name, app.chef_account
       %td= link_to_if app.database, app.database.try(:name), app.database 
       %td= link_to_if app.customer_name, app.customer_name, app.customer
