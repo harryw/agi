@@ -110,10 +110,14 @@ class DatabasesController < ApplicationController
     rds_attributes[:flavor_id] = @database.instance_class
     rds_attributes[:security_group_names] = [@database.security_group_name]
     rds_attributes[:parameter_group_name] = @database.parameter_group
+    rds_attributes[:snapshot_id] = @database.snapshot_id
+    
+    rds_attributes.reject!{|k,v| v.blank? }
     
     @rds_sec_groups = create_rds_security_group(@database.security_group_name,@database.ec2_sg_to_authorize)
     # this is an active resource workaround
-    rds_sec_groups_valid = @rds_sec_groups.class == Net::HTTPOK ? true : @rds_sec_groups.valid?
+    #rds_sec_groups_valid = @rds_sec_groups.class == Net::HTTPOK ? true : @rds_sec_groups.valid?
+    rds_sec_groups_valid = @rds_sec_groups.class == Net::HTTPOK ? true : @rds_sec_groups
                             
     
     @rds_server = RdsServer.new(rds_attributes)

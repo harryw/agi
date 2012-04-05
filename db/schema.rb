@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308202524) do
+ActiveRecord::Schema.define(:version => 20120405104525) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20120308202524) do
     t.string   "ec2_sg_to_authorize",  :default => ""
     t.string   "parameter_group",      :default => "default.mysql5.5"
     t.string   "security_group_name"
+    t.string   "snapshot_id"
   end
 
   create_table "deployments", :force => true do |t|

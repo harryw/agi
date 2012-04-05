@@ -6,6 +6,9 @@
   %b Attached App:
   = link_to_if @database.app, @database.app.try(:name) || "none", @database.app 
 %p
+  %b Snapshot ID:
+  = @database.snapshot_id
+%p
   %b State:
   = @database.state
 %p

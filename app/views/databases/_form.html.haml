@@ -8,6 +8,7 @@
           %li= msg  
 
   = form.input :name, :label => 'Name'
+  = form.input :snapshot_id, :label => 'Snapshot ID', :hint => ' Optional, It will create a rds out of a snapshot'
   = form.input :db_name, :label => 'Db Name'
   = form.input :username, :label => 'Username'
   = form.input :client_cert, :label => 'Client Cert'
