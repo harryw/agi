@@ -36,7 +36,7 @@ class AppsController < ApplicationController
   def new
     @app = App.new
     #@ec2_sg_filtered = ec2_sg_filtered
-    load_ec2_sg_filtered
+    #load_ec2_sg_filtered
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @app }
@@ -46,7 +46,7 @@ class AppsController < ApplicationController
   # GET /apps/1/edit
   def edit
     @app = App.find(params[:id], :include => :addons)
-    @ec2_sg_filtered = ec2_sg_filtered
+    #@ec2_sg_filtered = ec2_sg_filtered
   end
 
   # POST /apps

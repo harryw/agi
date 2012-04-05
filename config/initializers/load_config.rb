@@ -6,4 +6,5 @@ mauth_file = YAML.load_file("#{Rails.root}/config/mauth.yml")
 config['mauth'] = mauth_file[Rails.env]
 agifog_file = YAML.load_file("#{Rails.root}/config/agifog.yml")
 config['agifog'] = agifog_file[Rails.env]
+config['agifog_base_url'] = "http://#{config["agifog"]["hostname"]}:#{config["agifog"]["port"]}/api/v1"
 ::AppConfig = config

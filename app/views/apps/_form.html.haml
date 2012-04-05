@@ -13,7 +13,8 @@
   = form.association :chef_account, :label => 'Chef Account', :prompt => "Choose a Chef Account"
   = form.association :database, :Label => 'Database', :prompt => "Choose a Database"
   = form.input :auto_generate_database, :label => "Create a new DB"
-  = form.input :ec2_sg_to_authorize, :collection => @ec2_sg_filtered, :label => 'EC2 Security Group to Authorize in RDS'
+  = form.input :ec2_sg_to_authorize, :collection => [@app.ec2_sg_to_authorize], :label => 'EC2 Security Group to Authorize in RDS', :prompt => "Loading...", :input_html => { 'data-agifogurl' => AppConfig['agifog_base_url'] + '/compute/security_groups/search.json?contains=ruby|ctms&field=name' }
+  
   = form.input :stage_name, :label => 'Stage Name', :collection => %w{cruise hendrix distro sandbox validation performance innovate production}
   = form.input :multi_tenant, :label => 'Multi Tenant'
   = form.input :uses_bundler, :label => 'Uses Bundler'
