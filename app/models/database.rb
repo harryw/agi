@@ -60,18 +60,26 @@ class Database < ActiveRecord::Base
   end
   
   def refresh_database_state
-    if started and state != 'available'
+    if started and state != 'available' or sg_out_of_sync
       begin
-        database_client = RdsServer.find(self.name)
-        self.state = database_client.state
-        self.hostname = database_client.endpoint.attributes["Address"]
+        @database_client = RdsServer.find(self.name)
+        self.state = @database_client.state
+        self.hostname = @database_client.endpoint.attributes["Address"]
+        # If the rds was created throught a snapshot, it will come up with the default security group
+        if @database_client.db_security_groups.select { |sg| sg.attributes['DBSecurityGroupName'] == self.security_group_name }.blank?
+          self.sg_out_of_sync = true
+        else
+          self.sg_out_of_sync = false
+        end
       rescue
         self.started = false
         self.state = 'missing'
         self.hostname = nil
       end
+      
       self.save 
     end
+    
   end
   
   def mysql_command

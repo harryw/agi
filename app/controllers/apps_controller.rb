@@ -54,7 +54,7 @@ class AppsController < ApplicationController
     @app = App.new(params[:app])
     
     # This is not right. I should write a dashboard view that talks to the controllers restfully
-    if @app.auto_generate_database
+    if @app.auto_generate_database || !@app.snapshot_id.empty?
       # when valid? is call, self-generated app attibues are populated
       if @app.valid?
         if generate_database
@@ -126,7 +126,8 @@ class AppsController < ApplicationController
         :engine_version => "5.5.12",
         :started => false,
         :state => 'stopped',
-        :ec2_sg_to_authorize => @app.ec2_sg_to_authorize
+        :ec2_sg_to_authorize => @app.ec2_sg_to_authorize,
+        :snapshot_id => @app.snapshot_id
       }
      
       @database = Database.new(database_params)

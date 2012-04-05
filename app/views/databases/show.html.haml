@@ -64,7 +64,14 @@
   = @database.parameter_group
 %p
   %b RDS Security group name:
-  = link_to @database.security_group_name, admin_rds_security_group_path(@database.security_group_name)
+  - if @database.sg_out_of_sync
+    - if @database.state == 'available'
+      The SG is out of sync!! You can change it clicking here: 
+      = link_to "Sync",admin_rds_server_path(@database.name, :rds_server => { :security_group_names => [@database.security_group_name]}),:method => :put
+    - else
+      The SG is out of sync!! You can change it when it gets Available 
+  - else
+    = link_to @database.security_group_name, admin_rds_security_group_path(@database.security_group_name)
 %p
   %b EC2 Security Group To Authorize:
   = @database.ec2_sg_to_authorize
