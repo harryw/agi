@@ -19,14 +19,14 @@ Feature: When AWS fails to make a request
    | db_type           | posgres    | start-invalid_db_type        | InvalidParameterValue          | Invalid DB engine: posgres           |
    | availability_zone | us-east-1a | start-insufficient_capacity  | InsufficientDBInstanceCapacity | db.m1.small is not currently         |
 
-  Scenario Outline: Capture Invalid AWS RDS Security Group at starting time
-    Given a database exists with security_group_name: "<rds_sg>", ec2_sg_to_authorize: "<ec2_sg_to_authorize>"
-    And I go to the database's page
-    When I follow "Start" using a cassette named "<cassette_name>"
-    Then I should see "<aws_error>"
-    And I should see "<detail_error>"
-    
-  Scenarios: A rds security group is created and an ec2_sg_to_authorize is authorized before starting a rds instance 
-    | rds_sg       | ec2_sg_to_authorize | cassette_name        | aws_error             | detail_error                                   |
-    | invalid_sg.1 | new_ec2_sg          | start-invalid-rds_sg | InvalidParameterValue | DBSecurityGroupName can contain only ASCII |
-
+#  Scenario Outline: Capture Invalid AWS RDS Security Group at starting time
+#    Given a database exists with security_group_name: "<rds_sg>", ec2_sg_to_authorize: "<ec2_sg_to_authorize>"
+#    And I go to the database's page
+#    When I follow "Start" using a cassette named "<cassette_name>"
+#    Then I should see "<aws_error>"
+#    And I should see "<detail_error>"
+#    
+#  Scenarios: A rds security group is created and an ec2_sg_to_authorize is authorized before starting a rds instance 
+#    | rds_sg       | ec2_sg_to_authorize | cassette_name        | aws_error             | detail_error                                   |
+#    | invalid_sg.1 | new_ec2_sg          | start-invalid-rds_sg | InvalidParameterValue | DBSecurityGroupName can contain only ASCII |
+#
