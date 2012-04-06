@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308202524) do
+ActiveRecord::Schema.define(:version => 20120405193802) do
+
+  create_table "addons", :force => true do |t|
+    t.string   "name"
+    t.text     "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -21,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20120308202524) do
     t.string   "deploy_user"
     t.string   "deploy_group"
     t.string   "alert_emails"
-    t.string   "url"
+    t.string   "domain"
     t.string   "git_revision"
     t.string   "rails_env"
     t.string   "cache_cluster_link"
@@ -39,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20120308202524) do
     t.string   "git_branch"
     t.boolean  "auto_generate_database"
     t.string   "ec2_sg_to_authorize",    :default => ""
+    t.string   "url"
   end
 
   create_table "chef_accounts", :force => true do |t|
@@ -100,6 +108,8 @@ ActiveRecord::Schema.define(:version => 20120308202524) do
     t.string   "ec2_sg_to_authorize",  :default => ""
     t.string   "parameter_group",      :default => "default.mysql5.5"
     t.string   "security_group_name"
+    t.string   "snapshot_id"
+    t.boolean  "sg_out_of_sync",       :default => false
   end
 
   create_table "deployments", :force => true do |t|
@@ -125,6 +135,13 @@ ActiveRecord::Schema.define(:version => 20120308202524) do
     t.integer  "user_id"
     t.string   "s3_url_iq",            :default => ""
     t.datetime "deployed_time"
+  end
+
+  create_table "extensions", :force => true do |t|
+    t.integer  "app_id"
+    t.integer  "addon_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "projects", :force => true do |t|

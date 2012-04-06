@@ -20,8 +20,15 @@ class App < ActiveRecord::Base
     validates_uniqueness_of :name
     
     attr_accessible :name, :description, :stage_name, :deploy_to, :deploy_user, :deploy_group, :alert_emails, :url, :git_revision,:rails_env,  :customer_id, :project_id, 
-    :chef_account_id, :multi_tenant, :uses_bundler, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize
+    :chef_account_id, :multi_tenant, :uses_bundler, :database_id, :git_branch, :auto_generate_database, :ec2_sg_to_authorize, :snapshot_id
     
+    def snapshot_id=(value)
+      @snapshot_id = value
+    end
+    
+    def snapshot_id
+      @snapshot_id
+    end  
     
     def remove_trailing_slash
       self.deploy_to.sub!(/(\/)+$/,'')

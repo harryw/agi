@@ -63,7 +63,7 @@ class Admin::Rds::ServersController < ApplicationController
           format.html { redirect_to [:admin, @server], notice: 'RdsServer was successfully updated.' }
           format.json { head :ok }
         else
-          format.html { render action: "edit" }
+          format.html { flash[:alert] = pretty_error(@server.errors.full_messages.join) ;render action: "show" }
           format.json { render json: @server.errors, status: :unprocessable_entity }
         end
       end

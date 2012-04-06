@@ -8,7 +8,8 @@ gem 'rails', '3.2.1'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
-gem 'mysql'
+#gem 'mysql'
+gem 'pg'
 
 gem 'rack-active_record_status', :require => 'rack/active_record_status'
 
@@ -41,7 +42,7 @@ gem 'chef', '>= 0.10.4' # opscode authentication
 # once a client library gem is created, you can replace the below ones
 gem 'yajl-ruby'
 
-gem 'mauth_signer', :git => 'git@github.com:mdsol/mauth_signer.git', :ref => '4e03b8e'
+#gem 'mauth_signer', :git => 'git@github.com:mdsol/mauth_signer.git', :ref => '4e03b8e'
 #gem 'eureka-client', :git => 'git@github.com:mdsol/eureka-client.git', :ref => 'c4c98a4'
 
 gem 'prawn' # pdf generator
