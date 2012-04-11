@@ -60,33 +60,88 @@ class Database < ActiveRecord::Base
   end
   
   def refresh_database_state
-    if started and state != 'available' or sg_out_of_sync
+    if started and state != 'available'
       begin
-        @database_client = RdsServer.find(self.name)
-        self.state = @database_client.state
-        self.hostname = @database_client.endpoint.attributes["Address"]
-        # If the rds was created throught a snapshot, it will come up with the default security group
-        if @database_client.db_security_groups.select { |sg| sg.attributes['DBSecurityGroupName'] == self.security_group_name }.blank?
-          self.sg_out_of_sync = true
-        else
-          self.sg_out_of_sync = false
-        end
+        database_client(force=true)
+        self.state = database_client.state
+        self.hostname = database_client.endpoint.attributes["Address"]
+        populate_empty_fields unless snapshot_id.blank?
       rescue
         self.started = false
         self.state = 'missing'
         self.hostname = nil
       end
-      
-      self.save 
+      self.save
     end
-    
   end
+  
+  # After starting a rds instance out of a snapshot, some fields have to be modified
+  def sync_agi_fields_to_rds
+    # you can only modify when the rds instances is available
+    if state == 'available' and any_field_out_of_sync?
+      rds_server = {
+        :password => password,
+        :allocated_storage => instance_storage,
+        :multi_az => multi_az,
+        :flavor_id => instance_class,
+        :security_group_names => [self.security_group_name],
+      }.reject!{|k,v| v.blank? }
+      begin
+        database_client.update_attributes(rds_server)
+        self.state = 'modifying'
+        self.save
+      rescue
+        raise "It failed to update the attributes. #{rds_server.inspect}"
+      end
+      
+    end
+  end
+  
+
+  
+
   
   def mysql_command
     "mysql -u #{username} -p#{password} -h #{hostname} #{db_name}"
   end
   
   private
+    def database_client(force=false)
+      begin
+        if force
+          @database_client = RdsServer.find(self.name)
+        else
+          @database_client ||= RdsServer.find(self.name)
+        end
+      rescue
+        @database_client = nil
+      end
+      @database_client
+    end
+    
+    def any_field_out_of_sync?
+      # If the rds was created throught a snapshot, it will come up with the default security group
+      if database_client.db_security_groups.select { |sg| sg.attributes['DBSecurityGroupName'] == self.security_group_name }.blank?
+        return true
+      else
+        return false
+      end
+    end
+  
+    # This method only applies for restore db instance from db snapshot
+    def populate_empty_fields
+      self.instance_storage ||= database_client.allocated_storage
+      self.instance_class ||= database_client.flavor_id
+      self.multi_az ||= database_client.multi_az
+      self.availability_zone ||= database_client.availability_zone
+      # The following fields can't be modify
+      self.username = database_client.master_username
+      self.db_type = database_client.engine
+      # The following fields aren't modify by agi yet
+      self.engine_version = database_client.engine_version
+      self.db_name = database_client.db_name
+      self.parameter_group = database_client.db_parameter_groups.first.attributes["DBParameterGroupName"]
+    end
   
     def default_values
       self.engine_version ||= "5.5.12"

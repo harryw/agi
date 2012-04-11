@@ -36,13 +36,21 @@
 %p
   %b Engine version:
   = @server.engine_version
-%p
-  - @server.db_parameter_groups.each do |param_group|
-    %b Parameter Group Name:
-    = param_group.attributes["DBParameterGroupName"]
-    %b Status:
-    = param_group.attributes["ParameterApplyStatus"]
 
+- @server.db_parameter_groups.each do |param_group|
+  %b Parameter Group Name:
+  = param_group.attributes["DBParameterGroupName"]
+  %b Status:
+  = param_group.attributes["ParameterApplyStatus"]
+  %p
+  
+- @server.db_security_groups.each do |db_security_group|
+  %b Security Group Name:
+  = db_security_group.attributes["DBSecurityGroupName"]
+  %b Status:
+  = db_security_group.attributes["Status"]
+  %p
+  
 %p
   %b Pending Modified Values Hash:
   = @server.pending_modified_values.attributes
