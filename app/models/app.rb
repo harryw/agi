@@ -10,7 +10,7 @@ class App < ActiveRecord::Base
     
     delegate :name, :name_tag, :configuration, :platform, :to => :project, :prefix => true, :allow_nil => true
     delegate :name, :name_tag, :configuration, :to => :customer,:prefix => true, :allow_nil => true
-    delegate :name, :configuration, :ready?, :started, :to => :database,:prefix => true, :allow_nil => true
+    delegate :name, :configuration, :ready?, :started, :snapshot_id, :sync_agi_fields_to_rds, :to => :database,:prefix => true, :allow_nil => true
     delegate :name, :update_data_bag_item, :to => :chef_account, :prefix => true, :allow_nil => true
     
     after_initialize :set_default_values
@@ -58,7 +58,7 @@ class App < ActiveRecord::Base
     end
     
     def required_packages
-      if project_platform == "ctms"
+      if project_platform == "ctms" or project_platform == "jasper"
         %w{ ttf-dejavu ttf-liberation libxerces2-java libxerces2-java-gcj mysql-client }
       else
         %w{ libxml2-dev libxslt-dev libmysqlclient-dev }

@@ -18,6 +18,9 @@ class DatabasesController < ApplicationController
   def show
     @database = Database.find(params[:id])
     @database.refresh_database_state
+    
+    # If the rds was restored from a snapshot, a few fields have to be modify after becomes available: security_groups, password, size
+    @database.sync_agi_fields_to_rds unless @database.snapshot_id.blank?
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,6 +32,7 @@ class DatabasesController < ApplicationController
   # GET /databases/new.json
   def new
     @database = Database.new
+    @restore_db_instance_from_db_snapshot = params[:restore_db_instance_from_db_snapshot] || false
     load_parameter_groups
     respond_to do |format|
       format.html # new.html.erb
@@ -65,7 +69,7 @@ class DatabasesController < ApplicationController
   def update
     @database = Database.find(params[:id])
     load_parameter_groups
-    
+          
     respond_to do |format|
       if @database.update_attributes(params[:database])
         format.html { redirect_to @database, notice: 'Database was successfully updated.' }

@@ -1,4 +1,4 @@
-= simple_form_for @server do |form|
+= simple_form_for [:admin, @server] do |form|
 
   -if @server.errors.any?
     #errorExplanation
