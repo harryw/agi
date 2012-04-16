@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405193802) do
+ActiveRecord::Schema.define(:version => 20120412110337) do
 
   create_table "addons", :force => true do |t|
     t.string   "name"
@@ -112,6 +112,12 @@ ActiveRecord::Schema.define(:version => 20120405193802) do
     t.boolean  "sg_out_of_sync",       :default => false
   end
 
+  create_table "dependencies", :force => true do |t|
+    t.integer "app_id"
+    t.integer "backend_id"
+    t.integer "frontend_id"
+  end
+
   create_table "deployments", :force => true do |t|
     t.string   "user_link"
     t.string   "git_repo"
@@ -142,6 +148,12 @@ ActiveRecord::Schema.define(:version => 20120405193802) do
     t.integer  "addon_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "permits", :force => true do |t|
+    t.integer "dependency_id"
+    t.string  "port"
+    t.string  "security_group"
   end
 
   create_table "projects", :force => true do |t|

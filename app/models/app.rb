@@ -7,6 +7,9 @@ class App < ActiveRecord::Base
 
     has_many :deployments
     has_many :customizations, :as => :customizable
+    has_many :dependencies
+    has_many :backends, :through => :dependencies, :source => :backend
+    has_many :frontends, :through => :dependencies, :source => :frontend
     
     delegate :name, :name_tag, :configuration, :platform, :to => :project, :prefix => true, :allow_nil => true
     delegate :name, :name_tag, :configuration, :to => :customer,:prefix => true, :allow_nil => true
