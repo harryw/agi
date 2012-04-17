@@ -85,15 +85,22 @@ class Database < ActiveRecord::Base
         :multi_az => multi_az,
         :flavor_id => instance_class,
         :security_group_names => [self.security_group_name],
+#        :security_group_names => ['dont-exist'], # this will produce a 422 from agifog
       }.reject!{|k,v| v.blank? }
       begin
-        database_client.update_attributes(rds_server)
-        self.state = 'modifying'
-        self.save
+        if database_client.update_attributes(rds_server)
+          self.state = 'modifying'
+        else
+          self.state = 'error syncing'
+          self.save
+        end
       rescue
-        raise "It failed to update the attributes. #{rds_server.inspect}"
+        database_client.errors.add(:base, "It failed to update the attributes. #{rds_server.inspect}")
+        self.state = 'error syncing'
+        self.save
       end
       
+      database_client
     end
   end
   

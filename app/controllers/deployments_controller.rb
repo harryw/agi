@@ -43,8 +43,7 @@ class DeploymentsController < ApplicationController
     end
     # If the rds was restored from a snapshot, a few fields have to be modify after becomes available: security_groups, password, size
     # if the user went previously to the /databases#show page the following had been run
-    @app.database_sync_agi_fields_to_rds unless @app.database_snapshot_id.blank?
-    
+    @database_client = @app.database_sync_agi_fields_to_rds unless @app.database_snapshot_id.blank?
     load_deployment_data
     
     respond_to do |format|

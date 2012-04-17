@@ -1,4 +1,9 @@
-
+-if @database_client and @database_client.errors.any?
+  #errorExplanation
+    %h2= "#{pluralize(@database_client.errors.count, "error")} stop from syncing Agi Database with the Restored RDS instance:"
+    %ul
+      - @database_client.errors.full_messages.each do |msg|
+        %li= msg
 %p
   %b Name:
   = @database.name
