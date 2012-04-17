@@ -1,6 +1,6 @@
 development:
-  hostname: agifog.dev
-  port: 80
+  hostname: localhost
+  port: 3001
 test:
-  hostname: agifog.dev
-  port: 80
+  hostname: localhost
+  port: 3001

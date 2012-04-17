@@ -20,7 +20,7 @@ class DatabasesController < ApplicationController
     @database.refresh_database_state
     
     # If the rds was restored from a snapshot, a few fields have to be modify after becomes available: security_groups, password, size
-    @database.sync_agi_fields_to_rds unless @database.snapshot_id.blank?
+    @database_client = @database.sync_agi_fields_to_rds unless @database.snapshot_id.blank?
 
     respond_to do |format|
       format.html # show.html.erb
@@ -120,8 +120,8 @@ class DatabasesController < ApplicationController
     
     @rds_sec_groups = create_rds_security_group(@database.security_group_name,@database.ec2_sg_to_authorize)
     # this is an active resource workaround
-    #rds_sec_groups_valid = @rds_sec_groups.class == Net::HTTPOK ? true : @rds_sec_groups.valid?
-    rds_sec_groups_valid = @rds_sec_groups.class == Net::HTTPOK ? true : @rds_sec_groups
+    rds_sec_groups_valid = @rds_sec_groups.class == Net::HTTPOK ? true : @rds_sec_groups.valid?
+    #rds_sec_groups_valid = @rds_sec_groups.class == Net::HTTPOK ? true : @rds_sec_groups
                             
     
     @rds_server = RdsServer.new(rds_attributes)
@@ -232,13 +232,13 @@ class DatabasesController < ApplicationController
           # @sg.class => Net::HTTPOK
           # @sg.code => "200"
           # if it fails, it returns an active resource object
-          return @sg.put(:authorize, nil,authorize_ec2)
+          @sg.put(:authorize, nil,authorize_ec2)
         else
           Rails.logger.info "#{ec2_sg_to_authorize} is empty"
         end
       rescue
-         return(@sg)
-      end 
+      end
+      @sg 
     end
     
 
