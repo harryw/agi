@@ -1,8 +1,10 @@
-class StacksController < ApplicationController
+class DependenciesController < ApplicationController
   # GET /stacks
   # GET /stacks.json
   def index
     @frontends = Dependency.all.map {|d| d.app if d.backend }.compact
+    
+    @permit = Permit.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,7 +14,7 @@ class StacksController < ApplicationController
   # GET /stacks/1
   # GET /stacks/1.json
   def show
-    @stacks = stack.find(params[:id])
+    @stacks = Dependency.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -54,6 +56,7 @@ class StacksController < ApplicationController
   # PUT /stacks/1.json
   def update
     @stack = stack.find(params[:id])
+
 
     respond_to do |format|
       if @stack.update_attributes(params[:stack])

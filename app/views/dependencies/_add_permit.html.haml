@@ -1,0 +1,14 @@
+= simple_form_for @permit, :url => stack_permits_path(dependency) do |form|
+
+  -if @permit.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@permit.errors.count, "error")} prohibited this #{RdsSecurityGroup.name.titleize} from being saved:"
+      %ul
+        - @permit.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :security_group
+  = form.input :port
+
+  .actions
+    = form.button :submit, "Authorize"

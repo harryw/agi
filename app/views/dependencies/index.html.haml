@@ -21,6 +21,8 @@
                     %tr
                       %td= permit.security_group
                       %td= permit.port
+              %td= render(:partial => 'add_permit', :locals => { :dependency => dependency  })
+              
             
 
 %br

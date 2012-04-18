@@ -36,7 +36,9 @@ Agi::Application.routes.draw do
       resources :customizations
   end
   
-  resources :stacks
+  resources :stacks, :controller => "dependencies" do
+    resources :permits, :only => [:create, :destroy]
+  end
   
   root :to => "apps#index"
 
