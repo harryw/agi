@@ -7,6 +7,11 @@ class Dependency < ActiveRecord::Base
   after_create :create_frontend_dependency, :if => :backend_id
   after_create :create_backend_dependency, :if => :frontend_id
   
+  validates_presence_of :app_id
+  
+  scope :with_backends, where("backend_id IS NOT NULL")
+  scope :with_frontends, where("frontend_id IS NOT NULL")
+  
   def create_frontend_dependency
     backend.frontends << app unless backend.frontends.include?(app)
   end

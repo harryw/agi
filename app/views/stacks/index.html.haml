@@ -1,0 +1,28 @@
+%h1 Listing Stacks 
+
+%table
+  %tr
+    %th App Name
+    %th Backends
+    %th permits
+
+
+  - @frontends.each do |frontend|
+    %tr
+      %td= frontend.name
+      %td
+        %table
+          - frontend.dependencies.with_backends.each do |dependency|
+            %tr
+              %td= dependency.backend.name
+              %td
+                %table
+                  - dependency.permits.each do |permit|
+                    %tr
+                      %td= permit.security_group
+                      %td= permit.port
+            
+
+%br
+
+= link_to 'New Stack', [:new, :stack]

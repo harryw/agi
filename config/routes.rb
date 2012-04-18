@@ -36,6 +36,8 @@ Agi::Application.routes.draw do
       resources :customizations
   end
   
+  resources :stacks
+  
   root :to => "apps#index"
 
   # The priority is based upon order of creation:
