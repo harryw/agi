@@ -1,0 +1,14 @@
+= simple_form_for @stack, :url => stacks_path do |form|
+
+  -if @stack.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@stack.errors.count, "error")} prohibited this #{stack.name.titleize} from being saved:"
+      %ul
+        - @stack.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.hidden_field :app_id, :value => app_id
+  = form.input :backend_id, :label => ' Backend to Add', :collection => App.all
+
+  .actions
+    = form.button :submit

@@ -5,6 +5,9 @@ class DependenciesController < ApplicationController
     @frontends = Dependency.all.map {|d| d.app if d.backend }.compact
     
     @permit = Permit.new
+    
+    @stack = Dependency.new
+    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -33,13 +36,7 @@ class DependenciesController < ApplicationController
     end
   end
 
-  # GET /stacks/1/edit
-  def edit
-    @stack = stack.find(params[:id])
-  end
 
-  # POST /stacks
-  # POST /stacks.json
   def create
     @stack = Dependency.new(params[:dependency])
 
@@ -52,27 +49,12 @@ class DependenciesController < ApplicationController
     end
   end
 
-  # PUT /stacks/1
-  # PUT /stacks/1.json
-  def update
-    @stack = stack.find(params[:id])
 
-
-    respond_to do |format|
-      if @stack.update_attributes(params[:stack])
-        format.html { redirect_to @stack, notice: 'stack was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @stack.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /stacks/1
   # DELETE /stacks/1.json
   def destroy
-    @stack = stack.find(params[:id])
+    @stack = Dependency.find(params[:id])
     @stack.destroy
 
     respond_to do |format|

@@ -9,18 +9,26 @@
 
   - @frontends.each do |frontend|
     %tr
-      %td= frontend.name
+      %td
+        %table
+          %tr
+            %td= frontend.name
+          %tr
+            %td= render(:partial => 'add_dependency', :locals => {:app_id => frontend.id })
       %td
         %table
           - frontend.dependencies.with_backends.each do |dependency|
             %tr
-              %td= dependency.backend.name
+              %td
+                = dependency.backend.name
+                = link_to 'delete', stack_path(dependency), :confirm => 'Are you sure?', :method => :delete
               %td
                 %table
                   - dependency.permits.each do |permit|
                     %tr
                       %td= permit.security_group
                       %td= permit.port
+                      %td= link_to 'delete', stack_permit_path(dependency,permit), :confirm => 'Are you sure?', :method => :delete
               %td= render(:partial => 'add_permit', :locals => { :dependency => dependency  })
               
             
