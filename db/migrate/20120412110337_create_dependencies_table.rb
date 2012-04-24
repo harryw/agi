@@ -4,6 +4,7 @@ class CreateDependenciesTable < ActiveRecord::Migration
        t.integer :app_id
        t.integer :backend_id
        t.integer :frontend_id
+       t.integer :chef_account_id
     end
     
     create_table :permits do |t|

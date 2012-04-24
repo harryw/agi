@@ -2,7 +2,7 @@ class DependenciesController < ApplicationController
   # GET /stacks
   # GET /stacks.json
   def index
-    @frontends = Dependency.all.map {|d| d.app if d.backend }.compact
+    @frontends = Dependency.get_all_frontends
     
     @permit = Permit.new
     

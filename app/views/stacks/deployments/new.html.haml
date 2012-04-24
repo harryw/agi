@@ -1,0 +1,18 @@
+%h1 New Stack Deployment
+
+%pre
+  #deployment_data= JSON.pretty_generate(JSON.parse(@stack_deployment.deployment_data.to_json))
+  
+= simple_form_for @stack_deployment do |form|
+
+  -if @stack_deployment.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@stack_deployment.errors.count, "error")} prohibited this #{stack_deployment.name.titleize} from being saved:"
+      %ul
+        - @stack_deployment.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :description
+
+  .actions
+    = form.button :submit

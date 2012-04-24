@@ -1,3 +1,8 @@
+= link_to 'New Stack', [:new, :stack]
+\|
+= link_to 'Deploy', new_stacks_deployment_path
+%p
+
 %h1 Listing Stacks 
 
 %table
@@ -6,7 +11,7 @@
     %th Backends
     %th permits
 
-
+  = @frontends.size
   - @frontends.each do |frontend|
     %tr
       %td
@@ -35,4 +40,3 @@
 
 %br
 
-= link_to 'New Stack', [:new, :stack]

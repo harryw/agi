@@ -8,7 +8,7 @@
           %li= msg  
 
   = form.hidden_field :app_id, :value => app_id
-  = form.input :backend_id, :label => ' Backend to Add', :collection => App.all
+  = form.input :backend_id, :label => ' Backends', :collection => App.all
 
   .actions
-    = form.button :submit
+    = form.button :submit, "Add backend" 

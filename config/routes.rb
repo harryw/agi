@@ -38,6 +38,11 @@ Agi::Application.routes.draw do
   
   resources :stacks, :controller => "dependencies" do
     resources :permits, :only => [:create, :destroy]
+
+  end
+  
+  namespace :stacks do
+    resources :deployments, :only => [:new, :create, :show, :index]
   end
   
   root :to => "apps#index"

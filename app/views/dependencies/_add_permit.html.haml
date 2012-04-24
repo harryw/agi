@@ -6,9 +6,9 @@
       %ul
         - @permit.errors.full_messages.each do |msg|
           %li= msg  
-
-  = form.input :security_group
-  = form.input :port
-
-  .actions
-    = form.button :submit, "Authorize"
+  %table
+    %tr= form.input :security_group
+    %tr= form.input :port
+    %tr
+      .actions
+      = form.button :submit, "Authorize"  

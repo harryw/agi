@@ -2,5 +2,5 @@ development:
   hostname: localhost
   port: 3001
 test:
-  hostname: localhost
-  port: 3001
+  hostname: agifog.dev
+  port: 80
