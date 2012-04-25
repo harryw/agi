@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423155205) do
+ActiveRecord::Schema.define(:version => 20120412110337) do
 
   create_table "addons", :force => true do |t|
     t.string   "name"
@@ -167,18 +167,6 @@ ActiveRecord::Schema.define(:version => 20120423155205) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "platform"
-  end
-
-  create_table "stacks_deployments", :force => true do |t|
-    t.datetime "started_at"
-    t.datetime "completed_at"
-    t.datetime "deployment_timestamp"
-    t.text     "deployed_data"
-    t.string   "final_result"
-    t.string   "opscode_result"
-    t.text     "opscode_log"
-    t.string   "description"
-    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|

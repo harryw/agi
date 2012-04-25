@@ -29,10 +29,26 @@ class Dependency < ActiveRecord::Base
   
   def self.get_all_frontends
     #self.all.map {|d| d.app if d.backend }.compact
-    includes(:backend).includes(:app).map {|d| d.app if d.backend }.compact.uniq
+    #includes(:backend).includes(:app).map {|d| d.app if d.backend }.compact.uniq
+    with_backends.includes(:app).map(&:app).uniq
   end
   
   def populate_chef_account
     self.chef_account_id = app.chef_account_id
+  end
+  
+  def self.generate_deployment_data(chef_account)
+    deployment_data = {}
+    frontends = chef_account.dependencies.with_backends.includes(:app).map(&:app).uniq
+    frontends.each do |frontend|
+      frontend_app = {}
+      @has_one = []
+      frontend.backends.each do |backend|
+        @has_one << {:name => backend.name, :type => 'app' }
+      end
+      frontend_app = {:has_one => @has_one, :type => 'app'}
+      deployment_data.store(frontend.name,frontend_app)
+    end
+    deployment_data
   end
 end

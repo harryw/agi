@@ -1,6 +1,6 @@
 class ChefAccount < ActiveRecord::Base
   has_many :apps
-  has_many :dependencies
+  has_many :chef_accounts
 
   before_validation :clean_keys
   after_save        :remove_client_key

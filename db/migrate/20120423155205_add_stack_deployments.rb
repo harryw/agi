@@ -1,6 +1,6 @@
 class AddStackDeployments < ActiveRecord::Migration
   def change
-    create_table :stacks_deployments do |t|
+    create_table :stack_deployments do |t|
       t.datetime :started_at
       t.datetime :completed_at
       t.datetime :deployment_timestamp
@@ -10,6 +10,7 @@ class AddStackDeployments < ActiveRecord::Migration
       t.text     :opscode_log
       t.string   :description
       t.integer  :user_id
+      t.integer  :chef_account_id
     end
   end
   

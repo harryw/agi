@@ -12,7 +12,7 @@ class PermitsController < ApplicationController
 
     respond_to do |format|
       if @permit.save
-        format.html { redirect_to stacks_path, notice: 'permit was successfully created.' }
+        format.html { redirect_to stack_path(@dependency.chef_account), notice: 'permit was successfully created.' }
       else
         format.html { render action: "new" }
       end
@@ -21,11 +21,12 @@ class PermitsController < ApplicationController
 
 
   def destroy
+    @dependency = Dependency.find(params[:stack_id])
     @permit = Permit.find(params[:id])
     @permit.destroy
 
     respond_to do |format|
-      format.html { redirect_to stacks_path }
+      format.html { redirect_to stack_path(@dependency.chef_account) }
     end
   end
 end
