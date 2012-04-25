@@ -1,0 +1,33 @@
+%p
+  %b Final deployment result:
+  = @deployment.final_result
+%p
+  %b Deployed by:
+  = @deployment.user.email if @deployment.user
+%p
+  %b Description:
+  = @deployment.description
+
+%p
+  %b Opscode error log:
+  = @deployment.opscode_log
+%p
+  %b App:
+  = link_to "stack", stack_path(@deployment.chef_account)
+%p
+  %b Started at:
+  = @deployment.started_at
+%p
+  %b Completed at:
+  = @deployment.completed_at
+%p
+  %b deployment_timestamp:
+  = @deployment.deployment_timestamp
+
+%p
+  %b Deployed Data:
+  %pre
+    = JSON.pretty_generate(JSON.parse(@deployment.deployed_data.to_json))
+
+
+= link_to 'Back', stack_deployments_path(@app)

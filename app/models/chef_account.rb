@@ -1,6 +1,7 @@
 class ChefAccount < ActiveRecord::Base
   has_many :apps
-  has_many :chef_accounts
+  has_many :dependencies
+  has_many :stack_deployments
 
   before_validation :clean_keys
   after_save        :remove_client_key
@@ -11,13 +12,13 @@ class ChefAccount < ActiveRecord::Base
   attr_accessible :name, :formal_name, :validator_key, :client_key, :databag_key, :api_url, :created_at, :updated_at, :client_name
   
   
-  def update_data_bag_item(data_bag_item_data)
+  def update_data_bag_item(data_bag_item_data, data_bag_name = 'agi_applications')
     begin
-      rest.post_rest("data/#{data_bag_name}", data_bag_item_data)
-      
+      debugger
+      @upload = rest.post_rest("data/#{data_bag_name}", data_bag_item_data)
     rescue Net::HTTPServerException
       if $!.message == '404 "Not Found"' && !@tried_to_create_databag
-        create_databag
+        create_databag(data_bag_name)
         retry
       else
         raise
@@ -25,14 +26,12 @@ class ChefAccount < ActiveRecord::Base
     end
   end
   
-  def create_databag
+  def create_databag(data_bag_name)
     @tried_to_create_databag = true
     rest.post_rest('/data', 'name' => data_bag_name)
   end
   
-  def data_bag_name
-    'agi_applications'
-  end
+
   
   def validator_name
     "#{name}-validator"
