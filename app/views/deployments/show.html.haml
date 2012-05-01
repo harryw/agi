@@ -2,6 +2,9 @@
   %b Final deployment result:
   = @deployment.final_result
 %p
+  %b Dynect CNAME log:
+  = @deployment.dynect_cname_log
+%p
   %b IQ:
   = link_to_unless @deployment.s3_url_iq.blank?, "IQ URL", @deployment.s3_url_iq
 %p

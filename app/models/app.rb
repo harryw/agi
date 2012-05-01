@@ -15,6 +15,7 @@ class App < ActiveRecord::Base
     
     after_initialize :set_default_values
     before_validation :generate_default_values, :remove_trailing_slash
+    before_save :get_lb_dns, :unless => "ec2_sg_to_authorize.blank?"
     
     validates_presence_of :customer, :project, :chef_account, :stage_name
     validates_uniqueness_of :name
@@ -102,6 +103,15 @@ class App < ActiveRecord::Base
           self.deploy_user ||= 'medidata'
           self.deploy_group ||= 'medidata'
           self.git_branch ||= 'master'
+        end
+      end
+      
+      def get_lb_dns
+        if elb = ElbLoadBalancer.find(ec2_sg_to_authorize) rescue nil
+          self.lb_dns = elb.dns_name
+          self.dynect_cname_name ||= "#{generate_name}.#{AppConfig["agifog"]["dynectzone"]}"
+        else
+          self.lb_dns = "ERROR: ELB: #{ec2_sg_to_authorize} doesn't exist. Go to Medistrano and start a ELB in this cloud"
         end
       end
         

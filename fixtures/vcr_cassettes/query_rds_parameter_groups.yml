@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://agifog.dev/api/v1/rds/parameter_groups.json
+    uri: http://localhost:3001/api/v1/rds/parameter_groups.json
     body:
       encoding: US-ASCII
       string: ''

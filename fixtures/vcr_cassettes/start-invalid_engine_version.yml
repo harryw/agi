@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://agifog.dev/api/v1/rds/security_groups/fake-db.json
+    uri: http://localhost:3001/api/v1/rds/security_groups/fake-db.json
     body:
       encoding: US-ASCII
       string: ''
@@ -40,7 +40,7 @@ http_interactions:
   recorded_at: Fri, 09 Mar 2012 15:03:05 GMT
 - request:
     method: post
-    uri: http://agifog.dev/api/v1/rds/servers.json
+    uri: http://localhost:3001/api/v1/rds/servers.json
     body:
       encoding: US-ASCII
       string: ! '{"server":{"allocated_storage":5,"db_name":"fakedb","engine":"mysql","engine_version":"4.4.44","flavor_id":"db.m1.xlarge","id":"fake-db","master_username":"usuario","multi_az":true,"parameter_group_name":"default.mysql5.5","password":"contrasena","security_group_names":["fake-db"]}}'

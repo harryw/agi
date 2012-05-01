@@ -3,12 +3,12 @@ class Deployment < ActiveRecord::Base
     belongs_to :app
     belongs_to :user
     
-    delegate :chef_account_update_data_bag_item, :to => :app, :prefix => true
+    delegate :chef_account_update_data_bag_item, :lb_dns, :dynect_cname_status, :dynect_cname_name, :to => :app, :prefix => true
         
     serialize :deployed_data
     
     # :update_databag will be moved to an asyncronous state later
-    before_save :set_initial_status, :save_deployed_data, :update_databag, :save_iq_file
+    before_save :set_initial_status, :save_deployed_data, :update_databag, :save_iq_file, :cname_load_balancer
 
     attr_accessible :git_repo, :git_commit, :send_email, :task, :run_migrations, :migration_command, :app_id, :deployment_timestamp, :deployed_data, :force_deploy, :final_result, :opscode_result, :opscode_log, :description, :user_id, :s3_url_iq, :deployed_time
         
@@ -96,5 +96,34 @@ class Deployment < ActiveRecord::Base
       conf
     end
     
+    private
+      
+      def cname_load_balancer
+        if app_lb_dns and app_dynect_cname_name
+          unless cname_record = Dynect.find(app_dynect_cname_name) rescue nil
+            begin
+              debugger
+              new_dynect_cname = Dynect.new("zone"=> AppConfig["agifog"]["dynectzone"],
+                                          "ttl"=> 600,
+                                          "fqdn" => app_dynect_cname_name,
+                                          "record_type" => "CNAME",
+                                          "rdata"=> app_lb_dns)
+              if new_dynect_cname.save
+                self.dynect_cname_log = "OK: #{app_dynect_cname_name} CNAME was created successfully"
+              else
+                self.dynect_cname_log = "Error: #{new_dynect_cname.errors.full_messages.join(' ')}"
+                #self.errors.add(:creating_dynect_cname_record, "Error: it failed to create it")
+                #return false
+              end
+            rescue
+              self.dynect_cname_log = "failed to create it: #{$!.message}"
+              #self.errors.add(:creating_dynect_cname_record, "Error: it failed to create it")
+              #return false
+            end
+          else
+            self.dynect_cname_log = "OK: #{app_dynect_cname_name} CNAME was already created"
+          end
+        end
+      end
     
 end
