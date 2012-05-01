@@ -42,6 +42,15 @@
   %b Url:
   = @app.url
 %p
+  %b Load Balancer DNS:
+  = @app.lb_dns
+%p
+  %b Dynect CNAME:
+  = @app.dynect_cname_name
+%p
+  %b Dynect CNAME status:
+  = @dynect_cname_log
+%p
   %b Git branch:
   = @app.git_branch
 %p
