@@ -3,6 +3,6 @@ development:
   port: 3001
   dynectzone: imedidata.net
 test:
-  hostname: agifog.dev
-  port: 80
+  hostname: localhost
+  port: 3001
   dynectzone: imedidata.net

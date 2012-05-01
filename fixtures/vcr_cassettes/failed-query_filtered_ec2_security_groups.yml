@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://agifog.dev/api/v1/compute/security_groups/search.json?contains=ruby%7Cjava
+    uri: http://localhost:3001/api/v1/compute/security_groups/search.json?contains=ruby%7Cjava
     body:
       encoding: US-ASCII
       string: ''
