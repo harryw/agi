@@ -103,13 +103,13 @@ class Deployment < ActiveRecord::Base
           unless cname_record = Dynect.find(app_dynect_cname_name) rescue nil
             begin
               debugger
-              new_dynect_cname = Dynect.new("zone"=> 'imedidata.net',
+              new_dynect_cname = Dynect.new("zone"=> AppConfig["agifog"]["dynectzone"],
                                           "ttl"=> 600,
                                           "fqdn" => app_dynect_cname_name,
                                           "record_type" => "CNAME",
                                           "rdata"=> app_lb_dns)
               if new_dynect_cname.save
-                self.dynect_cname_log = "OK: It was created successfully"
+                self.dynect_cname_log = "OK: #{app_dynect_cname_name} CNAME was created successfully"
               else
                 self.dynect_cname_log = "Error: #{new_dynect_cname.errors.full_messages.join(' ')}"
                 #self.errors.add(:creating_dynect_cname_record, "Error: it failed to create it")
@@ -121,7 +121,7 @@ class Deployment < ActiveRecord::Base
               #return false
             end
           else
-            self.dynect_cname_log = "OK: It was already created"
+            self.dynect_cname_log = "OK: #{app_dynect_cname_name} CNAME was already created"
           end
         end
       end

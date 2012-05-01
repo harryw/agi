@@ -14,7 +14,17 @@ class AppsController < ApplicationController
   # GET /apps/1.json
   def show
     @app = App.find(params[:id])
-    @dynect_cname_log = Deployment.last.dynect_cname_log || 'Pending: It has to be deployed in order to create the CNAME in Dynect'
+    @dynect_cname_log = if @app.ec2_sg_to_authorize.blank?
+                          "Please, assign an EC2 SG to authorize so we can look for the AWS ELB"
+                        elsif @app.lb_dns =~ /ERROR/
+                          ""
+                        elsif @app.lb_dns.blank?
+                          "Please, update the app record saving it so se can look for the AWS ELB"
+                        elsif @app.deployments.try(:last).try(:dynect_cname_log)
+                            @app.deployments.last.dynect_cname_log
+                        else
+                          'Pending: It has to be deployed in order to create the CNAME in Dynect'
+                        end
     @deployment_status = 
         if !@app.databag_item_timestamp
             "Never Deployed"

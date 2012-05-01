@@ -109,9 +109,9 @@ class App < ActiveRecord::Base
       def get_lb_dns
         if elb = ElbLoadBalancer.find(ec2_sg_to_authorize) rescue nil
           self.lb_dns = elb.dns_name
-          self.dynect_cname_name ||= "#{generate_name}.imedidata.net"
+          self.dynect_cname_name ||= "#{generate_name}.#{AppConfig["agifog"]["dynectzone"]}"
         else
-          self.lb_dns = "Error: ELB: #{ec2_sg_to_authorize} doesn't exist"
+          self.lb_dns = "ERROR: ELB: #{ec2_sg_to_authorize} doesn't exist. Go to Medistrano and start a ELB in this cloud"
         end
       end
         
