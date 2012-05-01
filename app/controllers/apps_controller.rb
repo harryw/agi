@@ -14,7 +14,7 @@ class AppsController < ApplicationController
   # GET /apps/1.json
   def show
     @app = App.find(params[:id])
-     
+    @dynect_cname_log = Deployment.last.dynect_cname_log || 'Pending: It has to be deployed in order to create the CNAME in Dynect'
     @deployment_status = 
         if !@app.databag_item_timestamp
             "Never Deployed"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405193802) do
+ActiveRecord::Schema.define(:version => 20120430153312) do
 
   create_table "addons", :force => true do |t|
     t.string   "name"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20120405193802) do
     t.boolean  "auto_generate_database"
     t.string   "ec2_sg_to_authorize",    :default => ""
     t.string   "url"
+    t.string   "lb_dns"
+    t.string   "dynect_cname_name"
   end
 
   create_table "chef_accounts", :force => true do |t|
@@ -112,6 +114,13 @@ ActiveRecord::Schema.define(:version => 20120405193802) do
     t.boolean  "sg_out_of_sync",       :default => false
   end
 
+  create_table "dependencies", :force => true do |t|
+    t.integer "app_id"
+    t.integer "backend_id"
+    t.integer "frontend_id"
+    t.integer "chef_account_id"
+  end
+
   create_table "deployments", :force => true do |t|
     t.string   "user_link"
     t.string   "git_repo"
@@ -135,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20120405193802) do
     t.integer  "user_id"
     t.string   "s3_url_iq",            :default => ""
     t.datetime "deployed_time"
+    t.string   "dynect_cname_log"
   end
 
   create_table "extensions", :force => true do |t|
@@ -142,6 +152,12 @@ ActiveRecord::Schema.define(:version => 20120405193802) do
     t.integer  "addon_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "permits", :force => true do |t|
+    t.integer "dependency_id"
+    t.string  "port"
+    t.string  "security_group"
   end
 
   create_table "projects", :force => true do |t|
@@ -154,6 +170,19 @@ ActiveRecord::Schema.define(:version => 20120405193802) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "platform"
+  end
+
+  create_table "stack_deployments", :force => true do |t|
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.datetime "deployment_timestamp"
+    t.text     "deployed_data"
+    t.string   "final_result"
+    t.string   "opscode_result"
+    t.text     "opscode_log"
+    t.string   "description"
+    t.integer  "user_id"
+    t.integer  "chef_account_id"
   end
 
   create_table "users", :force => true do |t|
