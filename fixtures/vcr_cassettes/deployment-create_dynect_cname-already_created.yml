@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3001/api/v1/dynect/zones/imedidata.net/nodes/imagegateway-jnj-sandbox.imedidata.net.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      etag:
+      - ! '"7f5243c324f5fde68c46596636ee4799"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-runtime:
+      - '5.789992'
+      content-length:
+      - '292'
+      server:
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      date:
+      - Thu, 10 May 2012 12:41:21 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"zone\": \"imedidata.net\",\n  \"ttl\": 600,\n  \"fqdn\": \"imagegateway-jnj-sandbox.imedidata.net\",\n
+        \ \"record_type\": \"CNAME\",\n  \"rdata\": {\n    \"cname\": \"ctms-distro-app001java-1522428266.us-east-1.elb.amazonaws.com.\"\n
+        \ },\n  \"record_id\": 26841178,\n  \"id\": \"imagegateway-jnj-sandbox.imedidata.net\"\n}"
+    http_version: '1.1'
+  recorded_at: Thu, 10 May 2012 12:41:21 GMT
+recorded_with: VCR 2.0.0.rc2

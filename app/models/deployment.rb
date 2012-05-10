@@ -121,7 +121,13 @@ class Deployment < ActiveRecord::Base
               #return false
             end
           else
-            self.dynect_cname_log = "OK: #{app_dynect_cname_name} CNAME was already created"
+            if !cname_record.rdata or !cname_record.rdata.cname 
+              self.dynect_cname_log = "ERROR:#{app_dynect_cname_name} CNAME was already created, but we couldn't retrieve where it points to"
+            elsif cname_record.rdata.cname.gsub(/\.$/,'') == app_lb_dns
+              self.dynect_cname_log = "OK: #{app_dynect_cname_name} CNAME was already created"
+            else
+              self.dynect_cname_log = "ERROR: #{app_dynect_cname_name} CNAME was already created, but belongs to a different ELB hostname: #{cname_record.rdata.cname.gsub(/\.$/,'')} instead of #{app_lb_dns}"
+            end
           end
         end
       end

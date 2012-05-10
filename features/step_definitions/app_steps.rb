@@ -11,6 +11,10 @@ Given /^I fake the calls to opscode$/ do
     Deployment.any_instance.stub(:app_chef_account_update_data_bag_item).and_return(true)
 end
 
+Given /^I fake the call to query the ELB$/ do
+    App.any_instance.stub(:get_lb_dns).and_return(true)
+end
+
 Given /^I fake the calls to s3$/ do
     Deployment.any_instance.stub(:save_iq_file).and_return(true)
 end
