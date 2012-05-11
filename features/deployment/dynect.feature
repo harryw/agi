@@ -1,11 +1,11 @@
 Feature: Creates a dynect CNAME record when the app is behind an elastic load balancer
   In order to easily access to an app using the imedidata.net dns zone
   An authenticated user will have to deploy
-	I want to transparently create a CNAME using the EC2 Security Group to Authorize in RDS field
+	I want to transparently create a CNAME using the 'EC2 Security Group to Authorize in RDS' field
 	
 	When a Medistrano cloud is created a 'project-envioroment-cloud' ec2 security group is also created. The same name convention applies if the
 	ELB checkbox is enable, so when the user selects an "EC2 security group to Authorize in RDS" Agi can easily check if an ELB with the same name
-	exists. When the ELB exists Agi will query AgiFog to get the ELB hostanme, then a post request will be made at deploying time to Dynect through
+	exists. When the ELB exists Agi will query AgiFog to get the ELB hostname, then a post request will be made at deploying time to Dynect through
 	Agifog to create the CNAME record
 	
   Background: A user must be logged-in to use Agi
@@ -35,7 +35,7 @@ Feature: Creates a dynect CNAME record when the app is behind an elastic load ba
 		And I go to the app's page
 		And I should see "OK: imagegateway-jnj-sandbox.imedidata.net CNAME was already created"
 		
-	Scenario: ec2_sg_to_authorize was edited after a deployment. Warn if the CNAME exists but points to a different ELB hostname
+	Scenario: Editing ec2_sg_to_authorize field in a deployed app warns that the CNAME exists but points to a different ELB hostname
 	  Given a app_with_elb exists with lb_dns: "ctms-sandbox-app001java-494317.us-east-1.elb.amazonaws.com", ec2_sg_to_authorize: "ctms-sandbox-app001java"
  	  And I go to the app's page		
  	  And I follow "Deploy"
