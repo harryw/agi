@@ -36,11 +36,25 @@ Feature: Creates a dynect CNAME record when the app is behind an elastic load ba
 		And I should see "OK: imagegateway-jnj-sandbox.imedidata.net CNAME was already created"
 		
 	Scenario: ec2_sg_to_authorize was edited after a deployment. Warn if the CNAME exists but points to a different ELB hostname
-	  Given a app_with_elb exists with ec2_sg_to_authorize: "ctms-sandbox-app001java", lb_dns: "ctms-sandbox-app001java-494317.us-east-1.elb.amazonaws.com"
+	  Given a app_with_elb exists with lb_dns: "ctms-sandbox-app001java-494317.us-east-1.elb.amazonaws.com", ec2_sg_to_authorize: "ctms-sandbox-app001java"
  	  And I go to the app's page		
  	  And I follow "Deploy"
 		When I press "Create Deployment" using a cassette named "deployment-create_dynect_cname-already_created"
 		Then I should see "A deployment has been created"
 		And I should not see "OK: imagegateway-jnj-sandbox.imedidata.net CNAME was already created"
 		And I should see "ERROR: imagegateway-jnj-sandbox.imedidata.net CNAME was already created, but belongs to a different ELB hostname"
+		And I go to the app's page
+		And I should see "ERROR: imagegateway-jnj-sandbox.imedidata.net CNAME was already created, but belongs to a different ELB hostname"
+		
+	Scenario: Editing a deployed app should not show the status of the last deployment because the app name is different
+	  Given I fake the calls to Dynect
+	  And a app_with_elb_and_deployment exists
+	  And I go to the app's page		
+ 	  And I should see "OK: imagegateway-jnj-sandbox.imedidata.net CNAME was created successfully"
+ 	  When I go to the app's edit page
+ 	  And I fill in "Stage Name" with "validation"
+ 	  And I press "Update App"
+ 	  Then I should not see "OK: imagegateway-jnj-sandbox.imedidata.net CNAME was created successfully"
+ 	  And I should see "Pending: app name has changed, It has to be deployed in order to create the CNAME in Dynect"
+	 
 		

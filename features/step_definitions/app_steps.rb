@@ -19,6 +19,10 @@ Given /^I fake the calls to s3$/ do
     Deployment.any_instance.stub(:save_iq_file).and_return(true)
 end
 
+Given /^I fake the calls to Dynect$/ do
+    Deployment.any_instance.stub(:cname_load_balancer).and_return(true)
+end
+
 Given /^I mock fog$/ do
   Fog.mock!
 end
