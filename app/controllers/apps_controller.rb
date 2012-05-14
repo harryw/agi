@@ -21,7 +21,11 @@ class AppsController < ApplicationController
                         elsif @app.lb_dns.blank?
                           "Please, update the app record saving it so se can look for the AWS ELB"
                         elsif @app.deployments.try(:last).try(:dynect_cname_log)
-                            @app.deployments.last.dynect_cname_log
+                            if  @app.deployments.last.app_name.blank? or @app.deployments.last.app_name == @app.name
+                              @app.deployments.last.dynect_cname_log
+                            else
+                              'Pending: app name has changed, It has to be deployed in order to create the CNAME in Dynect'
+                            end
                         else
                           'Pending: It has to be deployed in order to create the CNAME in Dynect'
                         end
