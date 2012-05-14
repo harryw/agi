@@ -15,5 +15,9 @@ FactoryGirl.define do
       factory :project_rails do
         platform "rails"
       end
+      
+      factory :project_imagegateway do
+        name "imagegateway"
+      end
     end
 end

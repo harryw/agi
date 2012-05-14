@@ -63,6 +63,7 @@ class Deployment < ActiveRecord::Base
       self.started_at = Time.now
       self.final_result = 'Pending'
       self.description = app.name if description.blank?
+      self.app_name = app.name
     end
     
     def save_deployed_data
@@ -102,26 +103,27 @@ class Deployment < ActiveRecord::Base
         if app_lb_dns and app_dynect_cname_name
           unless cname_record = Dynect.find(app_dynect_cname_name) rescue nil
             begin
-              debugger
               new_dynect_cname = Dynect.new("zone"=> AppConfig["agifog"]["dynectzone"],
                                           "ttl"=> 600,
                                           "fqdn" => app_dynect_cname_name,
                                           "record_type" => "CNAME",
                                           "rdata"=> app_lb_dns)
-              if new_dynect_cname.save
-                self.dynect_cname_log = "OK: #{app_dynect_cname_name} CNAME was created successfully"
-              else
-                self.dynect_cname_log = "Error: #{new_dynect_cname.errors.full_messages.join(' ')}"
-                #self.errors.add(:creating_dynect_cname_record, "Error: it failed to create it")
-                #return false
-              end
+              self.dynect_cname_log = if new_dynect_cname.save
+                                        "OK: #{app_dynect_cname_name} CNAME was created successfully"
+                                      else
+                                        "Error: #{new_dynect_cname.errors.full_messages.join(' ')}"
+                                      end
             rescue
               self.dynect_cname_log = "failed to create it: #{$!.message}"
-              #self.errors.add(:creating_dynect_cname_record, "Error: it failed to create it")
-              #return false
             end
           else
-            self.dynect_cname_log = "OK: #{app_dynect_cname_name} CNAME was already created"
+            self.dynect_cname_log = if !cname_record.rdata or !cname_record.rdata.cname 
+                                      "ERROR:#{app_dynect_cname_name} CNAME was already created, but we couldn't retrieve where it points to"
+                                    elsif cname_record.rdata.cname.gsub(/\.$/,'') == app_lb_dns
+                                      "OK: #{app_dynect_cname_name} CNAME was already created"
+                                    else
+                                      "ERROR: #{app_dynect_cname_name} CNAME was already created, but belongs to a different ELB hostname: #{cname_record.rdata.cname.gsub(/\.$/,'')} instead of #{app_lb_dns}"
+                                    end
           end
         end
       end

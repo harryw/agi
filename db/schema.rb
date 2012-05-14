@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120430153312) do
+ActiveRecord::Schema.define(:version => 20120511072943) do
 
   create_table "addons", :force => true do |t|
     t.string   "name"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20120430153312) do
     t.string   "s3_url_iq",            :default => ""
     t.datetime "deployed_time"
     t.string   "dynect_cname_log"
+    t.string   "app_name"
   end
 
   create_table "extensions", :force => true do |t|

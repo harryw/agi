@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3001/api/v1/dynect/zones/imedidata.net/nodes/imagegateway-jnj-sandbox.imedidata.net.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 404
+      message: ! 'Not Found '
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      cache-control:
+      - no-cache
+      x-runtime:
+      - '5.737876'
+      content-length:
+      - '86'
+      server:
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      date:
+      - Thu, 10 May 2012 12:35:52 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"errors\": [\n    \"imagegateway-jnj-sandbox.imedidata.net.json
+        zone not found\"\n  ]\n}"
+    http_version: '1.1'
+  recorded_at: Thu, 10 May 2012 12:35:52 GMT
+- request:
+    method: post
+    uri: http://localhost:3001/api/v1/dynect/zones/imedidata.net/nodes.json
+    body:
+      encoding: US-ASCII
+      string: ! '{"node":{"fqdn":"imagegateway-jnj-sandbox.imedidata.net","rdata":"ctms-distro-app001java-1522428266.us-east-1.elb.amazonaws.com","record_type":"CNAME","ttl":600,"zone":"imedidata.net"}}'
+    headers:
+      content-type:
+      - application/json
+      accept:
+      - ! '*/*'
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 201
+      message: ! 'Created '
+    headers:
+      content-type:
+      - application/json; charset=utf-8
+      x-ua-compatible:
+      - IE=Edge
+      etag:
+      - ! '"9f557ac8035c2dafa274ec90c3f6718a"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-runtime:
+      - '7.051734'
+      content-length:
+      - '197'
+      server:
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      date:
+      - Thu, 10 May 2012 12:35:59 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"fqdn\": \"imagegateway-jnj-sandbox.imedidata.net\",\n  \"rdata\":
+        \"ctms-distro-app001java-1522428266.us-east-1.elb.amazonaws.com\",\n  \"record_type\":
+        \"CNAME\",\n  \"ttl\": 600,\n  \"zone\": \"imedidata.net\"\n}"
+    http_version: '1.1'
+  recorded_at: Thu, 10 May 2012 12:35:59 GMT
+recorded_with: VCR 2.0.0.rc2

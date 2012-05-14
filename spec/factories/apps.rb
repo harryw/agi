@@ -46,5 +46,19 @@ end
 Factory.define :working_app_with_no_db, :parent => :app do |a|
   a.association :chef_account, :factory => :chef_account
 end
-  
-               
+
+Factory.define :app_with_elb, :parent => :app do |a|
+  a.name "imagegateway-jnj-production"
+  a.stage_name "sandbox"
+  a.association :project, :factory => :project_imagegateway
+  a.association :customer, :factory => :customer_jnj
+  a.ec2_sg_to_authorize "ctms-distro-app001java"
+  a.lb_dns "ctms-distro-app001java-1522428266.us-east-1.elb.amazonaws.com"
+  a.dynect_cname_name "imagegateway-jnj-sandbox.imedidata.net"
+end
+
+Factory.define :app_with_elb_and_deployment, :parent => :app_with_elb do |app|
+  app.after_create {|a| Factory(:deployment, :app => a, 
+                                             :deployment_timestamp => a.updated_at, 
+                                             :dynect_cname_log => 'OK: imagegateway-jnj-sandbox.imedidata.net CNAME was created successfully')}
+end     
