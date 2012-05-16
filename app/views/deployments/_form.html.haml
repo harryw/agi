@@ -19,10 +19,10 @@
 
   = form.input :description, :label => 'Description'
   = form.input :force_deploy, :label => 'force_deploy'
-  - if @deployment.app.ec2_sg_to_authorize.blank?
-    = form.input :merge_iq_with_medistrano_pir, :label => 'Merge IQ with Medistrano PIR', :disabled => true, :hint => 'To enable it, select an EC2 Security Group to Authorize in the APP, so Agi can find the PIR in S3'
-  - else
+  - if @enable_merge_iq_with_medistrano_pir_checkbox
     = form.input :merge_iq_with_medistrano_pir, :label => 'Merge IQ with Medistrano PIR', :input_html => { :checked => true }
+  - else
+    = form.input :merge_iq_with_medistrano_pir, :label => 'Merge IQ with Medistrano PIR', :disabled => true, :hint => "It's disable because " + @error_hint
   = form.input :send_email, :label => 'Send Email'
   = form.input :task, :label => 'Task'
   = form.input :run_migrations, :label => 'Do Migrations'
