@@ -7,16 +7,21 @@ class Deployment < ActiveRecord::Base
         
     serialize :deployed_data
     
-    # :update_databag will be moved to an asyncronous state later
-    before_save :set_initial_status, :save_deployed_data, :update_databag, :save_iq_file, :cname_load_balancer
+    before_save :set_initial_status, :save_deployed_data, :save_iq_file, :update_databag, :cname_load_balancer
 
-    attr_accessible :git_repo, :git_commit, :send_email, :task, :run_migrations, :migration_command, :app_id, :deployment_timestamp, :deployed_data, :force_deploy, :final_result, :opscode_result, :opscode_log, :description, :user_id, :s3_url_iq, :deployed_time
+    attr_accessible :git_repo, :git_commit, :send_email, :task, :run_migrations, :migration_command, :app_id, :deployment_timestamp, 
+    :deployed_data, :force_deploy, :final_result, :opscode_result, :opscode_log, :description, :user_id, :s3_url_iq, :deployed_time,
+    :merge_iq_with_medistrano_pir
         
     #### IQ generation
-      
-    def save_iq_file
+    
+    def generate_iq_file
       pdf = IqDeployment.new(self,deploying_time)
-      pdf_file_content = pdf.render
+      pdf.render
+    end
+        
+    def save_iq_file
+      pdf_file_content = merge_iq_with_medistrano_pir ? merge_pir_with_iq : generate_iq_file
       
       begin
         s3.get_bucket(iq_bucket) rescue s3.put_bucket(iq_bucket)
@@ -33,6 +38,7 @@ class Deployment < ActiveRecord::Base
         return false
       end
     end
+    
     
     def s3
       @s3 ||= Fog::Storage::AWS.new(:aws_access_key_id => AppConfig["amazon_s3"]["access_key_id"], 
@@ -88,7 +94,7 @@ class Deployment < ActiveRecord::Base
     
     def configuration
       attributes.symbolize_keys.extract!(:force_deploy,:send_email,:task,:run_migrations,
-                                                  :migration_command,:deployment_timestamp).merge(:deploy_by => self.user.email, :deployed_at => deploying_time)
+                                                  :migration_command,:deployment_timestamp).merge(:deploy_by => self.try(:user).try(:email), :deployed_at => deploying_time)
     end
     
     def merged_configuration
@@ -97,7 +103,7 @@ class Deployment < ActiveRecord::Base
       conf
     end
     
-    private
+#    private
       
       def cname_load_balancer
         if app_lb_dns and app_dynect_cname_name
@@ -127,5 +133,49 @@ class Deployment < ActiveRecord::Base
           end
         end
       end
-    
+      
+      ####################################################################################################################################
+      # Medistrano PIR
+      ####################################################################################################################################
+      
+      def medistrano_pir_bucket_name
+        "columbo-portal-current"
+      end
+      
+      def medistrano_pir_key_name
+        raise "ec2_sg_to_authorize isn't set, Agi can't determine the medistrano project and stage" if app.ec2_sg_to_authorize.blank?
+        medistrano_project, medistrano_stage, medistrano_cloud = app.ec2_sg_to_authorize.split(/-/)
+        "#{medistrano_project}/IQ/#{medistrano_project}-#{medistrano_stage}-PIR.pdf"
+      end
+      
+      def get_medistrano_pir
+        s3.get_bucket(medistrano_pir_bucket_name)
+        if medistrano_pir_handler = s3.directories.get(medistrano_pir_bucket_name).files.get(medistrano_pir_key_name)
+          @medistrano_pir = medistrano_pir_handler.body
+        else
+          raise "#{medistrano_pir_bucket_name}//#{medistrano_pir_key_name} doesn't exist. Go to Medistrano and generate the PIR "
+        end
+        @medistrano_pir                    
+      end
+      
+      def save_medistrano_pir
+        @pir_file = Tempfile.open(['medistrano-pir','.pdf'], Rails.root.join('tmp'), :encoding => 'ascii-8bit' )
+        @pir_file.write get_medistrano_pir
+        @pir_file.close
+        @pir_file.path
+      end
+      
+      def save_agi_iq
+        @iq_file = Tempfile.open(['agiapp-iq','.pdf'], Rails.root.join('tmp'), :encoding => 'ascii-8bit' )
+        @iq_file.write generate_iq_file
+        @iq_file.close
+        @iq_file.path
+      end
+
+      def merge_pir_with_iq
+        @pdftk = ActivePdftk::Wrapper.new
+        @pdftk.cat([{:pdf => save_medistrano_pir},{:pdf=> save_agi_iq}])
+      end
+      
+      ####################################################################################################################################    
 end

@@ -59,13 +59,17 @@ class DeploymentsController < ApplicationController
     @deployment = @app.deployments.build(params[:deployment])
     @deployment.user = current_user
     respond_to do |format|
-      if @deployment.save
-        format.html { redirect_to [@app,@deployment], notice: "A deployment has been created" }
-        format.json { render json: @deployment, status: :created, location: @deployment }
-      else
+      begin
+        if @deployment.save
+          format.html { redirect_to [@app,@deployment], notice: "A deployment has been created" }
+        else
+          load_deployment_data
+          format.html { render action: "new" }
+        end
+      rescue => e
         load_deployment_data
+        @deployment.errors.add("base", e.message)
         format.html { render action: "new" }
-        format.json { render json: @deployment.errors, status: :unprocessable_entity }
       end
     end
   end
