@@ -7,6 +7,8 @@
 %p
   %b IQ:
   = link_to_unless @deployment.s3_url_iq.blank?, "IQ URL", @deployment.s3_url_iq
+  - unless Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
+    %b Merging Medistrano PIR with Agi IQ feature is disable
 %p
   %b Deployed by:
   = @deployment.user.email if @deployment.user

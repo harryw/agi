@@ -39,7 +39,7 @@ class DeploymentsController < ApplicationController
     # if the user went previously to the /databases#show page the following had been run
     @database_client = @app.database_sync_agi_fields_to_rds unless @app.database_snapshot_id.blank?
     load_deployment_data
-    verify_medistrano_pir_exists
+    verify_medistrano_pir_exists if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
   end
 
 

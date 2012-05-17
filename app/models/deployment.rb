@@ -45,7 +45,11 @@ class Deployment < ActiveRecord::Base
       end
       
       def save_iq_file
-        pdf_file_raw = merge_iq_with_medistrano_pir ? merge_pir_with_iq : generate_iq_file
+        if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
+          pdf_file_raw = merge_iq_with_medistrano_pir ? merge_pir_with_iq : generate_iq_file
+        else
+          pdf_file_raw = generate_iq_file
+        end
         upload_to_s3(pdf_file_raw)
       end
       
