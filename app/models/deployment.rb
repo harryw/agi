@@ -19,7 +19,7 @@ class Deployment < ActiveRecord::Base
         if medistrano_pir_handler = s3.directories.get(medistrano_pir_bucket_name).files.get(medistrano_pir_key_name)
           @medistrano_pir = medistrano_pir_handler.body
         else
-          raise "doesn't exist. Go to Medistrano and generate the PIR "
+          raise "doesn't exist. Go to Medistrano and generate the PIR"
         end
       rescue => e          
         raise "#{medistrano_pir_bucket_name}/#{medistrano_pir_key_name} #{try_to_parse_excon_aws_error(e)}"
@@ -27,73 +27,73 @@ class Deployment < ActiveRecord::Base
       @medistrano_pir                    
     end
 
-    private
     
-      def set_initial_status
-        self.started_at = Time.now
-        self.final_result = 'Pending'
-        self.description = app.name if description.blank?
-        self.app_name = app.name
+    def set_initial_status
+      self.started_at = Time.now
+      self.final_result = 'Pending'
+      self.description = app.name if description.blank?
+      self.app_name = app.name
+    end
+    
+    def save_deployed_data
+      self.git_repo = app.project.repository
+      self.git_commit = app.git_revision
+      self.deployed_data = merged_configuration
+      self.s3_url_iq = gen_s3_url_iq
+      self.deployed_time = deploying_time
+    end
+    
+    def save_iq_file
+      if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
+        pdf_file_raw = merge_iq_with_medistrano_pir ? merge_pir_with_iq : generate_iq_file
+      else
+        pdf_file_raw = generate_iq_file
       end
-      
-      def save_deployed_data
-        self.git_repo = app.project.repository
-        self.git_commit = app.git_revision
-        self.deployed_data = merged_configuration
-        self.s3_url_iq = gen_s3_url_iq
-        self.deployed_time = deploying_time
+      upload_to_s3(pdf_file_raw)
+    end
+    
+    def update_databag
+      begin
+        app_chef_account_update_data_bag_item(merged_configuration)
+        self.final_result = 'Success'
+        self.opscode_log= 'OK'
+      rescue 
+        self.opscode_log= $!.message 
+        self.final_result = 'Failed'  
       end
-      
-      def save_iq_file
-        if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
-          pdf_file_raw = merge_iq_with_medistrano_pir ? merge_pir_with_iq : generate_iq_file
-        else
-          pdf_file_raw = generate_iq_file
-        end
-        upload_to_s3(pdf_file_raw)
-      end
-      
-      def update_databag
-        begin
-          app_chef_account_update_data_bag_item(merged_configuration)
-          self.final_result = 'Success'
-          self.opscode_log= 'OK'
-        rescue 
-          self.opscode_log= $!.message 
-          self.final_result = 'Failed'  
-        end
-        self.completed_at = Time.now  # self is required for assignments
-      end
-      
-      def cname_load_balancer
-        if app_lb_dns and app_dynect_cname_name
-          unless cname_record = Dynect.find(app_dynect_cname_name) rescue nil
-            begin
-              new_dynect_cname = Dynect.new("zone"=> AppConfig["agifog"]["dynectzone"],
-                                          "ttl"=> 600,
-                                          "fqdn" => app_dynect_cname_name,
-                                          "record_type" => "CNAME",
-                                          "rdata"=> app_lb_dns)
-              self.dynect_cname_log = if new_dynect_cname.save
-                                        "OK: #{app_dynect_cname_name} CNAME was created successfully"
-                                      else
-                                        "Error: #{new_dynect_cname.errors.full_messages.join(' ')}"
-                                      end
-            rescue
-              self.dynect_cname_log = "failed to create it: #{$!.message}"
-            end
-          else
-            self.dynect_cname_log = if !cname_record.rdata or !cname_record.rdata.cname 
-                                      "ERROR:#{app_dynect_cname_name} CNAME was already created, but we couldn't retrieve where it points to"
-                                    elsif cname_record.rdata.cname.gsub(/\.$/,'') == app_lb_dns
-                                      "OK: #{app_dynect_cname_name} CNAME was already created"
+      self.completed_at = Time.now  # self is required for assignments
+    end
+    
+    def cname_load_balancer
+      if app_lb_dns and app_dynect_cname_name
+        unless cname_record = Dynect.find(app_dynect_cname_name) rescue nil
+          begin
+            new_dynect_cname = Dynect.new("zone"=> AppConfig["agifog"]["dynectzone"],
+                                        "ttl"=> 600,
+                                        "fqdn" => app_dynect_cname_name,
+                                        "record_type" => "CNAME",
+                                        "rdata"=> app_lb_dns)
+            self.dynect_cname_log = if new_dynect_cname.save
+                                      "OK: #{app_dynect_cname_name} CNAME was created successfully"
                                     else
-                                      "ERROR: #{app_dynect_cname_name} CNAME was already created, but belongs to a different ELB hostname: #{cname_record.rdata.cname.gsub(/\.$/,'')} instead of #{app_lb_dns}"
+                                      "Error: #{new_dynect_cname.errors.full_messages.join(' ')}"
                                     end
+          rescue
+            self.dynect_cname_log = "failed to create it: #{$!.message}"
           end
+        else
+          self.dynect_cname_log = if !cname_record.rdata or !cname_record.rdata.cname 
+                                    "ERROR:#{app_dynect_cname_name} CNAME was already created, but we couldn't retrieve where it points to"
+                                  elsif cname_record.rdata.cname.gsub(/\.$/,'') == app_lb_dns
+                                    "OK: #{app_dynect_cname_name} CNAME was already created"
+                                  else
+                                    "ERROR: #{app_dynect_cname_name} CNAME was already created, but belongs to a different ELB hostname: #{cname_record.rdata.cname.gsub(/\.$/,'')} instead of #{app_lb_dns}"
+                                  end
         end
       end
+    end
     
+    private
 
     
       def generate_iq_file
@@ -194,7 +194,7 @@ class Deployment < ActiveRecord::Base
 
       def merge_pir_with_iq
         @pdftk = ActivePdftk::Wrapper.new
-        @pdftk.cat([{:pdf => save_medistrano_pir},{:pdf=> save_agi_iq}])
+        @pdftk.cat([{:pdf => save_medistrano_pir},{:pdf=> save_agi_iq}]).string
       end
       
       ####################################################################################################################################    

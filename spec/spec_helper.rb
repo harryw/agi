@@ -10,6 +10,8 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'capybara/rspec'
+  
+  Fog.mock!
 
   #Capybara.current_driver = :selenium
 
