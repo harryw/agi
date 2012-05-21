@@ -23,9 +23,9 @@ describe Deployment do
       @deployment = Factory.build(:deployment, :app => @app)
     end
     
-    describe "#get_medistrano_pir" do    
+    describe "#get_medistrano_pir!" do    
       it "raises an exception when ec2_sg_to_authorize is empty" do
-        expect{@deployment.get_medistrano_pir}.to raise_error(RuntimeError)
+        expect{@deployment.get_medistrano_pir!}.to raise_error(RuntimeError)
       end
     end
   end
@@ -44,11 +44,11 @@ describe Deployment do
       @deployment.stub(:s3).and_return(@s3)    
     end
   
-    describe "#get_medistrano_pir" do
+    describe "#get_medistrano_pir!" do
       context "given Medistrano PIR doesn't exist" do
     
         it "raises an exception" do
-          expect{@deployment.get_medistrano_pir}.to raise_error(RuntimeError)
+          expect{@deployment.get_medistrano_pir!}.to raise_error(RuntimeError)
         end
         
       end
@@ -57,7 +57,7 @@ describe Deployment do
         before(:each) { @pir_s3 = @pir_bucket.files.create(:key=> @medistrano_pir_key_name, :body => create_pdf('this is a PIR')) }
         
         it "returns the medistrano pir content" do
-          @deployment.get_medistrano_pir.should == create_pdf('this is a PIR')
+          @deployment.get_medistrano_pir!.should == create_pdf('this is a PIR')
         end
         
         after(:each){ @pir_s3.destroy }
@@ -98,7 +98,6 @@ describe Deployment do
         end 
         
       end
-      
     end
   end
   

@@ -39,7 +39,7 @@ class DeploymentsController < ApplicationController
     # if the user went previously to the /databases#show page the following had been run
     @database_client = @app.database_sync_agi_fields_to_rds unless @app.database_snapshot_id.blank?
     load_deployment_data
-    verify_medistrano_pir_exists if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
+    set_pir_merge_view_state! if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
   end
 
 
@@ -85,12 +85,12 @@ class DeploymentsController < ApplicationController
       end
     end
     
-    def verify_medistrano_pir_exists
+    def set_pir_merge_view_state!
       if @deployment.app_ec2_sg_to_authorize.blank?
         @enable_merge_iq_with_medistrano_pir_checkbox = false
       else
         begin
-          @deployment.get_medistrano_pir # it raise an exception if either the Medistrano PIR doesn't exist or the access is denied
+          @deployment.get_medistrano_pir! # it raise an exception if either the Medistrano PIR doesn't exist or the access is denied
           @enable_merge_iq_with_medistrano_pir_checkbox = true
         rescue => e
           @enable_merge_iq_with_medistrano_pir_checkbox = false

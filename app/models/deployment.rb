@@ -13,7 +13,7 @@ class Deployment < ActiveRecord::Base
     :deployed_data, :force_deploy, :final_result, :opscode_result, :opscode_log, :description, :user_id, :s3_url_iq, :deployed_time,
     :merge_iq_with_medistrano_pir
         
-    def get_medistrano_pir
+    def get_medistrano_pir!
       begin
         if medistrano_pir_handler = s3.directories.get(medistrano_pir_bucket_name).files.get(medistrano_pir_key_name)
           medistrano_pir = medistrano_pir_handler.body
@@ -26,7 +26,6 @@ class Deployment < ActiveRecord::Base
       medistrano_pir                    
     end
 
-    
     def set_initial_status
       self.started_at = Time.now
       self.final_result = 'Pending'
@@ -179,7 +178,7 @@ class Deployment < ActiveRecord::Base
       
       def save_medistrano_pir
         @pir_file = Tempfile.open(['medistrano-pir','.pdf'], Rails.root.join('tmp'), :encoding => 'ascii-8bit' )
-        @pir_file.write get_medistrano_pir
+        @pir_file.write get_medistrano_pir!
         @pir_file.close
         @pir_file.path
       end
