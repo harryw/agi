@@ -15,16 +15,15 @@ class Deployment < ActiveRecord::Base
         
     def get_medistrano_pir
       begin
-        s3.get_bucket(medistrano_pir_bucket_name)
         if medistrano_pir_handler = s3.directories.get(medistrano_pir_bucket_name).files.get(medistrano_pir_key_name)
-          @medistrano_pir = medistrano_pir_handler.body
+          medistrano_pir = medistrano_pir_handler.body
         else
           raise "doesn't exist. Go to Medistrano and generate the PIR"
         end
       rescue => e          
         raise "#{medistrano_pir_bucket_name}/#{medistrano_pir_key_name} #{try_to_parse_excon_aws_error(e)}"
       end
-      @medistrano_pir                    
+      medistrano_pir                    
     end
 
     
@@ -169,7 +168,7 @@ class Deployment < ActiveRecord::Base
       ####################################################################################################################################
       
       def medistrano_pir_bucket_name
-        "columbo-portal-current"
+        AppConfig["amazon_s3"]["medistrano_pir_bucket_name"]
       end
       
       def medistrano_pir_key_name
