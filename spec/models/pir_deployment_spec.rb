@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-# TODO
-# test that an error is raise when ec2_sg_to_authorize isn't set
 
 describe Deployment do
   before(:all) do
@@ -9,9 +7,6 @@ describe Deployment do
     @medistrano_pir_bucket_name = AppConfig["amazon_s3"]["medistrano_pir_bucket_name"]
   end
   
-  before(:each) do
-    @app = Factory.build(:app)
-  end
 
   # This feature uses the app ec2_sg_to_authorize field to extract the medistrano project name and the medistrano stage name. 
   # Medistrano PIRs are always store in the bucket "columbo-portal-current" and the 
@@ -19,36 +14,45 @@ describe Deployment do
   
   context "given app#ec2_sg_to_authorize isn't set" do
     before(:each) do
-      @app.stub(:ec2_sg_to_authorize).and_return('')
+      @app = Factory.build(:app, :ec2_sg_to_authorize=>'')
       @deployment = Factory.build(:deployment, :app => @app)
     end
     
     describe "#get_medistrano_pir!" do    
       it "raises an exception when ec2_sg_to_authorize is empty" do
-        expect{@deployment.get_medistrano_pir!}.to raise_error(RuntimeError)
+        expect{@deployment.get_medistrano_pir!}.
+          to raise_error(RuntimeError, "ec2_sg_to_authorize isn't set, Agi can't determine the medistrano project and stage")
       end
     end
   end
   
   context "given app#ec2_sg_to_authorize is set" do
     before(:each) do
-      @app.stub(:ec2_sg_to_authorize).and_return('ctms-sandbox-app001java')
+      @app = Factory.build(:app, :ec2_sg_to_authorize=>'ctms-sandbox-app001java')
       @deployment = Factory.build(:deployment, :app => @app)
 
       # location where the IQ will be uploaded in S3
       @medistrano_pir_key_name = @deployment.send(:medistrano_pir_key_name)
 
+      #IQ requirements
+      @deployment.send(:set_initial_status)
+      @deployment.send(:save_deployed_data)
+
       # fog mocking
       @s3 = Fog::Storage[:aws]
       @pir_bucket = @s3.directories.create(:key => @medistrano_pir_bucket_name)
-      @deployment.stub(:s3).and_return(@s3)    
+      @deployment.stub(:s3).and_return(@s3)
+      
+      @pir = PirDeployment.new(@deployment.send(:pir_params))
+      @pir.stub(:s3).and_return(@s3)
     end
   
     describe "#get_medistrano_pir!" do
       context "given Medistrano PIR doesn't exist" do
     
         it "raises an exception" do
-          expect{@deployment.get_medistrano_pir!}.to raise_error(RuntimeError)
+          expect{@pir.get_medistrano_pir!}.
+            to raise_error(RuntimeError, "columbo-portal-current/ctms/IQ/ctms-sandbox-PIR.pdf doesn't exist. Go to Medistrano and generate the PIR")
         end
         
       end
@@ -57,7 +61,7 @@ describe Deployment do
         before(:each) { @pir_s3 = @pir_bucket.files.create(:key=> @medistrano_pir_key_name, :body => create_pdf('this is a PIR')) }
         
         it "returns the medistrano pir content" do
-          @deployment.get_medistrano_pir!.should == create_pdf('this is a PIR')
+          @pir.get_medistrano_pir!.should == create_pdf('this is a PIR')
         end
         
         after(:each){ @pir_s3.destroy }
@@ -67,9 +71,7 @@ describe Deployment do
     
     describe '#save_iq_file' do
       before(:each) do
-        #IQ requirements
-        @deployment.send(:set_initial_status)
-        @deployment.send(:save_deployed_data)
+        
         
         # S3 bucket name and key name
         @iq_bucket = @deployment.send(:iq_bucket)
@@ -91,6 +93,7 @@ describe Deployment do
         it "merges and uploads" do
           @pir_s3 = @pir_bucket.files.create(:key=> @medistrano_pir_key_name, :body => create_pdf('this is a PIR'))
           @deployment.should_receive(:merge_iq_with_medistrano_pir).and_return(true) # merge flag
+          @deployment.stub(:merge_pir_with_iq).and_return(@pir.merge_pir_with_iq)
           @deployment.save_iq_file.should be_true      
           iq_size = @deployment.send(:generate_iq_file).size
           # the merged pdf is bigger than then Agi IQ
