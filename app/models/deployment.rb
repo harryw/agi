@@ -14,16 +14,8 @@ class Deployment < ActiveRecord::Base
     :merge_iq_with_medistrano_pir
         
     def get_medistrano_pir!
-      begin
-        if medistrano_pir_handler = s3.directories.get(medistrano_pir_bucket_name).files.get(medistrano_pir_key_name)
-          medistrano_pir = medistrano_pir_handler.body
-        else
-          raise "doesn't exist. Go to Medistrano and generate the PIR"
-        end
-      rescue => e          
-        raise "#{medistrano_pir_bucket_name}/#{medistrano_pir_key_name} #{try_to_parse_excon_aws_error(e)}"
-      end
-      medistrano_pir                    
+      pir = PirDeployment.new(pir_params)
+      pir.get_medistrano_pir!
     end
 
     def set_initial_status
@@ -95,7 +87,7 @@ class Deployment < ActiveRecord::Base
 
     
       def generate_iq_file
-        pdf = IqDeployment.new(self,deploying_time)
+        pdf = IqDeployment.new(deployed_data,deploying_time)
         pdf.render
       end
       
@@ -176,23 +168,20 @@ class Deployment < ActiveRecord::Base
         "#{medistrano_project}/IQ/#{medistrano_project}-#{medistrano_stage}-PIR.pdf"
       end
       
-      def save_medistrano_pir
-        @pir_file = Tempfile.open(['medistrano-pir','.pdf'], Rails.root.join('tmp'), :encoding => 'ascii-8bit' )
-        @pir_file.write get_medistrano_pir!
-        @pir_file.close
-        @pir_file.path
+      def pir_params
+        { 
+          :medistrano_pir_bucket_name => medistrano_pir_bucket_name,
+          :medistrano_pir_key_name => medistrano_pir_key_name,
+          :access_key_id => AppConfig["amazon_s3"]["access_key_id"],
+          :secret_access_key => AppConfig["amazon_s3"]["secret_access_key"],
+          :deployed_data => deployed_data,
+          :deploying_time => deploying_time
+        }
       end
       
-      def save_agi_iq
-        @iq_file = Tempfile.open(['agiapp-iq','.pdf'], Rails.root.join('tmp'), :encoding => 'ascii-8bit' )
-        @iq_file.write generate_iq_file
-        @iq_file.close
-        @iq_file.path
-      end
-
       def merge_pir_with_iq
-        @pdftk = ActivePdftk::Wrapper.new
-        @pdftk.cat([{:pdf => save_medistrano_pir},{:pdf=> save_agi_iq}]).string
+        pir = PirDeployment.new(pir_params)
+        pir.merge_pir_with_iq
       end
       
       ####################################################################################################################################    

@@ -1,10 +1,9 @@
 class IqDeployment < Prawn::Document
   FILTERED_KEYS = [:password, :repo_private_key]
   
-  def initialize(deployment,deployed_time=Time.now)
+  def initialize(deployed_data,deployed_time=Time.now)
     super()
-    @deployment = deployment
-    @data_bag = @deployment.deployed_data
+    @data_bag = deployed_data
     @deployed_time = deployed_time
     iq_header
     iq_data
