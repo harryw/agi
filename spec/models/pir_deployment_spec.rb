@@ -82,7 +82,7 @@ describe Deployment do
     end
   end
   
-  describe PirDeployment do
+  describe "PirDeployment Class" do
 
     before(:each) do
       @pir_parmas = {
@@ -118,12 +118,12 @@ describe Deployment do
     end
     
     describe "#merge_pir_with_iq" do
+      before(:each) { @iq_size = @pir.send(:generate_iq_file).size }
       
-      context "given #get_medistrano_pir! is stubed out"
+      context "given #get_medistrano_pir! is stubed out" do
         before(:each) { @pir.stub(:get_medistrano_pir!).and_return(create_pdf('this is a PIR')) }
       
         it "merges iq and pir turnning into a bigger than that the Agi IQ" do
-          @iq_size = @pir.send(:generate_iq_file).size
           @pir.merge_pir_with_iq.size.should > @iq_size
         end
       end
@@ -132,10 +132,10 @@ describe Deployment do
         before(:each) { @pir_s3 = @pir_bucket.files.create(:key=> @pir_parmas[:medistrano_pir_key_name], :body => create_pdf('this is a PIR')) }
 
         it "merges iq and pir turnning into a bigger than that the Agi IQ" do
-          @iq_size = @pir.send(:generate_iq_file).size
           @pir.merge_pir_with_iq.size.should > @iq_size
         end
       end
+    end
       
   end
   
@@ -190,4 +190,3 @@ describe Deployment do
        :hostname=>nil}}
   end
 end
- 
