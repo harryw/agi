@@ -12,13 +12,15 @@ describe Deployment do
   # Medistrano PIRs are always store in the bucket "columbo-portal-current" and the 
   # path: "#{medistrano_project}/IQ/#{medistrano_project}-#{medistrano_stage}-PIR.pdf"
   
-  context "given app#ec2_sg_to_authorize isn't set" do
-    before(:each) do
-      @app = Factory.build(:app, :ec2_sg_to_authorize=>'')
-      @deployment = Factory.build(:deployment, :app => @app)
-    end
-    
-    describe "#get_medistrano_pir!" do    
+
+  
+  describe "#get_medistrano_pir!" do 
+    context "given app#ec2_sg_to_authorize isn't set" do
+      before(:each) do
+        @app = Factory.build(:app, :ec2_sg_to_authorize=>'')
+        @deployment = Factory.build(:deployment, :app => @app)
+      end
+       
       it "raises an exception when ec2_sg_to_authorize is empty" do
         expect{@deployment.get_medistrano_pir!}.
           to raise_error(RuntimeError, "ec2_sg_to_authorize isn't set, Agi can't determine the medistrano project and stage")
@@ -26,18 +28,18 @@ describe Deployment do
     end
   end
   
-  context "given app#ec2_sg_to_authorize is set" do
+  describe '#save_iq_file' do
     before(:each) do
       @app = Factory.build(:app, :ec2_sg_to_authorize=>'ctms-sandbox-app001java')
       @deployment = Factory.build(:deployment, :app => @app)
-
+    
       # location where the IQ will be uploaded in S3
       @medistrano_pir_key_name = @deployment.send(:medistrano_pir_key_name)
-
+    
       #IQ requirements
       @deployment.send(:set_initial_status)
       @deployment.send(:save_deployed_data)
-
+    
       # fog mocking
       @s3 = Fog::Storage[:aws]
       @pir_bucket = @s3.directories.create(:key => @medistrano_pir_bucket_name)
@@ -45,12 +47,10 @@ describe Deployment do
       @pir = PirDeployment.new(@deployment.send(:pir_params))
       @pir.stub(:s3).and_return(@s3)
     end
-      
     
-    describe '#save_iq_file' do
+    context "given app#ec2_sg_to_authorize is set" do
+    
       before(:each) do
-        
-        
         # S3 bucket name and key name
         @iq_bucket = @deployment.send(:iq_bucket)
         @s3_iq_key_name = @deployment.send(:s3_key_name)
@@ -77,10 +77,11 @@ describe Deployment do
           # the merged pdf is bigger than then Agi IQ
           @s3.directories.get(@iq_bucket).files.get(@s3_iq_key_name).body.size.should > iq_size
         end
-
+    
       end
     end
   end
+  
   
   describe "PirDeployment Class" do
 
