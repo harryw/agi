@@ -45,6 +45,8 @@ gem 'mauth_signer', :git => 'git@github.com:mdsol/mauth_signer.git', :ref => '4e
 #gem 'eureka-client', :git => 'git@github.com:mdsol/eureka-client.git', :ref => 'c4c98a4'
 
 gem 'prawn' # pdf generator
+gem 'active_pdftk', :git => 'git://github.com/tcocca/active_pdftk.git'
+
 
 gem "newrelic_rpm"
 

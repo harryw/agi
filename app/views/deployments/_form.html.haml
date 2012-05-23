@@ -19,6 +19,13 @@
 
   = form.input :description, :label => 'Description'
   = form.input :force_deploy, :label => 'force_deploy'
+  - if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
+    - if @enable_merge_iq_with_medistrano_pir_checkbox
+      = form.input :merge_iq_with_medistrano_pir, :label => 'Merge IQ with Medistrano PIR', :input_html => { :checked => true }
+    - else
+      = form.input :merge_iq_with_medistrano_pir, :label => 'Merge IQ with Medistrano PIR', :disabled => true, :hint => "It's disable because " + @error_hint
+  - else
+    %b Merging Medistrano PIR with Agi IQ feature is disable
   = form.input :send_email, :label => 'Send Email'
   = form.input :task, :label => 'Task'
   = form.input :run_migrations, :label => 'Do Migrations'

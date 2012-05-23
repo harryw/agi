@@ -61,5 +61,7 @@ module Agi
     config.middleware.use Rack::ActiveRecordStatus
     config.active_record.whitelist_attributes = true
     
+    config.feature_merge_medistrano_pir_with_agi_iq_is_enable = true
+    
   end
 end

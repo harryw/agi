@@ -1,4 +1,7 @@
 
+# Verify that 3rd party pdftk binary is in the system
+raise "pdftk binary couldn't be located" unless File.exists?('/usr/bin/pdftk') || File.exists?('/usr/local/bin/pdftk')
+
 config ={}
 amazon_s3_file = YAML.load_file("#{Rails.root}/config/amazon_s3.yml")
 config['amazon_s3'] = amazon_s3_file[Rails.env]

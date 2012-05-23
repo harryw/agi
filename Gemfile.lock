@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/tcocca/active_pdftk.git
+  revision: d7a2baf6e8bade7e7dd53a2e9e7427468e8ce742
+  specs:
+    active_pdftk (0.1.0)
+      builder (>= 2.1.2)
+
+GIT
   remote: git@github.com:mdsol/mauth_signer.git
   revision: 4e03b8eea38157aa4500b3e73ca3b8b5a2db71b9
   ref: 4e03b8e
@@ -296,6 +303,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_pdftk!
   awesome_print
   capybara
   chef (>= 0.10.4)
