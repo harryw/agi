@@ -34,22 +34,12 @@ class DeploymentsController < ApplicationController
   # GET /deployments/new.json
   def new
     @deployment = @app.deployments.new
-    flash[:warning]= if !@app.database_attached?
-      "WARNING: database not attached, please attach a database to this app before deploying"
-    elsif !@app.database_started
-      "WARNING: database hasn't been started, please start it before deploying"
-    elsif !@app.database_ready?
-      "WARNING: database is not ready yet, please wait until the rds instance is available"
-    end
+    flash[:warning] = db_status
     # If the rds was restored from a snapshot, a few fields have to be modify after becomes available: security_groups, password, size
     # if the user went previously to the /databases#show page the following had been run
     @database_client = @app.database_sync_agi_fields_to_rds unless @app.database_snapshot_id.blank?
     load_deployment_data
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @deployment }
-    end
+    set_pir_merge_view_state! if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
   end
 
 
@@ -59,13 +49,17 @@ class DeploymentsController < ApplicationController
     @deployment = @app.deployments.build(params[:deployment])
     @deployment.user = current_user
     respond_to do |format|
-      if @deployment.save
-        format.html { redirect_to [@app,@deployment], notice: "A deployment has been created" }
-        format.json { render json: @deployment, status: :created, location: @deployment }
-      else
+      begin
+        if @deployment.save
+          format.html { redirect_to [@app,@deployment], notice: "A deployment has been created" }
+        else
+          load_deployment_data
+          format.html { render action: "new" }
+        end
+      rescue => e
         load_deployment_data
+        @deployment.errors.add("base", e.message)
         format.html { render action: "new" }
-        format.json { render json: @deployment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,6 +73,30 @@ class DeploymentsController < ApplicationController
   
     def load_deployment_data
       @deployment_data = @app.generate_deployment_data
+    end
+    
+    def db_status
+      if !@app.database_attached?
+        "WARNING: database not attached, please attach a database to this app before deploying"
+      elsif !@app.database_started
+        "WARNING: database hasn't been started, please start it before deploying"
+      elsif !@app.database_ready?
+        "WARNING: database is not ready yet, please wait until the rds instance is available"
+      end
+    end
+    
+    def set_pir_merge_view_state!
+      if @deployment.app_ec2_sg_to_authorize.blank?
+        @enable_merge_iq_with_medistrano_pir_checkbox = false
+      else
+        begin
+          @deployment.get_medistrano_pir! # it raise an exception if either the Medistrano PIR doesn't exist or the access is denied
+          @enable_merge_iq_with_medistrano_pir_checkbox = true
+        rescue => e
+          @enable_merge_iq_with_medistrano_pir_checkbox = false
+          @error_hint = e.message
+        end
+      end
     end
 
 end

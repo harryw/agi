@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511072943) do
+ActiveRecord::Schema.define(:version => 20120515101256) do
 
   create_table "addons", :force => true do |t|
     t.string   "name"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(:version => 20120511072943) do
     t.string   "git_commit"
     t.boolean  "send_email"
     t.string   "task"
-    t.boolean  "run_migrations",       :default => true
+    t.boolean  "run_migrations",               :default => true
     t.string   "migration_command"
     t.integer  "app_id"
     t.datetime "started_at"
@@ -136,16 +136,17 @@ ActiveRecord::Schema.define(:version => 20120511072943) do
     t.datetime "updated_at"
     t.datetime "deployment_timestamp"
     t.text     "deployed_data"
-    t.boolean  "force_deploy",         :default => false
+    t.boolean  "force_deploy",                 :default => false
     t.string   "final_result"
     t.string   "opscode_result"
     t.text     "opscode_log"
     t.string   "description"
     t.integer  "user_id"
-    t.string   "s3_url_iq",            :default => ""
+    t.string   "s3_url_iq",                    :default => ""
     t.datetime "deployed_time"
     t.string   "dynect_cname_log"
     t.string   "app_name"
+    t.boolean  "merge_iq_with_medistrano_pir", :default => false
   end
 
   create_table "extensions", :force => true do |t|
