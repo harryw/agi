@@ -42,30 +42,8 @@ describe Deployment do
       @s3 = Fog::Storage[:aws]
       @pir_bucket = @s3.directories.create(:key => @medistrano_pir_bucket_name)
       @deployment.stub(:s3).and_return(@s3)
-      
       @pir = PirDeployment.new(@deployment.send(:pir_params))
       @pir.stub(:s3).and_return(@s3)
-    end
-  
-    describe "#get_medistrano_pir!" do
-      context "given Medistrano PIR doesn't exist" do
-    
-        it "raises an exception" do
-          expect{@pir.get_medistrano_pir!}.
-            to raise_error(RuntimeError, "columbo-portal-current/ctms/IQ/ctms-sandbox-PIR.pdf doesn't exist. Go to Medistrano and generate the PIR")
-        end
-        
-      end
-      
-      context "given Medistrano PIR exists" do
-        before(:each) { @pir_s3 = @pir_bucket.files.create(:key=> @medistrano_pir_key_name, :body => create_pdf('this is a PIR')) }
-        
-        it "returns the medistrano pir content" do
-          @pir.get_medistrano_pir!.should == create_pdf('this is a PIR')
-        end
-        
-        after(:each){ @pir_s3.destroy }
-      end
     end
       
     
@@ -98,10 +76,67 @@ describe Deployment do
           iq_size = @deployment.send(:generate_iq_file).size
           # the merged pdf is bigger than then Agi IQ
           @s3.directories.get(@iq_bucket).files.get(@s3_iq_key_name).body.size.should > iq_size
-        end 
+        end
+
+      end
+    end
+  end
+  
+  describe PirDeployment do
+
+    before(:each) do
+      @pir_parmas = {
+        :medistrano_pir_key_name => 'medistrano_fake_pir.pdf',
+        :medistrano_pir_bucket_name => 'fake_pir_bucket',
+        :deployed_data => deployed_data,
+        :deploying_time => Time.now
+      }
+      @pir = PirDeployment.new(@pir_parmas)
+      @s3 = Fog::Storage[:aws]
+      @pir_bucket = @s3.directories.create(:key => @pir_parmas[:medistrano_pir_bucket_name])
+      @pir.stub(:s3).and_return(@s3)
+    end
+  
+    describe "#get_medistrano_pir!" do
+      context "given Medistrano PIR doesn't exist" do
+    
+        it "raises an exception" do
+          expect{@pir.get_medistrano_pir!}.
+            to raise_error(RuntimeError, "fake_pir_bucket/medistrano_fake_pir.pdf doesn't exist. Go to Medistrano and generate the PIR")
+        end
+        
+      end
+      
+      context "given Medistrano PIR exists" do
+        before(:each) { @pir_s3 = @pir_bucket.files.create(:key=> @pir_parmas[:medistrano_pir_key_name], :body => create_pdf('this is a PIR')) }
+        
+        it "returns the medistrano pir content" do
+          @pir.get_medistrano_pir!.should == create_pdf('this is a PIR')
+        end
         
       end
     end
+    
+    describe "#merge_pir_with_iq" do
+      
+      context "given #get_medistrano_pir! is stubed out"
+        before(:each) { @pir.stub(:get_medistrano_pir!).and_return(create_pdf('this is a PIR')) }
+      
+        it "merges iq and pir turnning into a bigger than that the Agi IQ" do
+          @iq_size = @pir.send(:generate_iq_file).size
+          @pir.merge_pir_with_iq.size.should > @iq_size
+        end
+      end
+      
+      context "given Medistrano PIR exists" do
+        before(:each) { @pir_s3 = @pir_bucket.files.create(:key=> @pir_parmas[:medistrano_pir_key_name], :body => create_pdf('this is a PIR')) }
+
+        it "merges iq and pir turnning into a bigger than that the Agi IQ" do
+          @iq_size = @pir.send(:generate_iq_file).size
+          @pir.merge_pir_with_iq.size.should > @iq_size
+        end
+      end
+      
   end
   
   def create_pdf(text)
@@ -109,4 +144,50 @@ describe Deployment do
     pdf.text text
     pdf.render
   end
+  
+  def deployed_data
+    {:id=>"ctms-medidata-rodrigo",
+     :deployment_timestamp=>'2012-04-30 17:20:59 UTC',
+     :main=>
+      {:name=>"ctms-medidata-rodrigo",
+       :stage_name=>"rodrigo",
+       :deploy_to=>"/mnt/ctms-medidata-rodrigo",
+       :deploy_user=>"medidata",
+       :deploy_group=>"medidata",
+       :uses_bundler=>true,
+       :git_branch=>"master",
+       :required_packages=>
+        ["ttf-dejavu",
+         "ttf-liberation",
+         "libxerces2-java",
+         "libxerces2-java-gcj",
+         "mysql-client"],
+       :platform=>"ctms",
+       :force_deploy=>false,
+       :send_email=>false,
+       :task=>"",
+       :run_migrations=>true,
+       :migration_command=>"",
+       :deployment_timestamp=>'2012-04-30 17:20:59 UTC',
+       :deploy_by=>"restebanez@mdsol.com",
+       :deployed_at=>'2012-05-22 16:22:33 +0200'},
+     :project=>
+      {:name=>"CTMS",
+       :name_tag=>"ctms",
+       :homepage=>"https://sites.google.com/a/mdsol.com/product/product/CTMS",
+       :repository=>"git@github.com:mdsol/ctms.git",
+       :platform=>"ctms",
+       :custom_data=>{"hancer"=>"4", "dfdf"=>"dfdf", "jj"=>"jj", "test"=>"test"}},
+     :customer=>
+      {:name=>"Medidata",
+       :name_tag=>"medidata",
+       :custom_data=>{"dfdf"=>"dfdf", "jj"=>"jj"}},
+     :database=>
+      {:name=>"ctms-medidata-rodrigo",
+       :db_name=>"imedidata_performance",
+       :username=>"imedidata",
+       :db_type=>"mysql",
+       :hostname=>nil}}
+  end
 end
+ 
