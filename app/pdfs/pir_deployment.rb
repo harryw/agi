@@ -1,21 +1,13 @@
 class PirDeployment
-  
-  def initialize(pir_params)
-    @pir_params = pir_params
-    # necessary hash keys: :medistrano_pir_bucket_name, :medistrano_pir_key_name, :access_key_id, :secret_access_key, :deployed_data,:deploying_time
+
+  def initialize(deployment)
+    @deployment = deployment
   end
   
   def get_medistrano_pir!
-    begin
-      if medistrano_pir_handler = s3.directories.get(@pir_params[:medistrano_pir_bucket_name]).files.get(@pir_params[:medistrano_pir_key_name])
-        medistrano_pir = medistrano_pir_handler.body
-      else
-        raise "doesn't exist. Go to Medistrano and generate the PIR"
-      end
-    rescue => e          
-      raise "#{@pir_params[:medistrano_pir_bucket_name]}/#{@pir_params[:medistrano_pir_key_name]} #{try_to_parse_excon_aws_error(e)}"
-    end
-    medistrano_pir                    
+    medistrano_pir = S3Storage.fetch(medistrano_pir_bucket_name, medistrano_pir_key_name)
+    raise "doesn't exist. Go to Medistrano and generate the PIR" unless medistrano_pir
+    medistrano_pir
   end
 
   def merge_pir_with_iq
@@ -26,7 +18,7 @@ class PirDeployment
 private
 
     def generate_iq_file
-      pdf = IqDeployment.new(@pir_params[:deployed_data],@pir_params[:deploying_time])
+      pdf = IqDeployment.new(@deployment.deployed_data, @deployment.deploying_time)
       pdf.render
     end
 
@@ -44,17 +36,14 @@ private
       @iq_file.path
     end
     
-    def try_to_parse_excon_aws_error(rescue_error_msg)
-      if match = rescue_error_msg.message.match(/<Code>(.*)<\/Code>[\s\\\w]*<Message>(.*)<\/Message>/m)
-        "#{match[1].split('.').last} => #{match[2]}"
-      else
-        rescue_error_msg.message
-      end
-    end
-    
-    def s3
-      @s3 ||= Fog::Storage::AWS.new(:aws_access_key_id => @pir_params[:access_key_id],
-                                    :aws_secret_access_key => @pir_params[:secret_access_key])
-    end
-  
+  def medistrano_pir_bucket_name
+    S3Storage.config["medistrano_pir_bucket_name"]
+  end
+
+  def medistrano_pir_key_name
+    raise "ec2_sg_to_authorize isn't set, Agi can't determine the medistrano project and stage" if app_ec2_sg_to_authorize.blank?
+    medistrano_project, medistrano_stage, medistrano_cloud = app_ec2_sg_to_authorize.split(/-/)
+    "#{medistrano_project}/IQ/#{medistrano_project}-#{medistrano_stage}-PIR.pdf"
+  end
+
 end
