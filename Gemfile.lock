@@ -258,6 +258,8 @@ GEM
     ruby-rc4 (0.1.5)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
+    rubycas-client (2.3.8)
+      activesupport
     rubyzip (0.9.6.1)
     sass (3.1.15)
     sass-rails (3.2.4)
@@ -336,6 +338,7 @@ DEPENDENCIES
   rb-fsevent
   rspec-rails
   ruby-debug19
+  rubycas-client
   sass-rails (~> 3.2.3)
   simple_form
   spork (> 0.9.0.rc)
