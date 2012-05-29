@@ -1,35 +1,23 @@
-<% if user_signed_in? %>
-	<li>
-		<%= link_to('Apps', apps_path)%>
-  <li>
-	<li>
-		<%= link_to('Projects', projects_path)%>
-	<li>
-	<li>
-		<%= link_to('Customers', customers_path)%>
-	<li>
-	<li>
-		<%= link_to('AGI Databases', databases_path)%>
-	<li>
-	<li>
-		<%= link_to('RDS Servers (Admin)', admin_rds_servers_path)%>
-	<li>
-  <li>
-  	<%= link_to('RDS Sec Grps (Admin)', admin_rds_security_groups_path)%>
-  <li>	  
-	<li>
-		<%= link_to('Chef Accounts', chef_accounts_path)%>
-  <li>
-  <%# link_to(current_user.email, edit_user_registration_path) %>
-  </li>
-	<li>		
-  <%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>        
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_user_session_path)  %>  
-  </li>
-  <li>
-  <%# link_to('Sign up', new_user_registration_path)  %>
-  </li>
-<% end %>
+<li>
+	<%= link_to('Apps', apps_path)%>
+<li>
+<li>
+	<%= link_to('Projects', projects_path)%>
+<li>
+<li>
+	<%= link_to('Customers', customers_path)%>
+<li>
+<li>
+	<%= link_to('AGI Databases', databases_path)%>
+<li>
+<li>
+	<%= link_to('RDS Servers (Admin)', admin_rds_servers_path)%>
+<li>
+<li>
+	<%= link_to('RDS Sec Grps (Admin)', admin_rds_security_groups_path)%>
+<li>	  
+<li>
+	<%= link_to('Chef Accounts', chef_accounts_path)%>
+<li>
+<b>Logged in as:</b> <%= session[:cas_user] %>
+</li>
