@@ -9,6 +9,11 @@ describe Deployment do
     PirDeployment.stub(:new).with(@deployment).and_return(@pir_deployment)
   end
 
+  describe "creation" do
+    #TODO: add tests here to verify that the after_save hooks are doing what they're supposed to do
+    #REVIEW: do we really want to use those hooks anyway?  Why not just use plain old #initialize?
+  end
+
   describe "#get_medistrano_pir!" do
 
     it "calls PirDeployment#get_medistrano_pir!" do
@@ -49,6 +54,7 @@ describe Deployment do
           'bucket_name' => @config_iq_bucket_name,
           'medistrano_pir_bucket_name' => @pir_bucket_name
       })
+      S3Storage.stub(:store)
       @iq_file_name = "#@iq_folder_name/#@app_name/#@app_name-#{@time.to_s(:number)}.pdf"
       @iq_document = double()
       @iq_deployment.stub(:render).and_return(@iq_document)
@@ -58,12 +64,12 @@ describe Deployment do
 
     it "creates an IQ PDF file" do
       @iq_deployment.should_receive(:render)
-      S3Storage.stub(:store)
       @deployment.save_iq_file
     end
 
     it "passes the deployment data to IqDeployment" do
-
+      IqDeployment.should_receive(:new).with(@deployed_data, @time)
+      @deployment.save_iq_file
     end
 
     it "uploads the file" do
