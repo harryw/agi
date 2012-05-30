@@ -9,6 +9,9 @@ describe AppsController do  # (Testing AppController authentication indirectly)
     it "redirects to iMedidata for login" do
       get :index
       response.status.should == 302
+      response.headers['Location'].should match(
+        /\A#{IMEDIDATA_CLIENT_CONFIG[:imedidata_cas_url]}\/login\?service=/
+      )
     end
   end
 

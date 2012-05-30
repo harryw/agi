@@ -16,10 +16,13 @@ if File.exists? imed_client_config_file
   imed_client_config.merge!(YAML.load(File.read(imed_client_config_file)))
 end
 
+# Freeze the iMedidata client configuration into a app-wide constant
+IMEDIDATA_CLIENT_CONFIG = imed_client_config
+
 # CAS Single-Sign-On client configuration
 CASClient::Frameworks::Rails::Filter.configure(
-  :cas_base_url           => imed_client_config[:imedidata_cas_url],
-  :enable_single_sign_out => imed_client_config[:enable_single_sign_out],
+  :cas_base_url           => IMEDIDATA_CLIENT_CONFIG[:imedidata_cas_url],
+  :enable_single_sign_out => IMEDIDATA_CLIENT_CONFIG[:enable_single_sign_out],
   :logger                 => Rails.logger,
 )
 
