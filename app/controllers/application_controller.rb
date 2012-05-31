@@ -2,7 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter CASClient::Frameworks::Rails::Filter  # require login
+  before_filter :ensure_cas_user_exists
   
+  # Checks the email of the CAS user against the Users in the database.
+  # Redirects to the Projects list page with a flash error if not.
+  def ensure_cas_user_exists
+    unless (User.all.map {|u| u.email}).include? "#{session[:cas_user]}@mdsol.com"
+      flash[:error] = "You must be a registered user of Agi"
+      redirect_to projects_path
+    end
+  end
+
   protected
   
   def load_app

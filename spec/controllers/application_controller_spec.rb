@@ -15,4 +15,12 @@ describe AppsController do  # (Testing AppController authentication indirectly)
     end
   end
 
+  context "with an iMedidata ticket, but no matching local User" do
+    it "redirects to the Projects index page" do
+      get :index
+      response.status.should == 302
+      response.headers['Location'].should =~ /#{projects_path}/
+    end
+  end
+
 end
