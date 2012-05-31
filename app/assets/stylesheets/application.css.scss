@@ -6,38 +6,112 @@
  *= require_tree . 
 */
 
-
+body{
+	background-color:#fff; 
+	font-family: Arial, Verdana;
+	font-size:10pt; 
+	margin: 0px 0px 0px 0px;
+	}
+/*
 @import 'flutie';
-
-
-
-    .content {
+	.content {
       background: #fff;
       padding: 40px;
       margin: 40px;
     }
+*/
 
+h1, h2{
+	color:#cccccc;
+}
+/*
 ul.hmenu {
-  list-style: none;	
-  margin: 0 0 2em;
-  padding: 0;
+  	list-style: none;	
+  	margin: 0 0 2em;
+	padding: 0;
 }
 ul.hmenu li {
-  display: inline;  
+ 	display: inline;  
 }
+*/
 #flash_notice, #flash_alert, #flash_warning {
-  padding: 5px 8px;
-  margin: 10px 0;
+ 	padding: 5px 8px;
+ 	margin: 10px 0;
 }
 #flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
+	color:green; 
+	font-weight:bold;
 }
 #flash_alert {
-  background-color: #FCC;
-  border: solid 1px #C66;
+	color:red;
+	font-weight:bold;
 }
 #flash_warning {
-	background-color: gold;
-  border: solid 1px black;
+	color:red;
+	font-weight:bold;
+}
+#error_explanation{
+	color:red;
+}
+fieldset{
+	border: 1px solid #ccc
+}
+#header_top_menu {
+  background:url(header_bg_w.gif) repeat;
+  z-index:10;
+  top:0;
+  left:0;
+  height:114px;
+  font-size:16px;
+}
+#container_left_menu {
+  z-index:4;
+  top:86px;
+  left:10px;
+  position:absolute;
+}
+#container_right_menu {
+  float: right; margin-top:55px; margin-right:10px;
+}
+#header2{
+	margin-left: 80px; 
+	margin-bottom:20px
+}
+
+
+/*----------------------Classes Begin--------------------------*/
+
+
+.topLogo{
+	position:absolute; 
+	z-index:600; 
+	top:14px; 
+	left:20px; 
+	width:242px; 
+	height:59px;
+}
+.td{
+	border:1px solid #ccc
+}
+.tbl{
+	border:1px solid #ccc
+}
+.topNav {
+  font-size:75%;
+  letter-spacing:0.1em
+ }
+.topNav   a:link,.topNav  a:visited, .topNav  a:hover, .topNav   a:active {
+  color:darkblue;
+  text-decoration:none;
+  font-weight:bold;
+}
+.fieldset{
+	margin-right:80px; 
+	margin-left:80px
+}
+.field{
+	margin-top:10px;
+}
+.button{
+	margin-top:10px;
 }
