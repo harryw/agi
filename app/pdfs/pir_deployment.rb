@@ -23,26 +23,28 @@ private
     end
 
     def save_medistrano_pir
-      @pir_file = Tempfile.open(['medistrano-pir','.pdf'], Rails.root.join('tmp'), :encoding => 'ascii-8bit' )
-      @pir_file.write get_medistrano_pir!
-      @pir_file.close
-      @pir_file.path
+      temp_pdf_file('medistrano-pir', get_medistrano_pir!)
     end
     
     def save_agi_iq
-      @iq_file = Tempfile.open(['agiapp-iq','.pdf'], Rails.root.join('tmp'), :encoding => 'ascii-8bit' )
-      @iq_file.write generate_iq_file
-      @iq_file.close
-      @iq_file.path
+      temp_pdf_file('agiapp-iq', generate_iq_file)
     end
-    
+
+    def temp_pdf_file(type, content)
+      FileUtils.mkdir_p(Rails.root.join('tmp'))
+      @pir_file = Tempfile.open([type,'.pdf'], Rails.root.join('tmp'), :encoding => 'ascii-8bit' )
+      @pir_file.write content
+      @pir_file.close
+      @pir_file.path
+    end
+
   def medistrano_pir_bucket_name
     S3Storage.config["medistrano_pir_bucket_name"]
   end
 
   def medistrano_pir_key_name
-    raise "ec2_sg_to_authorize isn't set, Agi can't determine the medistrano project and stage" if app_ec2_sg_to_authorize.blank?
-    medistrano_project, medistrano_stage, medistrano_cloud = app_ec2_sg_to_authorize.split(/-/)
+    raise "ec2_sg_to_authorize isn't set, Agi can't determine the medistrano project and stage" if @deployment.app_ec2_sg_to_authorize.blank?
+    medistrano_project, medistrano_stage, medistrano_cloud = @deployment.app_ec2_sg_to_authorize.split(/-/)
     "#{medistrano_project}/IQ/#{medistrano_project}-#{medistrano_stage}-PIR.pdf"
   end
 

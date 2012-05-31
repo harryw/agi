@@ -53,7 +53,7 @@ class Deployment < ActiveRecord::Base
       self.git_repo = app.project.repository
       self.git_commit = app.git_revision
       self.deployed_data = merged_configuration
-      self.s3_url_iq = gen_s3_url_iq
+      self.s3_url_iq = S3Storage.url_for(iq_bucket, iq_file)
       self.deployed_time = deploying_time
     end
 
