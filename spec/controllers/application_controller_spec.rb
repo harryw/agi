@@ -8,7 +8,6 @@ describe AppsController do  # (Testing AppController authentication indirectly)
     end
     it "redirects to iMedidata for login" do
       get :index
-      response.status.should == 302
       response.headers['Location'].should match(
         /\A#{IMEDIDATA_CLIENT_CONFIG[:imedidata_cas_url]}\/login\?service=/
       )
@@ -18,7 +17,6 @@ describe AppsController do  # (Testing AppController authentication indirectly)
   context "with an iMedidata ticket, but no matching local User" do
     it "redirects to the Projects index page" do
       get :index
-      response.status.should == 302
       response.headers['Location'].should =~ /#{projects_path}/
     end
   end
