@@ -51,9 +51,7 @@ Spork.prefork do
       DatabaseCleaner.start
       # Stub out all the annoying Access Control methods so each
       # controller spec does not have to.
-      unless defined?(controller).nil? || controller.class == ApplicationController
-        CASClient::Frameworks::Rails::Filter.stub!(:filter).and_return(true)
-      end
+      CASClient::Frameworks::Rails::Filter.stub!(:filter).and_return(true)
     end
 
     config.after(:each) do

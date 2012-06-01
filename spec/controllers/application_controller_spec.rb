@@ -17,7 +17,7 @@ describe AppsController do  # (Testing AppController authentication indirectly)
   context "with an iMedidata ticket, but no matching local User" do
     it "redirects to the Projects index page" do
       get :index
-      response.headers['Location'].should =~ /#{projects_path}/
+      response.should redirect_to(projects_path)
     end
   end
 
