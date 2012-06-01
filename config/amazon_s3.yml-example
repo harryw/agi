@@ -1,4 +1,11 @@
 development:
-  access_key_id: AKIAIABI7QYVHWBRWXXX
-  secret_access_key: xxxxxxxxxxxxx
-  bucket_name: columbo-portal-test
+  access_key_id: XXXXXXXXXXXXXXXXXXXX
+  secret_access_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  bucket_name: columbo-portal-test/application-iqs
+  medistrano_pir_bucket_name: columbo-portal-current
+test:
+  access_key_id: XXXXXXXXXXXXXXXXXXXX
+  secret_access_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  bucket_name: columbo-portal-test/application-iqs
+  medistrano_pir_bucket_name: columbo-portal-current
+
