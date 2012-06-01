@@ -14,4 +14,4 @@ Feature: Generate an IQ and upload it to S3 at deployment time
 		Then I should see "A deployment has been created"
 		And I should see "Success"
 		And I should see "OK"
-		And I should see "user@test.com"
+		And I should see "user"
