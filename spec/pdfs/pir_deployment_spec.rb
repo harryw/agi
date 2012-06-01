@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PirDeployment do
 
   before :each do
-    @deployment = Factory.build(:deployment)
+    @deployment = build(:deployment)
     @pir_deployment = PirDeployment.new(@deployment)
   end
 
