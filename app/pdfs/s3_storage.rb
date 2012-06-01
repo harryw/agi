@@ -1,7 +1,7 @@
 class S3Storage
 
   def self.url_for(bucket, key)
-    "https://#{bucket}.s3.amazonaws.com/#{key}"
+    "https://#{URI.encode(bucket)}.s3.amazonaws.com/#{URI.encode(key)}"
   end
 
   def self.store(bucket, key, value)
@@ -26,8 +26,8 @@ class S3Storage
   private
 
   def self.s3
-    @s3 ||= Fog::Storage::AWS.new(:aws_access_key_id => config["access_key_id"],
-                                  :aws_secret_access_key => config["secret_access_key"])
+    Fog::Storage::AWS.new(aws_access_key_id: config["access_key_id"],
+        aws_secret_access_key: config["secret_access_key"])
   end
 
   def self.try_to_parse_excon_aws_error(&block)
