@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   # Checks the email of the CAS user against the Users in the database.
   # Redirects to the Projects list page with a flash error if not.
   def ensure_cas_user_exists
-    unless (User.all.map {|u| u.email}).include? "#{session[:cas_user]}@mdsol.com"
+    unless (User.all.map {|u| u.username}).include? session[:cas_user]
       flash[:error] = "You must be a registered user of Agi"
       redirect_to projects_path
     end
