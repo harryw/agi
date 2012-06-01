@@ -4,8 +4,7 @@ Feature: App configuration
   I want to manage customizations
 
   Background: Log-in and create a App
-    Given I am a user named "foo" with an email "user@test.com" and password "please"
-    And I sign in as "user@test.com/please"
+    Given I am logged in
     And a app exists with name: "Balance"
     
   Scenario: New and Show customization

@@ -9,8 +9,7 @@ Feature: Creates a dynect CNAME record when the app is behind an elastic load ba
 	Agifog to create the CNAME record
 	
   Background: A user must be logged-in to use Agi
-    Given I am a user named "foo" with an email "user@test.com" and password "please"
-		And I sign in as "user@test.com/please"
+    Given I am logged in
 		And I fake the call to query the ELB
 		And I fake the calls to opscode
 		And I fake the calls to s3

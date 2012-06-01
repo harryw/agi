@@ -7,9 +7,9 @@ _*"Agi provides a Web UI to Medidata's Opscode Chef-based deployment system and 
 Agi provides a role-based, authenticated user interface for deploying Medidata project code and for configuring IaaS/PaaS infrastructures for that code to run on.  Agi is intended as a front end for specific REST-based services which isolate external PaaS/SaaS REST-based API calls and maintain access control and auditing records.
 
 ##Owners
-J.B. Zimmerman (jzimmerman@mdsol.com)  
-Rodrigo Estebanez-Larzo (restebanez@mdsol.com)  
-Johnlouis Petitbon (jpetitbon@mdsol.com)  
+J.B. Zimmerman (jzimmerman@mdsol.com)
+Rodrigo Estebanez-Larzo (restebanez@mdsol.com)
+Johnlouis Petitbon (jpetitbon@mdsol.com)
 DevOps Team (devops@mdsol.com)
 
 ##SLT
@@ -40,9 +40,9 @@ Agi consumes Agifog for every AWS call is made except for S3. In order to make A
 
 
 Requirements:
- 
+
 * RVM with ruby-1.9.2-p290 (you can install it using: rvm install ruby-1.9.2-p290)
-* mysql 
+* mysql
 * A set of S3 or AWS credentials (This are used for reading the Medistrano PIR and uploading the IQ to a S3 bucket)
 * 3th party binary for merging pdf's: Download http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk-1.44-osx10.6.dmg and install it
 
@@ -68,7 +68,7 @@ now you have to edit __config/amazon_s3.yml__ replacing the X with valid set of 
       secret_access_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       bucket_name: columbo-portal-test/application-iqs
       medistrano_pir_bucket_name: columbo-portal-current
-    
+
 
 3) create the database:
 
@@ -97,24 +97,24 @@ by default it will look for agifog in localhost:3001, in case you want to edit i
     test:
       hostname: localhost
       port: 3001
-      dynectzone: imedidata.net% 
+      dynectzone: imedidata.net%
 
 the S3 credentials and pdftk will be tested when an app is deployed
 
 ## Current errors
 
  New relic development is not configured. You'll see the error:
-    
+
     cannot find or read /Users/xxxxxx/my_git_repos/agiapp/config/newrelic.yml
-    
+
 *) Factory Girl deprecation warnings. factory_girl gem was update but the syntax of the factories wasn't. You'll see the error:
 
     DEPRECATION WARNING: Factory.define is deprecated; use the FactoryGirl.define block syntax to declare your factory.
-    
+
 *) Sign-up is disable. In order to enable it you have to edit:
 
     app/models/user.rb
-    
+
 *) And add the word __:registerable__, it will look like this:
 
     ...
@@ -123,11 +123,11 @@ the S3 credentials and pdftk will be tested when an app is deployed
 
     has_many :deployments
     ...
-    
+
 *) There is no spec rake task. Rspec tests have to be run like:
 
     bundle exec rspec
-    
-    
+
+
 
 

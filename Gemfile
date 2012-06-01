@@ -37,6 +37,7 @@ gem 'haml-coderay' # provides syntax highlighting for certain programming langua
 
 gem 'devise' # User authentication
 gem 'chef', '>= 0.10.4' # opscode authentication
+gem "rubycas-client"    # Not Rails 3 compatible - patched in application.rb
 
 # once a client library gem is created, you can replace the below ones
 gem 'yajl-ruby'

@@ -22,8 +22,8 @@ FactoryGirl.define do
 end
 
 Factory.define :app_with_deployment, :parent => :app do |app|
-    app.after_create {|a| Factory(:deployment, :app => a, :deployment_timestamp => a.updated_at)}
-end 
+    app.after_create {|a| create(:deployment, :app => a, :deployment_timestamp => a.updated_at)}
+end
 
 Factory.define :working_app, :parent => :app do |a|
   a.association :chef_account, :factory => :chef_account
@@ -58,7 +58,7 @@ Factory.define :app_with_elb, :parent => :app do |a|
 end
 
 Factory.define :app_with_elb_and_deployment, :parent => :app_with_elb do |app|
-  app.after_create {|a| Factory(:deployment, :app => a, 
-                                             :deployment_timestamp => a.updated_at, 
+  app.after_create {|a| create(:deployment, :app => a,
+                                             :deployment_timestamp => a.updated_at,
                                              :dynect_cname_log => 'OK: imagegateway-jnj-sandbox.imedidata.net CNAME was created successfully')}
-end     
+end

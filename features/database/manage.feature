@@ -3,8 +3,7 @@ Feature: Allow me to manage my databases
 	I want to create, edit and delete databases
 	
 	Background: A user must be loged-in to use Agi
-    Given I am a user named "foo" with an email "user@test.com" and password "please"
-		And I sign in as "user@test.com/please"
+    Given I am logged in
 		
 	Scenario: Create a Database and Show
 		Given I go to the databases page
