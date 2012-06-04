@@ -3,7 +3,7 @@ require 'spec_helper'
 describe S3Storage do
 
   before :each do
-    @s3 = double(:s3)
+    @s3 = Fog::Storage::AWS.new(aws_access_key_id: 'xxxxx', aws_secret_access_key: 'xxxxx')
     Fog::Storage::AWS.stub(:new).and_return(@s3)
   end
 
@@ -25,45 +25,44 @@ describe S3Storage do
       @bucket_name = 'fake_bucket'
       @key = 'fake_key'
       @value = 'fake_value'
-      @bucket = double(:bucket)
-      @directories = double(:directories)
-      @files = double(:files)
-      @s3.stub(:get_bucket).with(@bucket_name).and_return(@bucket)
-      @s3.stub(:directories).and_return(@directories)
-      @directories.stub(:get).with(@bucket_name).and_return(@bucket)
-      @bucket.stub(:files).and_return(@files)
-      @files.stub(:create).with(key: @key, body: @value)
     end
 
     context "when the specified bucket doesn't exist" do
 
       before :each do
-        @s3.stub(:get_bucket).with(@bucket_name).and_raise(StandardError)
+        @s3.delete_bucket(@bucket_name) rescue nil
       end
 
       it "creates the bucket" do
-        @s3.should_receive(:put_bucket).with(@bucket_name)
         S3Storage.store(@bucket_name, @key, @value)
+        @s3.get_bucket(@bucket_name).status.should == 200
       end
 
       it "still stores the key/value pair" do
-        @s3.stub(:put_bucket).with(@bucket_name)
-        @files.should_receive(:create).with(key: @key, body: @value)
         S3Storage.store(@bucket_name, @key, @value)
+        @s3.directories.get(@bucket_name).files.get(@key).body.should == @value
       end
 
     end
 
-    it "creates the specified key in the specified bucket with the specified value" do
-      @files.should_receive(:create).with(key: @key, body: @value)
-      S3Storage.store(@bucket_name, @key, @value)
+    context "when the specified bucket already exists" do
+
+      before :each do
+        @s3.get_bucket(@bucket_name) rescue @s3.put_bucket(@bucket_name)
+      end
+
+      it "creates the specified key in the specified bucket with the specified value" do
+        S3Storage.store(@bucket_name, @key, @value)
+        @s3.directories.get(@bucket_name).files.get(@key).body.should == @value
+      end
+
     end
 
     it "parses and re-raises excon exceptions" do
       code = 'fake_code'
       message = 'fake_message'
       excon_exception = "<Code>#{code}</Code>blah blah blah<Message>#{message}</Message>"
-      @files.stub(:create).with(key: @key, body: @value).and_raise(excon_exception)
+      @s3.stub_chain(:directories, :get).and_raise(excon_exception)
       expect { S3Storage.store(@bucket_name, @key, @value) }.to raise_exception("#{code} => #{message}")
     end
 
@@ -75,42 +74,53 @@ describe S3Storage do
       @bucket_name = 'fake_bucket'
       @key = 'fake_key'
       @value = 'fake_value'
-      @bucket = double()
-      @s3.stub_chain(:directories, :get).with(@bucket_name).and_return(@bucket)
-      @document = double()
-      @bucket.stub_chain(:files, :get).with(@key).and_return(@document)
-      @document.stub(:body).and_return(@value)
     end
 
-    it "finds the specified bucket" do
-      directories = double()
-      @s3.stub(:directories).and_return(directories)
-      directories.should_receive(:get).with(@bucket_name)
-      S3Storage.fetch(@bucket_name, @key)
+    context "when the bucket doesn't exist" do
+
+      before :each do
+        @s3.delete_bucket(@bucket_name) rescue nil
+      end
+
+      it "returns nil" do
+        returned = S3Storage.fetch(@bucket_name, @key)
+        returned.should be_nil
+      end
+
     end
 
-    it "returns nil if the bucket is not found" do
-      @s3.stub_chain(:directories, :get).with(@bucket_name).and_return(nil)
-      returned = S3Storage.fetch(@bucket_name, @key)
-      returned.should be_nil
-    end
+    context "when the bucket exists" do
 
-    it "finds the specified key" do
-      files = double()
-      @bucket.stub(:files).and_return(files)
-      files.should_receive(:get).with(@key)
-      S3Storage.fetch(@bucket_name, @key)
-    end
+      before :each do
+        @s3.get_bucket(@bucket_name) rescue @s3.put_bucket(@bucket_name)
+      end
 
-    it "returns nil if the key is not found" do
-      @bucket.stub_chain(:files, :get).with(@key).and_return(nil)
-      returned = S3Storage.fetch(@bucket_name, @key)
-      returned.should be_nil
-    end
+      context "when the file doesn't exist" do
 
-    it "returns the body of the value for the given key" do
-      returned = S3Storage.fetch(@bucket_name, @key)
-      returned.should == @value
+        before :each do
+          @s3.directories.get(@bucket_name).files.delete(@key)
+        end
+
+        it "returns nil" do
+          returned = S3Storage.fetch(@bucket_name, @key)
+          returned.should be_nil
+        end
+
+      end
+
+      context "when the file exists" do
+
+        before :each do
+          @s3.directories.get(@bucket_name).files.create(key: @key, body: @value)
+        end
+
+        it "returns the body of the value for the given key" do
+          returned = S3Storage.fetch(@bucket_name, @key)
+          returned.should == @value
+        end
+
+      end
+
     end
 
     it "parses and re-raises excon exceptions" do
