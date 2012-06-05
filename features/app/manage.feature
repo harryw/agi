@@ -3,8 +3,7 @@ Feature: Allow me to manage my apps
 	I want to create, edit and delete apps
 	
 	Background: A user must be logged-in to use Agi
-    Given I am a user named "foo" with an email "user@test.com" and password "please"
-		And I sign in as "user@test.com/please"
+    Given I am logged in
 		And a customer exists with name: "Johnson & Johnson", name_tag: "jnj"
 		And a project exists with name: "Imagegateway", name_tag: "imagegateway"
 		And a database exists with name: "great-db"

@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 #gem 'rails', '3.1.1'
 #gem 'rack', '1.3.3' #1.3.4 gives warning: already initialized constant WFKV_
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.3'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -37,6 +37,7 @@ gem 'haml-coderay' # provides syntax highlighting for certain programming langua
 
 gem 'devise' # User authentication
 gem 'chef', '>= 0.10.4' # opscode authentication
+gem "rubycas-client"    # Not Rails 3 compatible - patched in application.rb
 
 # once a client library gem is created, you can replace the below ones
 gem 'yajl-ruby'

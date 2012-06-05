@@ -17,8 +17,8 @@ describe Deployment do
   describe "#get_medistrano_pir!" do 
     context "given app#ec2_sg_to_authorize isn't set" do
       before(:each) do
-        @app = Factory.build(:app, :ec2_sg_to_authorize=>'')
-        @deployment = Factory.build(:deployment, :app => @app)
+        @app = FactoryGirl.build(:app, :ec2_sg_to_authorize=>'')
+        @deployment = FactoryGirl.build(:deployment, :app => @app)
       end
        
       it "raises an exception when ec2_sg_to_authorize is empty" do
@@ -30,8 +30,8 @@ describe Deployment do
   
   describe '#save_iq_file' do
     before(:each) do
-      @app = Factory.build(:app, :ec2_sg_to_authorize=>'ctms-sandbox-app001java')
-      @deployment = Factory.build(:deployment, :app => @app)
+      @app = FactoryGirl.build(:app, :ec2_sg_to_authorize=>'ctms-sandbox-app001java')
+      @deployment = FactoryGirl.build(:deployment, :app => @app)
     
       # location where the IQ will be uploaded in S3
       @medistrano_pir_key_name = @deployment.send(:medistrano_pir_key_name)

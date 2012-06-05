@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120515101256) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+ActiveRecord::Schema.define(:version => 20120601152117) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -188,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20120515101256) do
   end
 
   create_table "users", :force => true do |t|
+    t.string   "username",                                              :null => false
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"

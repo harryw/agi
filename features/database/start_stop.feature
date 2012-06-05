@@ -4,8 +4,7 @@
 #	I want to start and stop databases
 #	
 #	Background: A user must be loged-in to use Agi
-#    Given I am a user named "foo" with an email "user@test.com" and password "please"
-#		And I sign in as "user@test.com/please"
+#Given I am logged in
 #  
 # I don't really know what @localhost_request does, but i needed it for recording the tape (not sure anymore of this)
 # if you have to record this tape again, make sure to clean-up the test database, or rename the database name above	
