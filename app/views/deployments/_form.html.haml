@@ -21,13 +21,10 @@
               %li= msg  
  
     %tr.trstripeshow
-      -#%td.tblshowbold Description
       %td= form.input :description, :label => "Description", :label_html => { :class => 'formlable' }
     %tr.trstripeshow
-      -#%td.tblshowbold Force Deploy
       %td= form.input :force_deploy, :label => "Force Deploy", :label_html => { :class => 'formlable' }
     %tr.trstripeshow
-      -#%td.tblshowbold Merge IQ with Medistrano PIR
       - if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
         %td
           - if @enable_merge_iq_with_medistrano_pir_checkbox
@@ -36,21 +33,17 @@
             = form.input :merge_iq_with_medistrano_pir, :label => "Merge IQ with Medistrano PIR", :disabled => true, :hint => "It's disabled because " + @error_hint, :label_html => { :class => 'formlable' }
       - else
         %td{:style => "font-weight:bold;color:red"} Merging Medistrano PIR with Agi IQ feature is disabled
-
     %tr.trstripeshow
-      -#%td.tblshowbold Send Email
       %td= form.input :send_email, :label => "Send Email", :label_html => { :class => 'formlable' }
     %tr.trstripeshow
-      -#%td.tblshowbold Task
       %td= form.input :task, :label => "Task", :label_html => { :class => 'formlable' }
     %tr.trstripeshow
-      -#%td.tblshowbold Do Migrations
       %td= form.input :run_migrations, :label => "Do Migrations", :label_html => { :class => 'formlable' }
     %tr.trstripeshow
-      -#%td.tblshowbold Migration Command
       %td= form.input :migration_command, :label => "Migration Command", :label_html => { :class => 'formlable' }
     %tr.trstripeshow
-      %td.tblshowbold{:colspan => "2"}
+      %td.tblshowbold
         = form.input :deployment_timestamp, :as => :hidden, :input_html => { :value => @app.app_timestamp }
         .actions
           = form.button :submit
+
