@@ -1,20 +1,29 @@
-%h1 Listing apps
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'New App', new_app_path, :class => "button"
 
-%table{:style => "width:100%"}
-  %tr
-    %th Name
-    %th Stage name
-    %th Url
-    %th Chef Account
-    %th Database
-    %th Customer
-    %th Project
-    %th Git revision
-    %th
-    %th
+%fieldset.fieldset/
+
+%legend.legend Apps Listing
+
+%table#tblmain
+  %tr.trbg
+    %td.fontbold Name
+    %td.fontbold Stage Name
+    %td.fontbold Url
+    %td.fontbold Chef Account
+    %td.fontbold Database
+    %td.fontbold Customer
+    %td.fontbold Project
+    %td.fontbold Git revision
+    
 
   - @apps.each do |app|
-    %tr
+  
+    %tr.trstripe
       %td= link_to app.name, app
       %td= app.stage_name
       %td= app.url
@@ -23,6 +32,5 @@
       %td= link_to_if app.customer_name, app.customer_name, app.customer
       %td= link_to_if app.project_name, app.project_name, app.project
       %td= app.git_revision
-%br
 
-= link_to 'New App', new_app_path
+

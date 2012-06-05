@@ -1,17 +1,24 @@
-%h1 Listing customers
-
-%table
-  %tr
-    %th Name
-    %th Tag name
-    %th
-    %th
-    %th
-
-  - @customers.each do |customer|
+%div#maindiv
+  %table.tblbtn
     %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'New Customer', new_customer_path, :class => "button" 
+
+
+%fieldset.fieldset/
+
+%legend.legend Customer Listing
+
+%table#tblmain
+  %tr.trbg
+    %td.fontbold Name
+    %td.fontbold Tag name
+    
+  - @customers.each do |customer|
+  
+    %tr.trstripe
       %td= link_to customer.name, customer
       %td= customer.name_tag
-%br
+      
 
-= link_to 'New Customer', new_customer_path

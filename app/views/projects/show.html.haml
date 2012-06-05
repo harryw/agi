@@ -1,25 +1,27 @@
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'Edit', edit_project_path(@project), :class => "button" 
+        = link_to 'Destroy', @project, :confirm => 'Are you sure?', :method => :delete, :class => "button" 
+        = link_to 'New Customization', [:new, @project, :customization], :class => "button" 
+        = link_to 'Customizations List', [@project, :customizations], :class => "button"
 
+%fieldset.fieldset/
 
-%p
-  %b Name:
-  = @project.name
-%p
-  %b Name tag
-  = @project.name_tag
-%p
-  %b Repository:
-  = @project.repository
-%p
-  %b Repo private key:
-  = @project.repo_private_key
-%p
-  %b Platform:
-  = @project.platform
+%legend.legend Project View
 
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Destroy', @project, :confirm => 'Are you sure?', :method => :delete
-\|
-= link_to 'New Customization', [:new, @project, :customization]
-\|
-= link_to 'Customizations', [@project, :customizations]
+%table#tblshow
+  %tr.trstripeshow
+    %td.tblshowbold Name:
+    %td= @project.name_tag
+  %tr.trstripeshow   
+    %td.tblshowbold Repository:
+    %td= @project.repository  
+  %tr.trstripeshow   
+    %td.tblshowbold Repo Private Key:
+    %td= @project.repo_private_key
+  %tr.trstripeshow   
+    %td.tblshowbold Platform:
+    %td= @project.platform

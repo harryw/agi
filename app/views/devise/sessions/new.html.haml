@@ -1,0 +1,27 @@
+%div#maindiv
+
+
+%fieldset.fieldset/
+
+%legend.legend Log In
+
+%table{:bgcolor => "#f5f5f", :width => "100%", :cellpaddng => "4", :cellspacing => "1", :border => "0"}
+  %tr
+    %td
+      = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |form|
+        %table
+          %tr
+            %td * Email
+            %td= form.input :email, :label => false, :required => false, :autofocus => true
+          %tr
+            %td * Password
+            %td= form.input :password, :required => false,  :label => false
+          %tr
+            %td Remember Me
+            %td= form.input :remember_me, :label => false, :as => :boolean if (devise_mapping.rememberable?) 
+          %tr
+            %td{:colspan => "2"}
+              .actions
+                = form.button :submit, "Sign in"
+
+=render :partial => "devise/shared/links"

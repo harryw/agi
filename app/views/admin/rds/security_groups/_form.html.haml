@@ -1,14 +1,22 @@
 = simple_form_for [:admin, @security_group] do |form|
-
-  -if @security_group.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@security_group.errors.count, "error")} prohibited this #{RdsSecurityGroup.name.titleize} from being saved:"
-      %ul
-        - @security_group.errors.full_messages.each do |msg|
-          %li= msg  
-
-  = form.input :id, :label => 'Name'
-  = form.input :description
-
-  .actions
-    = form.button :submit
+  %table
+    -if @security_group.errors.any?
+      %tr
+        %td
+        #errorExplanation
+        %h2= "#{pluralize(@security_group.errors.count, "error")} prohibited this #{RdsSecurityGroup.name.titleize} from being saved:"
+        %ul
+          - @security_group.errors.full_messages.each do |msg|
+            %li= msg  
+    
+    %tr.trstripeshow
+      %td.tblshowbold Name
+      %td= form.input :id, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Description
+      %td= form.input :description, :label => false
+   
+    %tr.trstripeshow
+      %td.tblshowbold{:colspan => "2"}
+        .actions
+          = form.button :submit

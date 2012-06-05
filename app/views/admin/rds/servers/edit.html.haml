@@ -1,7 +1,14 @@
-%h1 Editing database
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Show', [:admin, @server], :class => "button" 
+        = link_to 'Rds Servers', [:admin, :rds_servers], :class => "button"
 
-= render 'form_edit'
+%fieldset.fieldset/
 
-= link_to 'Show', [:admin, @server]
-\|
-= link_to 'Rds Servers', [:admin, :rds_servers]
+%legend.legend Edit Database Server
+
+%table#tblform
+  %tr
+    %td= render 'form_edit'

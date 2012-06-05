@@ -1,26 +1,35 @@
-%p#notice= notice
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'Edit', edit_chef_account_path(@chef_account), :class => "button" 
+        = link_to 'Destroy', @chef_account, :confirm => 'Are you sure?', :method => :delete, :class => "button" 
 
-%p
-  %b Name:
-  = @chef_account.name
-%p
-  %b Client name:
-  = @chef_account.client_name
-%p
-  %b Validator key:
-  = @chef_account.validator_key
-%p
-  %b Client key:
-  = @chef_account.client_key
-%p
-  %b Databag key:
-  = @chef_account.databag_key
-%p
-  %b Api url:
-  = @chef_account.api_url
+%fieldset.fieldset/
 
-= link_to 'Edit', edit_chef_account_path(@chef_account)
-\|
-= link_to 'Destroy', @chef_account, :confirm => 'Are you sure?', :method => :delete
-\|
-= link_to 'Back', chef_accounts_path
+%legend.legend Customer View
+
+%table#tblshow
+  
+  -if notice
+    %tr.trstripeshow
+      %td{:colspan => "2"}= notice
+  %tr.trstripeshow
+    %td.tblshowbold Name:
+    %td= @chef_account.name
+  %tr.trstripeshow   
+    %td.tblshowbold Client Name:
+    %td= @chef_account.client_name 
+  %tr.trstripeshow   
+    %td.tblshowbold Validator Key:
+    %td= @chef_account.validator_key
+  %tr.trstripeshow   
+    %td.tblshowbold Client Key:
+    %td= @chef_account.client_key
+  %tr.trstripeshow   
+    %td.tblshowbold Databag Key:
+    %td= @chef_account.databag_key
+  %tr.trstripeshow   
+    %td.tblshowbold Api URL:
+    %td= @chef_account.api_url

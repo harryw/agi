@@ -1,63 +1,78 @@
-%p#notice= notice
 
-%p
-  %b Name:
-  = @server.name
-%p
-  %b Is it in AGI?:
-  = link_to_if find_database_in_agi(@server.name), find_database_in_agi(@server.name) ? "Agi Conf" : "NO", find_database_in_agi(@server.name)
-%p
-  %b State:
-  = @server.state
-%p
-  %b Db name:
-  = @server.db_name
-%p
-  %b Username:
-  = @server.master_username
-%p
-  %b Hostname:
-  = @server.endpoint.attributes["Address"]
-%p
-  %b Type:
-  = @server.engine
-%p
-  %b Instance class:
-  = @server.flavor_id
-%p
-  %b Instance storage:
-  = @server.allocated_storage
-%p
-  %b Multi az:
-  = @server.multi_az
-%p
-  %b Availability zone:
-  = @server.availability_zone
-%p
-  %b Engine version:
-  = @server.engine_version
 
-- @server.db_parameter_groups.each do |param_group|
-  %b Parameter Group Name:
-  = param_group.attributes["DBParameterGroupName"]
-  %b Status:
-  = param_group.attributes["ParameterApplyStatus"]
-  %p
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Rds Servers', [:admin, :rds_servers], :class => "button" 
+
+%fieldset.fieldset/
+
+%legend.legend Server View
+
+%table#tblshow
   
-- @server.db_security_groups.each do |db_security_group|
-  %b Security Group Name:
-  = db_security_group.attributes["DBSecurityGroupName"]
-  %b Status:
-  = db_security_group.attributes["Status"]
-  %p
-  
-%p
-  %b Pending Modified Values Hash:
-  = @server.pending_modified_values.attributes
-
-= link_to 'Rds Servers', [:admin, :rds_servers]
-\|
-= link_to_unless find_database_in_agi(@server.name), 'Shutdown', [:admin, @server], :confirm => 'This RDS instance will be shutdown, Are you sure?', :method => :delete
-\|
-= link_to_if find_database_in_agi(@server.name), 'Stop', stop_database_path(find_database_in_agi(@server.name))
-
+  -if notice
+    %tr.trstripeshow
+      %td{:colspan => "2"}= notice
+  %tr.trstripeshow
+    %td.tblshowbold Name:
+    %td= @server.name
+  %tr.trstripeshow   
+    %td.tblshowbold Is it in AGI?:
+    %td= link_to_if find_database_in_agi(@server.name), find_database_in_agi(@server.name) ? "Agi Conf" : "NO", find_database_in_agi(@server.name)
+  %tr.trstripeshow   
+    %td.tblshowbold State:
+    %td= @server.state
+  %tr.trstripeshow   
+    %td.tblshowbold DB Name:
+    %td= @server.db_name
+  %tr.trstripeshow   
+    %td.tblshowbold Username:
+    %td= @server.master_username
+  %tr.trstripeshow   
+    %td.tblshowbold Hostname:
+    %td= @server.endpoint.attributes["Address"]
+  %tr.trstripeshow   
+    %td.tblshowbold Type:
+    %td= @server.engine
+  %tr.trstripeshow   
+    %td.tblshowbold Instance Class:
+    %td= @server.flavor_id
+  %tr.trstripeshow   
+    %td.tblshowbold Instance Storage:
+    %td= @server.allocated_storage
+  %tr.trstripeshow   
+    %td.tblshowbold Multi AZ:
+    %td= @server.multi_az
+  %tr.trstripeshow   
+    %td.tblshowbold Availability Zone:
+    %td= @server.availability_zone
+  %tr.trstripeshow   
+    %td.tblshowbold Engine Version:
+    %td= @server.engine_version
+  %tr.trstripeshow   
+    %td.tblshowbold Parameter Group Name:
+    %td
+      - @server.db_parameter_groups.each do |param_group|
+        = param_group.attributes["DBParameterGroupName"]
+        %b &nbsp;&nbsp; status:
+        = param_group.attributes["ParameterApplyStatus"]
+  %tr.trstripeshow   
+    %td.tblshowbold Security Group Name:
+    %td
+      - @server.db_security_groups.each do |db_security_group|
+        = db_security_group.attributes["DBSecurityGroupName"]
+        %b &nbsp;&nbsp; status: 
+        = db_security_group.attributes["Status"] 
+  %tr.trstripeshow   
+    %td.tblshowbold Pending Modified Values Hash:
+    %td= @server.pending_modified_values.attributes
+  %tr.trstripeshow   
+    %td{:colspan => "2" }
+      %div#divOnOffbtnContainer
+        %div#OnOffbtn{:style => "float:left"}= link_to_if find_database_in_agi(@server.name), 'Stop', stop_database_path(find_database_in_agi(@server.name))
+        %div#OnOffbtn{:style => "float:right"}= link_to_unless find_database_in_agi(@server.name), 'Shutdown', [:admin, @server], :confirm => 'This RDS instance will be shutdown, Are you sure?', :method => :delete
+      
+      
+      

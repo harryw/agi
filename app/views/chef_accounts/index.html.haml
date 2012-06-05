@@ -1,19 +1,23 @@
-%h1 Listing chef_accounts
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'New Chef account', new_chef_account_path, :class => "button" 
 
-%table
-  %tr
-    %th Name
-    %th Client Name
-    %th Api url
-    %th
-    %th
-    %th
+%fieldset.fieldset/
+
+%legend.legend Chef Account Listing
+
+%table#tblmain
+  %tr.trbg
+    %td.fontbold Name
+    %td.fontbold Client Name
+    %td.fontbold Api Url    
 
   - @chef_accounts.each do |chef_account|
-    %tr
+  
+    %tr.trstripe
       %td= link_to chef_account.name, chef_account
       %td= chef_account.client_name
       %td= chef_account.api_url
-%br
-
-= link_to 'New Chef account', new_chef_account_path

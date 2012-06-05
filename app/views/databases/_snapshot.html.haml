@@ -1,21 +1,42 @@
 = simple_form_for @database do |form|
+  %table
+    -if @database.errors.any?
+      %tr
+        %td
+        #errorExplanation
+        %h2= "#{pluralize(@database.errors.count, "error")} prohibited this #{Database.name.titleize} from being saved or started:"
+        %ul
+          - @database.errors.full_messages.each do |msg|
+            %li= msg  
+    %tr.trstripeshow
+      %td.tblshowbold * Name
+      %td= form.input :name, :label => false
+    - unless @database.snapshot_id.blank?
+      %tr.trstripeshow
+        %td.tblshowbold Snapshot ID
+        %td= form.input :snapshot_id, :label => false, :required => true
+    
 
-  -if @database.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@database.errors.count, "error")} prohibited this #{Database.name.titleize} from being saved or started:"
-      %ul
-        - @database.errors.full_messages.each do |msg|
-          %li= msg  
-
-  = form.input :name, :label => 'Name'
-  = form.input :snapshot_id, :label => 'Snapshot ID', :required => true
-  = form.input :instance_class, :collection => %w{ db.m1.small db.m1.large db.m1.xlarge db.m2.xlarge db.m2.2xlarge db.m2.4xlarge }, :label => 'Instance Class'
-  = form.input :instance_storage, :label => 'Instance Storage'
-  = form.input :multi_az, :label => 'Multi Az'
-  = form.input :availability_zone, :collection => %w{ us-east-1a us-east-1b us-east-1c us-east-1d us-east-1e }, :label => 'Availability Zone'
-  = form.input :security_group_name, :label => 'Rds Security Group'
-  = form.input :ec2_sg_to_authorize, :label => 'EC2 Security Group to Authorize'
-
-
-  .actions
-    = form.button :submit
+    %tr.trstripeshow
+      %td.tblshowbold Instance Class
+      %td= form.input :instance_class, :collection => %w{ db.m1.small db.m1.large db.m1.xlarge db.m2.xlarge db.m2.2xlarge db.m2.4xlarge }, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Instance Storage
+      %td= form.input :instance_storage, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Multi Az
+      %td= form.input :multi_az, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Availability Zone
+      %td= form.input :availability_zone, :collection => %w{ us-east-1a us-east-1b us-east-1c us-east-1d us-east-1e }, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Rds Security Group
+      %td= form.input :security_group_name, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold EC2 Security Group to Authorize
+      %td= form.input :ec2_sg_to_authorize, :label => false
+    
+    %tr.trstripeshow
+      %td.tblshowbold{:colspan => "2"}
+        .actions
+          = form.button :submit

@@ -1,85 +1,87 @@
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'Edit', edit_app_path(@app), :class => "button" 
+        = link_to 'Destroy', @app, :confirm => 'Are you sure?', :method => :delete, :class => "button" 
+        = link_to 'New Customization', [:new, @app, :customization], :class => "button" 
+        = link_to 'Customizations List', [@app, :customizations], :class => "button" 
 
-%p
-  %b Name:
-  = @app.name
-%p
-  %b Description:
-  = @app.description
-%p
-  %b Stage name:
-  = @app.stage_name
-%p
-  %b Customer name:
-  = link_to @app.customer_name, @app.customer
-%p
-  %b Project name:
-  = link_to @app.project_name, @app.project
-%p
-  %b Database Name:
-  = link_to_if @app.database, @app.database.try(:name), @app.database
-%p
-  %b EC2 Security Group Authorized in RDS:
-  = @app.ec2_sg_to_authorize
-%p
-  %b Deploy to:
-  = @app.deploy_to
-%p
-  %b Deploy user:
-  = @app.deploy_user
-%p
-  %b Deploy group:
-  = @app.deploy_group
-%p
-  %b Multi tenant:
-  = @app.multi_tenant
-%p
-  %b Uses bundler:
-  = @app.uses_bundler
-%p
-  %b Alert emails:
-  = @app.alert_emails
-%p
-  %b Url:
-  = @app.url
-%p
-  %b Load Balancer DNS:
-  = @app.lb_dns
-%p
-  %b Dynect CNAME:
-  = @app.dynect_cname_name
-%p
-  %b Dynect CNAME status:
-  = @dynect_cname_log
-%p
-  %b Git branch:
-  = @app.git_branch
-%p
-  %b Git revision:
-  = @app.git_revision
-%p
-  %b Project platform:
-  = @app.project_platform
-%p
-  %b Rails env:
-  = @app.rails_env
-%p
-  %b Timestamp in the Databag (Last deployment):
-  = @app.databag_item_timestamp
-%p
-  %b Deployments
-  = link_to 'Deployments', app_deployments_path(@app)
+/ #deployment_status= @deployment_status 
 
+%fieldset.fieldset/
 
+%legend.legend=@app.name
 
-#deployment_status= @deployment_status 
-
-= link_to 'Deploy', new_app_deployment_path(@app)
-
-= link_to 'Edit', edit_app_path(@app)
-\|
-= link_to 'Destroy', @app, :confirm => 'Are you sure?', :method => :delete
-\|
-= link_to 'New Customization', [:new, @app, :customization]
-\|
-= link_to 'Customizations', [@app, :customizations]
-
+%table#tblshow
+  %tr.trstripeshow
+    %td.tblshowbold Description:
+    %td= @app.description
+  %tr.trstripeshow   
+    %td.tblshowbold Stage Name:
+    %td= @app.stage_name  
+  %tr.trstripeshow  
+    %td.tblshowbold Customer Name:
+    %td= link_to @app.customer_name, @app.customer  
+  %tr.trstripeshow
+    %td.tblshowbold Project Name:
+    %td= link_to @app.project_name, @app.project
+  %tr.trstripeshow
+    %td.tblshowbold Database Name:
+    %td= link_to_if @app.database, @app.database.try(:name), @app.database  
+  %tr.trstripeshow
+    %td.tblshowbold EC2 Security Group Authorized in RDS:
+    %td= @app.ec2_sg_to_authorize  
+  %tr.trstripeshow
+    %td.tblshowbold Deploy To:
+    %td= @app.deploy_to  
+  %tr.trstripeshow
+    %td.tblshowbold Deploy User:
+    %td= @app.deploy_user  
+  %tr.trstripeshow
+    %td.tblshowbold Deploy Group:
+    %td= @app.deploy_group  
+  %tr.trstripeshow
+    %td.tblshowbold Multi Tenant:
+    %td= @app.multi_tenant  
+  %tr.trstripeshow
+    %td.tblshowbold Uses bundler:
+    %td= @app.uses_bundler  
+  %tr.trstripeshow
+    %td.tblshowbold Alert Emails:
+    %td= @app.alert_emails  
+  %tr.trstripeshow
+    %td.tblshowbold Url:
+    %td= @app.url  
+  %tr.trstripeshow
+    %td.tblshowbold Load Balancer DNS:
+    %td= @app.lb_dns  
+  %tr.trstripeshow
+    %td.tblshowbold Dynect CNAME:
+    %td= @app.dynect_cname_name  
+  %tr.trstripeshow
+    %td.tblshowbold Dynect CNAME Status:
+    %td= @dynect_cname_log  
+  %tr.trstripeshow
+    %td.tblshowbold Git Branch:
+    %td= @app.git_branch  
+  %tr.trstripeshow
+    %td.tblshowbold Git Revision:
+    %td= @app.git_revision  
+  %tr.trstripeshow
+    %td.tblshowbold Project Platform:
+    %td= @app.project_platform  
+  %tr.trstripeshow
+    %td.tblshowbold Rails Env:
+    %td= @app.rails_env  
+  %tr.trstripeshow
+    %td.tblshowbold Timestamp in the Databag (Last Deployment):
+    %td= @app.databag_item_timestamp  
+  %tr.trstripeshow
+    %td.tblshowbold Deployments:
+    %td= link_to 'Deployments', app_deployments_path(@app)
+  %tr.trstripeshow   
+    %td{:colspan => "2" }
+      %div#divOnOffbtnContainer
+        %div#OnOffbtn{:style => "float:left"}= link_to 'Deploy', new_app_deployment_path(@app), :class => "button"

@@ -1,5 +1,14 @@
-%h1 New app
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
 
-= render 'form'
 
-= link_to 'Back', apps_path
+%fieldset.fieldset/
+
+%legend.legend New App
+
+%table#tblform
+  %tr
+    %td= render 'form'

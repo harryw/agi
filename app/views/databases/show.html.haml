@@ -1,92 +1,110 @@
--if @database_client and @database_client.errors.any?
-  #errorExplanation
-    %h2= "#{pluralize(@database_client.errors.count, "error")} stop from syncing Agi Database with the Restored RDS instance:"
-    %ul
-      - @database_client.errors.full_messages.each do |msg|
-        %li= msg
-%p
-  %b Name:
-  = @database.name
-%p
-  %b Attached App:
-  = link_to_if @database.app, @database.app.try(:name) || "none", @database.app 
-%p
-  %b Snapshot ID:
-  = @database.snapshot_id
-%p
-  %b State:
-  = @database.state
-%p
-  %b Db name:
-  = @database.db_name
-%p
-  %b Username:
-  = @database.username
-%p
-  %b Hostname:
-  = @database.hostname
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'Database Configurations', databases_url, :class => "button" 
+        = link_to_unless @database.started, 'Edit', edit_database_path(@database), :class => "button" 
+        = link_to 'Destroy', @database, :confirm => 'This will also shutdown the rds instance, Are you sure?', :method => :delete, :class => "button"  
+         
 
-  - if @database.ready? 
-    \|
-    %font{:color => "orange"} [connection string]
-    :javascript
-      function getCopiedText() {
-        return document.getElementById('texttocopy').value;
-      }
-    %object#clippy{:classid => "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000", :height => "14", :width => "110"}
-      %param{:name => "movie", :value => "/flash/clippy.swf"}/
-      %param{:name => "allowScriptAccess", :value => "always"}/
-      %param{:name => "quality", :value => "high"}/
-      %param{:name => "scale", :value => "noscale"}/
-      %param{:name => "FlashVars", :value => "func=getCopiedText"}/
-      %param{:name => "bgcolor", :value => "#FFFFFF"}/
-      %embed{:allowscriptaccess => "always", :bgcolor => "#FFFFFF", :flashvars => "func=getCopiedText", :height => "14", :name => "clippy", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :quality => "high", :src => "/flash/clippy.swf", :type => "application/x-shockwave-flash", :width => "110"}/
-    %input#texttocopy{:type => "hidden", :value => @database.mysql_command}/
+%fieldset.fieldset/
 
-%p
-  %b Client cert:
-  = @database.client_cert
-%p
-  %b Type:
-  = @database.db_type
-%p
-  %b Instance class:
-  = @database.instance_class
-%p
-  %b Instance storage:
-  = @database.instance_storage
-%p
-  %b Multi az:
-  = @database.multi_az
-%p
-  %b Availability zone:
-  = @database.availability_zone
-%p
-  %b Engine version:
-  = @database.engine_version
-%p
-  %b Parameter Group:
-  = @database.parameter_group
-%p
-  %b RDS Security group name:
-  - if @database.sg_out_of_sync
-    - if @database.state == 'available'
-      The SG is out of sync!! You can change it clicking here: 
-      = link_to "Sync",admin_rds_server_path(@database.name, :rds_server => { :security_group_names => [@database.security_group_name],:password => @database.password}),:method => :put
+%legend.legend Database View
+
+%table#tblshow
+  
+  -if @database_client and @database_client.errors.any? 
+    %tr.trstripeshow
+      %td.tblshowbold{:colspan => "2"}
+      #errorExplanation
+      %h2= "#{pluralize(@database_client.errors.count, "error")} stop from syncing Agi Database with the Restored RDS instance:"
+      %ul
+        - @database_client.errors.full_messages.each do |msg|
+          %li= msg
+   
+  
+  
+  %tr.trstripeshow   
+    %td.tblshowbold Namex:
+    %td= @database.name 
+  %tr.trstripeshow  
+    %td.tblshowbold Attached App:
+    %td= link_to_if @database.app, @database.app.try(:name) || "none", @database.app 
+  %tr.trstripeshow
+    %td.tblshowbold Snapshot ID:
+    %td= @database.snapshot_id
+  %tr.trstripeshow
+    %td.tblshowbold State:
+    %td= @database.state  
+  %tr.trstripeshow
+    %td.tblshowbold Db Name:
+    %td= @database.db_name 
+  %tr.trstripeshow
+    %td.tblshowbold Username:
+    %td= @database.username  
+  %tr.trstripeshow
+    %td.tblshowbold Hostname:
+    %td
+    = @database.hostname
+
+    - if @database.ready? 
+      \|
+      %font{:color => "orange"} [connection string]
+      :javascript
+        function getCopiedText() {
+          return document.getElementById('texttocopy').value;
+        }
+      %object#clippy{:classid => "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000", :height => "14", :width => "110"}
+        %param{:name => "movie", :value => "/flash/clippy.swf"}/
+        %param{:name => "allowScriptAccess", :value => "always"}/
+        %param{:name => "quality", :value => "high"}/
+        %param{:name => "scale", :value => "noscale"}/
+        %param{:name => "FlashVars", :value => "func=getCopiedText"}/
+        %param{:name => "bgcolor", :value => "#FFFFFF"}/
+        %embed{:allowscriptaccess => "always", :bgcolor => "#FFFFFF", :flashvars => "func=getCopiedText", :height => "14", :name => "clippy", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :quality => "high", :src => "/flash/clippy.swf", :type => "application/x-shockwave-flash", :width => "110"}/
+      %input#texttocopy{:type => "hidden", :value => @database.mysql_command}/  
+  
+  %tr.trstripeshow
+    %td.tblshowbold Client Cert:
+    %td= @database.client_cert
+  %tr.trstripeshow
+    %td.tblshowbold Database Type:
+    %td= @database.db_type 
+  %tr.trstripeshow
+    %td.tblshowbold Instance Class:
+    %td= @database.instance_class  
+  %tr.trstripeshow
+    %td.tblshowbold Instance Storage:
+    %td= @database.instance_storage 
+  %tr.trstripeshow
+    %td.tblshowbold Multi Az:
+    %td= @database.multi_az
+  %tr.trstripeshow
+    %td.tblshowbold Availability Zone:
+    %td= @database.availability_zone  
+  %tr.trstripeshow
+    %td.tblshowbold Engine version:
+    %td= @database.engine_version  
+  %tr.trstripeshow
+    %td.tblshowbold Parameter Group:
+    %td= @database.parameter_group 
+  %tr.trstripeshow
+    %td.tblshowbold RDS Security Group Name:
+    %td/
+    - if @database.sg_out_of_sync
+      - if @database.state == 'available'
+        The SG is out of sync!! You can change it clicking here: 
+        = link_to "Sync",admin_rds_server_path(@database.name, :rds_server => { :security_group_names => [@database.security_group_name],:password => @database.password}),:method => :put
+      - else
+        The SG is out of sync!! You can change it when it gets Available 
     - else
-      The SG is out of sync!! You can change it when it gets Available 
-  - else
-    = link_to @database.security_group_name, admin_rds_security_group_path(@database.security_group_name)
-%p
-  %b EC2 Security Group To Authorize:
-  = @database.ec2_sg_to_authorize
-
-
-= link_to 'Database Configurations', databases_url
-\|
-= link_to_unless @database.started, 'Edit', edit_database_path(@database)
-\|
-= link_to 'Destroy', @database, :confirm => 'This will also shutdown the rds instance, Are you sure?', :method => :delete
-\|
-= link_to_unless @database.started, 'Start', start_database_path(@database)
-= link_to_if @database.started, 'Stop', stop_database_path(@database)
+      = link_to @database.security_group_name, admin_rds_security_group_path(@database.security_group_name)
+  %tr.trstripeshow
+    %td.tblshowbold EC2 Security Group To Authorize:
+    %td= @database.ec2_sg_to_authorize 
+  %tr.trstripeshow   
+    %td{:colspan => "2"}
+      %div#divOnOffbtnContainer
+        %div#OnOffbtn{:style => "float:left"}= link_to_if @database.started, 'Stop DB', stop_database_path(@database)
+        %div#OnOffbtn{:style => "float:right"}= link_to_unless @database.started, 'Start DB', start_database_path(@database)

@@ -1,36 +1,56 @@
 = simple_form_for [@app,@deployment] do |form|
+  %table
+    -if @database_client and @database_client.errors.any?
+      %tr
+        %td
+        #errorExplanation
+        %h2= "#{pluralize(@database_client.errors.count, "error")} stop from syncing Agi Database with the Restored RDS instance:"
+        %ul
+          - @database_client.errors.full_messages.each do |msg|
+            %li= msg  
+    -if @deployment.errors.any?
+      %tr
+        %td
+        #errorExplanation
+          -if @deployment.errors.full_messages.first =~ /Remote connection/
+            %h2= "#{pluralize(@deployment.errors.count, "error")} when connecting with a remote service on #{Deployment.name.titleize}:"
+          -else
+            %h2= "#{pluralize(@deployment.errors.count, "error")} prohibited this #{Deployment.name.titleize} from being saved:"
+          %ul
+            - @deployment.errors.full_messages.each do |msg|
+              %li= msg  
+ 
+    %tr.trstripeshow
+      -#%td.tblshowbold Description
+      %td= form.input :description, :label => "Description", :label_html => { :class => 'formlable' }
+    %tr.trstripeshow
+      -#%td.tblshowbold Force Deploy
+      %td= form.input :force_deploy, :label => "Force Deploy", :label_html => { :class => 'formlable' }
+    %tr.trstripeshow
+      -#%td.tblshowbold Merge IQ with Medistrano PIR
+      - if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
+        %td
+          - if @enable_merge_iq_with_medistrano_pir_checkbox
+            = form.input :merge_iq_with_medistrano_pir, :label => "Merge IQ with Medistrano PIR", :input_html => { :checked => true }, :label_html => { :class => 'formlable' }
+          - else
+            = form.input :merge_iq_with_medistrano_pir, :label => "Merge IQ with Medistrano PIR", :disabled => true, :hint => "It's disabled because " + @error_hint, :label_html => { :class => 'formlable' }
+      - else
+        %td{:style => "font-weight:bold;color:red"} Merging Medistrano PIR with Agi IQ feature is disabled
 
-  -if @database_client and @database_client.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@database_client.errors.count, "error")} stop from syncing Agi Database with the Restored RDS instance:"
-      %ul
-        - @database_client.errors.full_messages.each do |msg|
-          %li= msg
-
-  -if @deployment.errors.any?
-    #errorExplanation
-      -if @deployment.errors.full_messages.first =~ /Remote connection/
-        %h2= "#{pluralize(@deployment.errors.count, "error")} when connecting with a remote service on #{Deployment.name.titleize}:"
-      -else
-        %h2= "#{pluralize(@deployment.errors.count, "error")} prohibited this #{Deployment.name.titleize} from being saved:"
-      %ul
-        - @deployment.errors.full_messages.each do |msg|
-          %li= msg  
-
-  = form.input :description, :label => 'Description'
-  = form.input :force_deploy, :label => 'force_deploy'
-  - if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
-    - if @enable_merge_iq_with_medistrano_pir_checkbox
-      = form.input :merge_iq_with_medistrano_pir, :label => 'Merge IQ with Medistrano PIR', :input_html => { :checked => true }
-    - else
-      = form.input :merge_iq_with_medistrano_pir, :label => 'Merge IQ with Medistrano PIR', :disabled => true, :hint => "It's disable because " + @error_hint
-  - else
-    %b Merging Medistrano PIR with Agi IQ feature is disable
-  = form.input :send_email, :label => 'Send Email'
-  = form.input :task, :label => 'Task'
-  = form.input :run_migrations, :label => 'Do Migrations'
-  = form.input :migration_command, :label => 'Migration Command'
-  = form.input :deployment_timestamp, :as => :hidden, :input_html => { :value => @app.app_timestamp }
-
-  .actions
-    = form.button :submit
+    %tr.trstripeshow
+      -#%td.tblshowbold Send Email
+      %td= form.input :send_email, :label => "Send Email", :label_html => { :class => 'formlable' }
+    %tr.trstripeshow
+      -#%td.tblshowbold Task
+      %td= form.input :task, :label => "Task", :label_html => { :class => 'formlable' }
+    %tr.trstripeshow
+      -#%td.tblshowbold Do Migrations
+      %td= form.input :run_migrations, :label => "Do Migrations", :label_html => { :class => 'formlable' }
+    %tr.trstripeshow
+      -#%td.tblshowbold Migration Command
+      %td= form.input :migration_command, :label => "Migration Command", :label_html => { :class => 'formlable' }
+    %tr.trstripeshow
+      %td.tblshowbold{:colspan => "2"}
+        = form.input :deployment_timestamp, :as => :hidden, :input_html => { :value => @app.app_timestamp }
+        .actions
+          = form.button :submit

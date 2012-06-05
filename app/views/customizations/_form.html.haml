@@ -1,16 +1,27 @@
 = simple_form_for [@customizable,@customization] do |form|
-
-  -if @customization.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@customization.errors.count, "error")} prohibited this #{Customization.name.titleize} from being saved:"
-      %ul
-        - @customization.errors.full_messages.each do |msg|
-          %li= msg  
-
-  = form.input :name, :label => 'Name'
-  = form.input :value, :label => 'Value'
-  -# = form.input :location, :label => 'Location'
-  -# = form.input :prompt_on_deploy, :label => 'Prompt On Deploy'
-
-  .actions
-    = form.button :submit
+  %table
+    -if @customization.errors.any?
+      %tr
+        %td
+        #errorExplanation
+        %h2= "#{pluralize(@customization.errors.count, "error")} prohibited this #{Customization.name.titleize} from being saved:"
+        %ul
+          - @customization.errors.full_messages.each do |msg|
+            %li= msg  
+    %tr.trstripeshow
+      %td.tblshowbold Name
+      %td= form.input :name, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Value
+      %td= form.input :value, :label => false
+    -#%tr.trstripeshow
+      -#%td.tblshowbold * Location
+      -#%td= form.input :location, :label => false
+    -#%tr.trstripeshow
+      -#%td.tblshowbold * Prompt On Deploy
+      -#%td= form.input :prompt_on_deploy, :label => false
+    
+    %tr.trstripeshow
+      %td.tblshowbold{:colspan => "2"}
+        .actions
+          = form.button :submit

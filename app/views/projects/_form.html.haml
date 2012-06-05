@@ -1,19 +1,35 @@
 = simple_form_for @project do |form|
-
-  -if @project.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@project.errors.count, "error")} prohibited this #{Project.name.titleize} from being saved:"
-      %ul
-        - @project.errors.full_messages.each do |msg|
-          %li= msg  
-
-  = form.input :name, :label => 'Name'
-  = form.input :name_tag, :label =>  'Name Tag'
-  -#= form.input :homepage, :label => 'Homepage'
-  -#= form.input :description, :label => 'Description'
-  = form.input :repository, :label => 'Repository'
-  = form.input :repo_private_key, :label => 'Repo Private Key'
-  = form.input :platform, :label => 'Platform', :collection => %w{ rails ctms jasper }
-
-  .actions
-    = form.button :submit
+  %table
+    -if @project.errors.any?
+      %tr
+        %td
+        #errorExplanation
+        %h2= "#{pluralize(@project.errors.count, "error")} prohibited this #{Project.name.titleize} from being saved:"
+        %ul
+          - @project.errors.full_messages.each do |msg|
+            %li= msg  
+    %tr.trstripeshow
+      %td.tblshowbold Name
+      %td= form.input :name, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Name Tag
+      %td= form.input :name_tag, :label => false
+    -#%tr.trstripeshow
+      -#%td.tblshowbold Homepage
+      -#%td= form.input :homepage, :label => false
+    -#%tr.trstripeshow
+      -#%td.tblshowbold Description
+      -#%td= form.input :description, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Repository
+      %td= form.input :repository, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Repo Private Key
+      %td= form.input :repo_private_key, :label => false
+    %tr.trstripeshow
+      %td.tblshowbold Platform
+      %td= form.input :platform, :label => false, :collection => %w{ rails ctms jasper } 
+    %tr.trstripeshow
+      %td.tblshowbold{:colspan => "2"}
+        .actions
+          = form.button :submit

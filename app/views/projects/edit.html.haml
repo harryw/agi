@@ -1,7 +1,15 @@
-%h1 Editing project
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', projects_path, :class => "button"
+        = link_to 'Show', @project, :class => "button" 
+        
 
-= render 'form'
+%fieldset.fieldset/
 
-= link_to 'Show', @project
-\|
-= link_to 'Back', projects_path
+%legend.legend Edit Project
+
+%table#tblform
+  %tr
+    %td= render 'form'

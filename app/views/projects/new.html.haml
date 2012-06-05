@@ -1,5 +1,7 @@
-%h1 New project
+%fieldset.fieldset/
 
-= render 'form'
+%legend.legend New Project
 
-= link_to 'Back', projects_path
+%table#tblform
+  %tr
+    %td= render 'form'

@@ -1,8 +1,20 @@
-%h1 New deployment
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', [@app], :class => "button" 
 
-= render 'form'
 
-%pre
-  #deployment_data= JSON.pretty_generate(JSON.parse(@deployment_data.to_json))
+%fieldset.fieldset/
 
-= link_to 'Back', [@app]
+%legend.legend  New Deployment
+
+%table#tblform
+  %tr
+    %td
+      = render 'form'
+      %table{:width => "500"}
+        %tr.trstripeshow
+          %td
+            %pre
+              #deployment_data= JSON.pretty_generate(JSON.parse(@deployment_data.to_json))
