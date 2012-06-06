@@ -1,4 +1,8 @@
 class ProjectsController < ApplicationController
+
+  # The projects list is used to inform the user of authorization failure
+  skip_before_filter :ensure_cas_user_exists, :only => :index
+
   # GET /projects
   # GET /projects.json
   def index

@@ -6,6 +6,12 @@ class User < ActiveRecord::Base
 
   has_many :deployments
 
+  # iMedidata insists on a unique, 5-character minimum username
+  validates :username, {
+    uniqueness:  { case_sensitive: false },
+    length:      { minimum: 5 }
+  }
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 end

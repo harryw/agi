@@ -1,8 +1,7 @@
 Feature: Create a warning deployments based on the database status
 
 	Background: A user must be logged-in to use Agi
-  	Given I am a user named "foo" with an email "user@test.com" and password "please"
-		And I sign in as "user@test.com/please"
+  	Given I am logged in
 
 	Scenario: Kick warning: There's no database configured
 		Given a working_app_with_no_db exists
