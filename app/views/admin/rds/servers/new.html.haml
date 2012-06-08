@@ -1,5 +1,14 @@
-%h1 New database
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Rds Servers', [:admin, :rds_servers], :class => "button" 
 
-= render 'form'
 
-= link_to 'Rds Servers', [:admin, :rds_servers]
+%fieldset.fieldset/
+
+%legend.legend New Database
+
+%table#tblform
+  %tr
+    %td= render 'form'

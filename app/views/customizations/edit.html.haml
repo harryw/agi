@@ -1,7 +1,14 @@
-%h1 Editing customization
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Show', [@customizable, @customization], :class => "button" 
+        = link_to 'Back', [@customizable, Customization], :class => "button"
 
-= render 'form'
+%fieldset.fieldset/
 
-= link_to 'Show', [@customizable, @customization]
-\|
-= link_to 'Back', [@customizable, Customization]
+%legend.legend Edit Customization
+
+%table#tblform
+  %tr
+    %td= render 'form'

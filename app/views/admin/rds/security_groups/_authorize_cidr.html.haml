@@ -1,13 +1,16 @@
 = simple_form_for [:authorize, :admin, @security_group] do |form|
-
-  -if @security_group.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@security_group.errors.count, "error")} prohibited this #{RdsSecurityGroup.name.titleize} from being saved:"
-      %ul
-        - @security_group.errors.full_messages.each do |msg|
-          %li= msg  
-
-  = form.input :cidr
-
-  .actions
-    = form.button :submit, "Authorize New CIDR"
+  %table{:width => "400"}
+    -if @security_group.errors.any?
+      %tr
+        %td
+        #errorExplanation
+        %h2= "#{pluralize(@security_group.errors.count, "error")} prohibited this #{RdsSecurityGroup.name.titleize} from being saved:"
+        %ul
+          - @security_group.errors.full_messages.each do |msg|
+            %li= msg  
+    %tr
+      %td= form.input :cidr, :label => "Cdir", :label_html => { :class => 'label_class' }
+    %tr
+      %td.tblshowbold
+        .actions
+          = form.button :submit, "Authorize New CIDR"

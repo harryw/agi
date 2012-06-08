@@ -1,24 +1,33 @@
-%h1 Listing databases
-
-%table
-  %tr
-    %th Name
-    %th Attached App
-    %th State
-    %th Db name
-    %th Username
-    %th Hostname
-    %th Instance class
-    %th Size
-    %th Multi az
-    %th Availability zone
-    %th Operation
-    %th
-    %th
-    %th
-
-  - @databases.each do |database|
+%div#maindiv
+  %table.tblbtn
     %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'New Database Configuration', new_database_path, :class => "button" 
+        = link_to 'New Database Configuration Using a Snapshot', new_database_path(:restore_db_instance_from_db_snapshot => true), :class => "button" 
+
+
+%fieldset.fieldset/
+
+%legend.legend Database Listing
+
+%table#tblmain
+  %tr.trbg
+    %td.fontbold Name
+    %td.fontbold Attached App
+    %td.fontbold State
+    %td.fontbold Db Name
+    %td.fontbold Username
+    %td.fontbold Hostname
+    %td.fontbold Instance Class
+    %td.fontbold Size
+    %td.fontbold Multi Az	
+    %td.fontbold Availability Zone	
+    %td.fontbold{:colspan => "2"} Operation  
+  
+  - @databases.each do |database|
+  
+    %tr.trstripe
       %td= link_to database.name, database
       %td= link_to_if database.app, database.app.try(:name) || "none", database.app
       %td= database.state || 'N/A'
@@ -29,12 +38,7 @@
       %td= database.instance_storage
       %td= database.multi_az
       %td= database.availability_zone
-      %td= link_to_unless database.started, 'Start', start_database_path(database) 
-      %td= link_to_if database.started, 'Stop', stop_database_path(database)
-
-
-%br
-
-= link_to 'New Database Configuration', new_database_path
-\|
-= link_to 'New Database Configuration Using a Snapshot', new_database_path(:restore_db_instance_from_db_snapshot => true)
+      %td{:colspan => "2"}
+        %div#divOnOffbtnContainer
+          %div#OnOffbtn{:style => "float:left"}= link_to_unless database.started, 'Start', start_database_path(database)
+          %div#OnOffbtn{:style => "float:right"}= link_to_if database.started, 'Stop', stop_database_path(database)

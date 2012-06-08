@@ -1,5 +1,13 @@
-%h1 New customization
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', [@customizable, Customization], :class => "button" 
 
-= render 'form'
+%fieldset.fieldset/
 
-= link_to 'Back', [@customizable, Customization]
+%legend.legend New Customization
+
+%table#tblform
+  %tr
+    %td= render 'form'

@@ -1,24 +1,33 @@
-%h1 Listing RDS Instances
-
-%table
-  %tr
-    %th Name
-    %th State
-    %th Db name
-    %th Username
-    %th Type
-    %th Instance class
-    %th Size
-    %th Multi az
-    %th Availability zone
-    %th Engine version
-    %th Is it in AGI?
-    %th
-    %th
-    %th
-
-  - @servers.each do |database|
+%div#maindiv
+  %table.tblbtn
     %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'New RDS instance', [:new, :admin, :rds_server], :class => "button" 
+
+
+%fieldset.fieldset/
+
+%legend.legend RDS Instances Listing
+
+%table#tblmain
+  %tr.trbg
+    %td.fontbold Name
+    %td.fontbold Db Name
+    %td.fontbold Username
+    %td.fontbold Type
+    %td.fontbold Instance Class
+    %td.fontbold Size
+    %td.fontbold Multi Az
+    %td.fontbold Availability Zone
+    %td.fontbold Engine Version    
+    %td.fontbold{:colspan => "2"} Is it in AGI?
+ 
+ 
+  - @bgcolor = "#ccc"
+  - @servers.each do |database|
+  
+    %tr.trstripe
       %td= link_to database.name, [:admin, database]
       %td= database.state
       %td= database.db_name
@@ -30,7 +39,3 @@
       %td= database.availability_zone
       %td= database.engine_version
       %td= link_to_if find_database_in_agi(database.name), find_database_in_agi(database.name) ? "Agi Conf" : "NO", find_database_in_agi(database.name)
-
-%br
-
-= link_to 'New RDS instance', [:new, :admin, :rds_server]

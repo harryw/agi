@@ -1,7 +1,15 @@
-%h1 Editing security_group
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', admin_rds_security_groups_path, :class => "button"
+        = link_to 'Show', [:admin, @security_group], :class => "button" 
+        
 
-= render 'form'
+%fieldset.fieldset/
 
-= link_to 'Show', [:admin, @security_group]
-\|
-= link_to 'Back', admin_rds_security_groups_path
+%legend.legend Edit Security Group
+
+%table#tblform
+  %tr
+    %td= render 'form'

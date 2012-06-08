@@ -1,5 +1,14 @@
-%h1 New security_group
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'RDS Security Groups', admin_rds_security_groups_path, :class => "button" 
 
-= render 'form'
 
-= link_to 'RDS Security Groups', admin_rds_security_groups_path
+%fieldset.fieldset/
+
+%legend.legend New Security Group
+
+%table#tblform
+  %tr
+    %td= render 'form'
