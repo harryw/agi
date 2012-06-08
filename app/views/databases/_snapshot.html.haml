@@ -10,10 +10,8 @@
             %li= msg  
     %tr.trstripeshow
       %td= form.input :name, :label => "Name",  :label_html => { :class => 'label_class' }
-    - unless @database.snapshot_id.blank?
-      %tr.trstripeshow
+    %tr.trstripeshow
         %td= form.input :snapshot_id, :label => "Snapshot ID",  :label_html => { :class => 'label_class' }, :required => true
-
     %tr.trstripeshow
       %td= form.input :instance_class, :collection => %w{ db.m1.small db.m1.large db.m1.xlarge db.m2.xlarge db.m2.2xlarge db.m2.4xlarge }, :label => "Instance Class",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
