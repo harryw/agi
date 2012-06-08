@@ -9,34 +9,25 @@
           - @database.errors.full_messages.each do |msg|
             %li= msg  
     %tr.trstripeshow
-      %td.tblshowbold * Name
-      %td= form.input :name, :label => false
+      %td= form.input :name, :label => "Name",  :label_html => { :class => 'label_class' }
     - unless @database.snapshot_id.blank?
       %tr.trstripeshow
-        %td.tblshowbold Snapshot ID
-        %td= form.input :snapshot_id, :label => false, :required => true
-    
+        %td= form.input :snapshot_id, :label => "Snapshot ID",  :label_html => { :class => 'label_class' }, :required => true
 
     %tr.trstripeshow
-      %td.tblshowbold Instance Class
-      %td= form.input :instance_class, :collection => %w{ db.m1.small db.m1.large db.m1.xlarge db.m2.xlarge db.m2.2xlarge db.m2.4xlarge }, :label => false
+      %td= form.input :instance_class, :collection => %w{ db.m1.small db.m1.large db.m1.xlarge db.m2.xlarge db.m2.2xlarge db.m2.4xlarge }, :label => "Instance Class",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Instance Storage
-      %td= form.input :instance_storage, :label => false
+      %td= form.input :instance_storage, :label => "Instance Storage",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Multi Az
-      %td= form.input :multi_az, :label => false
+      %td= form.input :multi_az, :label => "Multi Az",  :label_html => { :class => 'label_class_checkbox' }
     %tr.trstripeshow
-      %td.tblshowbold Availability Zone
-      %td= form.input :availability_zone, :collection => %w{ us-east-1a us-east-1b us-east-1c us-east-1d us-east-1e }, :label => false
+      %td= form.input :availability_zone, :collection => %w{ us-east-1a us-east-1b us-east-1c us-east-1d us-east-1e }, :label => "Availability Zone",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Rds Security Group
-      %td= form.input :security_group_name, :label => false
+      %td= form.input :security_group_name, :label => "Rds Security Group",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold EC2 Security Group to Authorize
-      %td= form.input :ec2_sg_to_authorize, :label => false
+      %td= form.input :ec2_sg_to_authorize, :label => "EC2 Security Group to Authorize",  :label_html => { :class => 'label_class' }
     
     %tr.trstripeshow
-      %td.tblshowbold{:colspan => "2"}
+      %td.tblshowbold
         .actions
           = form.button :submit

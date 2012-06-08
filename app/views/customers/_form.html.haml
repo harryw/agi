@@ -9,12 +9,10 @@
           - @customer.errors.full_messages.each do |msg|
             %li= msg  
     %tr.trstripeshow
-      %td.tblshowbold * Name
-      %td= form.input :name, :label => false
+      %td= form.input :name, :label => "Name",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold * Name Tag
-      %td= form.input :name_tag, :label => false
+      %td= form.input :name_tag, :label => "Name Tag",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold{:colspan => "2"}
+      %td.tblshowbold
         .actions
           = form.button :submit

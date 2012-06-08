@@ -2,7 +2,7 @@
   %table.tblbtn
     %tr
       %td#btntbltd
-        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'Back', apps_path, :class => "button" 
         = link_to 'Edit', edit_app_path(@app), :class => "button" 
         = link_to 'Destroy', @app, :confirm => 'Are you sure?', :method => :delete, :class => "button" 
         = link_to 'New Customization', [:new, @app, :customization], :class => "button" 
@@ -80,7 +80,9 @@
     %td= @app.databag_item_timestamp  
   %tr.trstripeshow
     %td.tblshowbold Deployments:
-    %td= link_to 'Deployments', app_deployments_path(@app)
+    %td
+      = link_to 'Deployments', app_deployments_path(@app)
+      #deployment_status= @deployment_status
   %tr.trstripeshow   
     %td{:colspan => "2" }
       %div#divOnOffbtnContainer

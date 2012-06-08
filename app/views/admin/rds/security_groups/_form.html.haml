@@ -10,13 +10,11 @@
             %li= msg  
     
     %tr.trstripeshow
-      %td.tblshowbold Name
-      %td= form.input :id, :label => false
+      %td= form.input :id, :label => "Name", :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Description
-      %td= form.input :description, :label => false
+      %td= form.input :description, :label => "Description", :label_html => { :class => 'label_class' }
    
     %tr.trstripeshow
-      %td.tblshowbold{:colspan => "2"}
+      %td.tblshowbold
         .actions
           = form.button :submit

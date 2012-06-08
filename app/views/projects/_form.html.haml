@@ -9,27 +9,20 @@
           - @project.errors.full_messages.each do |msg|
             %li= msg  
     %tr.trstripeshow
-      %td.tblshowbold Name
-      %td= form.input :name, :label => false
+      %td= form.input :name, :label => "Name", :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Name Tag
-      %td= form.input :name_tag, :label => false
+      %td= form.input :name_tag, :label => "Name Tag", :label_html => { :class => 'label_class' }
     -#%tr.trstripeshow
-      -#%td.tblshowbold Homepage
-      -#%td= form.input :homepage, :label => false
+      -#%td= form.input :homepage, :label => "Homepage", :label_html => { :class => 'label_class' }
     -#%tr.trstripeshow
-      -#%td.tblshowbold Description
-      -#%td= form.input :description, :label => false
+      -#%td= form.input :description, :label => "Description", :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Repository
-      %td= form.input :repository, :label => false
+      %td= form.input :repository, :label => "Repository",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Repo Private Key
-      %td= form.input :repo_private_key, :label => false
+      %td= form.input :repo_private_key, :label => "Repo Private Key",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Platform
-      %td= form.input :platform, :label => false, :collection => %w{ rails ctms jasper } 
+      %td= form.input :platform, :label => "Platform", :collection => %w{ rails ctms jasper }, :label_html => { :class => 'label_class' } 
     %tr.trstripeshow
-      %td.tblshowbold{:colspan => "2"}
+      %td.tblshowbold
         .actions
           = form.button :submit

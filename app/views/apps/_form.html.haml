@@ -10,67 +10,49 @@
             %li= msg  
       
     %tr.trstripeshow
-      %td.tblshowbold Description
-      %td= form.input :description, :label => false
+      %td= form.input :description, :label => "Description",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Customer
-      %td= form.association :customer, :label => false, :prompt => "Choose a Customer"
+      %td= form.association :customer, :label => "Customer",  :label_html => { :class => 'label_class' }, :prompt => "Choose a Customer"
     %tr.trstripeshow
-      %td.tblshowbold Project
-      %td= form.association :project, :label => false, :prompt => "Choose a Project"
+      %td= form.association :project, :label => "Project",  :label_html => { :class => 'label_class' }, :prompt => "Choose a Project"
     %tr.trstripeshow
-      %td.tblshowbold Choose A Chef Account
-      %td= form.association :chef_account, :label => false, :prompt => "Choose a Chef Account"
+      %td= form.association :chef_account, :label => "Choose A Chef Account",  :label_html => { :class => 'label_class' }, :prompt => "Choose a Chef Account"
     %tr.trstripeshow
       %td{:colspan => "2"}
         %div{:style=>"font-weight:bold; padding-bottom:5px"} Database Selection (please choose only one of the following options)
-        %table{:width => "600", :padding=>"4", :cellspacing =>"1"}
+        %table{:width => "750", :padding=>"4", :cellspacing =>"1"}
           %tr
+            %td.tdstripes
+              %div= form.association :database, :label => "Select Existing Database",  :label_html => { :class => 'label_class' }, :prompt => "Choose a Database"
             %td.tdstripes 
-              %div Select Existing Database
-              %div= form.association :database, :label => false, :prompt => "Choose a Database"
+              %div= form.input :auto_generate_database, :label => "Create a new DB",  :label_html => { :class => 'label_class_checkbox' }
             %td.tdstripes 
-              %div Check to Create New Database
-              %div= form.input :auto_generate_database, :label => false
-            %td.tdstripes 
-              %div Or create a new DB from a snapshot
-              %div= form.input :snapshot_id, :label => false, :as => :string
+              %div= form.input :snapshot_id, :label => "Or create a new DB from a snapshot",  :label_html => { :class => 'label_class' }, :as => :string
 
     %tr.trstripeshow
-      %td.tblshowbold EC2 Security Group to Authorize in RDS
-      %td= form.input :ec2_sg_to_authorize, :collection => @ec2_sg_filtered, :label => false
+      %td= form.input :ec2_sg_to_authorize, :collection => @ec2_sg_filtered, :label => "EC2 Security Group to Authorize in RDS",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Stage Name
-      %td= form.input :stage_name, :label => false
+      %td= form.input :stage_name, :label => "Stage Name",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Deploy User
-      %td= form.input :deploy_user, :label => false, :hint => " (Only change this if you know what you are doing)"
+      %td= form.input :deploy_user, :label => "Deploy User",  :label_html => { :class => 'label_class' }, :hint => " (Only change this if you know what you are doing)"
     %tr.trstripeshow
-      %td.tblshowbold Deploy Group
-      %td= form.input :deploy_group, :label => false, :hint => " (Only change this if you know what you are doing)"
+      %td= form.input :deploy_group, :label => "Deploy Group",  :label_html => { :class => 'label_class' }, :hint => " (Only change this if you know what you are doing)"
     %tr.trstripeshow
-      %td.tblshowbold Multi Tenant
-      %td= form.input :multi_tenant, :label => false
+      %td= form.input :multi_tenant, :label => "Multi Tenant",  :label_html => { :class => 'label_class_checkbox' }
     %tr.trstripeshow
-      %td.tblshowbold Uses Bundler
-      %td= form.input :uses_bundler, :label => false
+      %td= form.input :uses_bundler, :label => "Uses Bundler",  :label_html => { :class => 'label_class_checkbox' }
     %tr.trstripeshow
-      %td.tblshowbold Alert Emails (optional: this would send emails to chosen address for failure alerts)
-      %td= form.input :alert_emails, :label => false
+      %td= form.input :alert_emails, :label => "Alert Emails",  :label_html => { :class => 'label_class' }, :hint => "(optional: this would send emails to chosen address for failure alerts)"
     %tr.trstripeshow
-      %td.tblshowbold Url
-      %td= form.input :url, :label => false
+      %td= form.input :url, :label => "Url",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Git Branch
-      %td= form.input :git_branch, :label => false
+      %td= form.input :git_branch, :label => "Git Branch",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Git Revision
-      %td= form.input :git_revision, :label => false
+      %td= form.input :git_revision, :label => "Git Revision",  :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Rails Env
-      %td= form.input :rails_env, :label => false, :collection => %w{ production development }
+      %td= form.input :rails_env, :label => "Rails Env",  :label_html => { :class => 'label_class' }, :collection => %w{ production development }
   
     %tr.trstripeshow
-      %td.tblshowbold{:colspan => "2"}
+      %td.tblshowbold
         .actions
           = form.button :submit

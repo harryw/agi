@@ -269,7 +269,12 @@ a {
 .startbtn{
 	background:#009933;
 }
-.formlable{
-	font-weight:bold; 
-	padding:5px
+.label_class{
+	font-weight:bold;
+	padding:2px;
+	display: block;
+}
+.label_class_checkbox{
+	font-weight:bold;
+	padding:2px;
 }

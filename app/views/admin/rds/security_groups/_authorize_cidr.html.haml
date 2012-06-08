@@ -9,9 +9,8 @@
           - @security_group.errors.full_messages.each do |msg|
             %li= msg  
     %tr
-      %td.tblshowbold Cdir
-      %td= form.input :cidr, :label => false
+      %td= form.input :cidr, :label => "Cdir", :label_html => { :class => 'label_class' }
     %tr
-      %td.tblshowbold{:colspan => "2"}
+      %td.tblshowbold
         .actions
           = form.button :submit, "Authorize New CIDR"

@@ -2,7 +2,7 @@
   %table.tblbtn
     %tr
       %td#btntbltd
-        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'Back', projects_path, :class => "button" 
         = link_to 'Edit', edit_project_path(@project), :class => "button" 
         = link_to 'Destroy', @project, :confirm => 'Are you sure?', :method => :delete, :class => "button" 
         = link_to 'New Customization', [:new, @project, :customization], :class => "button" 
@@ -15,6 +15,9 @@
 %table#tblshow
   %tr.trstripeshow
     %td.tblshowbold Name:
+    %td= @project.name
+  %tr.trstripeshow
+    %td.tblshowbold Name Tag:
     %td= @project.name_tag
   %tr.trstripeshow   
     %td.tblshowbold Repository:
@@ -25,3 +28,4 @@
   %tr.trstripeshow   
     %td.tblshowbold Platform:
     %td= @project.platform
+	

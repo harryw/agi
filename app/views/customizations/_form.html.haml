@@ -9,19 +9,15 @@
           - @customization.errors.full_messages.each do |msg|
             %li= msg  
     %tr.trstripeshow
-      %td.tblshowbold Name
-      %td= form.input :name, :label => false
+      %td= form.input :name, :label => "Name", :label_html => { :class => 'label_class' }
     %tr.trstripeshow
-      %td.tblshowbold Value
-      %td= form.input :value, :label => false
+      %td= form.input :value, :label => "Value", :label_html => { :class => 'label_class' }
     -#%tr.trstripeshow
-      -#%td.tblshowbold * Location
-      -#%td= form.input :location, :label => false
+      -#%td= form.input :location, :label => "Location", label_html => { :class => 'label_class' }
     -#%tr.trstripeshow
-      -#%td.tblshowbold * Prompt On Deploy
-      -#%td= form.input :prompt_on_deploy, :label => false
+      -#%td= form.input :prompt_on_deploy, :label => "Prompt On Deploy", label_html => { :class => 'label_class' }
     
     %tr.trstripeshow
-      %td.tblshowbold{:colspan => "2"}
+      %td.tblshowbold
         .actions
           = form.button :submit
