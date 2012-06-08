@@ -1,40 +1,52 @@
-
-%p
-  %b Name:
-  = @security_group.name
-%p
-  %b Description:
-  = @security_group.description
-%p
-  %b EC2 Security Groups:
-  %table
-    - @security_group.ec2_security_groups.each do |ec2sec|
-      %tr
-        %td= ec2sec.EC2SecurityGroupName
-        %td= link_to "Revoke",revoke_admin_rds_security_group_path(@security_group, :rds_security_group => { :ec2name => ec2sec.EC2SecurityGroupName, :ec2owner => ec2sec.EC2SecurityGroupOwnerId}),:method => :put, :confirm => "Are you sure?"
-        %td= ec2sec.Status
-        %td= ec2sec.EC2SecurityGroupOwnerId
-  = render(:partial => 'authorize_ec2secgroup')
-
-      
-%p
-  %b Authorized CIDR:
-  %table
-    - @security_group.ip_ranges.each do |iprange|
-      %tr
-        %td= iprange.CIDRIP 
-        %td= link_to "Revoke",revoke_admin_rds_security_group_path(@security_group, :rds_security_group => { :cidr => iprange.CIDRIP}),:method => :put, :confirm => "Are you sure?" 
-        %td= iprange.Status
-  = render(:partial => 'authorize_cidr')
-            
-        
-%p
-  %b Owner:
-  = @security_group.owner
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'RDS Security Groups', admin_rds_security_groups_path, :class => "button" 
+        = link_to 'Delete', [:admin, @security_group], :confirm => 'This security group will be deleted, Are you sure?', :method => :delete, :class => "button" 
 
 
-= link_to 'RDS Security Groups', admin_rds_security_groups_path
-\|
-= link_to 'Delete', [:admin, @security_group], :confirm => 'This security group will be deleted, Are you sure?', :method => :delete
+%fieldset.fieldset/
 
+%legend.legend Security Group View
 
+%table#tblshow
+  %tr.trstripeshow
+    %td{:colspan =>"2"}
+      %table{:width => "600"}
+        %tr
+          %td.tblshowbold Name:
+          %td= @security_group.name
+        %tr
+          %td.tblshowbold Description:
+          %td= @security_group.description
+ 
+  %tr.trstripeshow
+    %td{:colspan => "2"}
+      %b Current EC2 Security Groups:
+      - @security_group.ec2_security_groups.each do |ec2sec|
+        %table
+          %tr
+            %td= ec2sec.EC2SecurityGroupName
+            %td= link_to "Revoke",revoke_admin_rds_security_group_path(@security_group, :rds_security_group => { :ec2name => ec2sec.EC2SecurityGroupName, :ec2owner => ec2sec.EC2SecurityGroupOwnerId}),:method => :put, :confirm => "Are you sure?"
+            %td= ec2sec.Status
+            %td= ec2sec.EC2SecurityGroupOwnerId
+  %tr.trstripeshow
+    %td{:colspan => "2"}
+      = render(:partial => 'authorize_ec2secgroup')
+  %tr.trstripeshow
+    %td{:colspan => "2"}
+      %b Current Authorized CIDR:
+      - @security_group.ip_ranges.each do |iprange|
+        %table
+          %tr
+            %td= iprange.CIDRIP 
+            %td= link_to "Revoke",revoke_admin_rds_security_group_path(@security_group, :rds_security_group => { :cidr => iprange.CIDRIP}),:method => :put, :confirm => "Are you sure?" 
+            %td= iprange.Status
+  %tr.trstripeshow
+    %td{:colspan => "2"}
+      = render(:partial => 'authorize_cidr')     
+  %tr.trstripeshow
+    %td.tblshowbold Owner:
+    %td= @security_group.owner 
+  

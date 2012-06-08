@@ -7,14 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <ul class="hmenu">
-    <%= render 'navigation' %>
-  </ul>
-    <%- flash.each do |name, msg| -%>
-      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-    <%- end -%>
+  
+<%= render 'header' %>
 <div class="content">
- <%= yield %>
+ 	<%= yield %>
 </div>
 </body>
 </html>

@@ -1,31 +1,58 @@
 = simple_form_for @app do |form|
+  %table
+    -if @app.errors.any?
+      %tr
+        %td
+        #errorExplanation  
+        %h2= "#{pluralize(@app.errors.count, "error")} prohibited this #{App.name.titleize} from being saved:"
+        %ul
+          - @app.errors.full_messages.each do |msg|
+            %li= msg  
+      
+    %tr.trstripeshow
+      %td= form.input :description, :label => "Description",  :label_html => { :class => 'label_class' }
+    %tr.trstripeshow
+      %td= form.association :customer, :label => "Customer",  :label_html => { :class => 'label_class' }, :prompt => "Choose a Customer"
+    %tr.trstripeshow
+      %td= form.association :project, :label => "Project",  :label_html => { :class => 'label_class' }, :prompt => "Choose a Project"
+    %tr.trstripeshow
+      %td= form.association :chef_account, :label => "Choose A Chef Account",  :label_html => { :class => 'label_class' }, :prompt => "Choose a Chef Account"
+    %tr.trstripeshow
+      %td{:colspan => "2"}
+        %div{:style=>"font-weight:bold; padding-bottom:5px"} Database Selection (please choose only one of the following options)
+        %table{:width => "750", :padding=>"4", :cellspacing =>"1"}
+          %tr
+            %td.tdstripes
+              %div= form.association :database, :label => "Select Existing Database",  :label_html => { :class => 'label_class' }, :prompt => "Choose a Database"
+            %td.tdstripes 
+              %div= form.input :auto_generate_database, :label => "Create a new DB",  :label_html => { :class => 'label_class_checkbox' }
+            %td.tdstripes 
+              %div= form.input :snapshot_id, :label => "Or create a new DB from a snapshot",  :label_html => { :class => 'label_class' }, :as => :string
 
-  -if @app.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@app.errors.count, "error")} prohibited this #{App.name.titleize} from being saved:"
-      %ul
-        - @app.errors.full_messages.each do |msg|
-          %li= msg  
-
-  = form.input :description, :label => 'Description'
-  = form.association :customer, :label => 'Customer', :prompt => "Choose a Customer"
-  = form.association :project, :label => 'Project', :prompt => "Choose a Project"
-  = form.association :chef_account, :label => 'Chef Account', :prompt => "Choose a Chef Account"
-  = form.association :database, :Label => 'Database', :prompt => "Choose a Database"
-  = form.input :auto_generate_database, :label => "Create a new DB"
-  = form.input :snapshot_id, :label => "Or create a new DB from a snapshot", :as => :string
-  = form.input :ec2_sg_to_authorize, :collection => @ec2_sg_filtered, :label => 'EC2 Security Group to Authorize in RDS'
-  = form.input :stage_name, :label => 'Stage Name'
-  = form.input :deploy_user, :label => 'Deploy User'
-  = form.input :deploy_group, :label => 'Deploy Group'
-  = form.input :multi_tenant, :label => 'Multi Tenant'
-  = form.input :uses_bundler, :label => 'Uses Bundler'
-  = form.input :alert_emails, :label => 'Alert Emails'
-  = form.input :url, :label => 'Url'
-  = form.input :git_branch, :label => 'Git Branch'
-  = form.input :git_revision, :label => 'Git Revision'
-  = form.input :rails_env, :label => 'Rails Env', :collection => %w{ production development }
-
-
-  .actions
-    = form.button :submit
+    %tr.trstripeshow
+      %td= form.input :ec2_sg_to_authorize, :collection => @ec2_sg_filtered, :label => "EC2 Security Group to Authorize in RDS",  :label_html => { :class => 'label_class' }
+    %tr.trstripeshow
+      %td= form.input :stage_name, :label => "Stage Name",  :label_html => { :class => 'label_class' }
+    %tr.trstripeshow
+      %td= form.input :deploy_user, :label => "Deploy User",  :label_html => { :class => 'label_class' }, :hint => " (Only change this if you know what you are doing)"
+    %tr.trstripeshow
+      %td= form.input :deploy_group, :label => "Deploy Group",  :label_html => { :class => 'label_class' }, :hint => " (Only change this if you know what you are doing)"
+    %tr.trstripeshow
+      %td= form.input :multi_tenant, :label => "Multi Tenant",  :label_html => { :class => 'label_class_checkbox' }
+    %tr.trstripeshow
+      %td= form.input :uses_bundler, :label => "Uses Bundler",  :label_html => { :class => 'label_class_checkbox' }
+    %tr.trstripeshow
+      %td= form.input :alert_emails, :label => "Alert Emails",  :label_html => { :class => 'label_class' }, :hint => "(optional: this would send emails to chosen address for failure alerts)"
+    %tr.trstripeshow
+      %td= form.input :url, :label => "Url",  :label_html => { :class => 'label_class' }
+    %tr.trstripeshow
+      %td= form.input :git_branch, :label => "Git Branch",  :label_html => { :class => 'label_class' }
+    %tr.trstripeshow
+      %td= form.input :git_revision, :label => "Git Revision",  :label_html => { :class => 'label_class' }
+    %tr.trstripeshow
+      %td= form.input :rails_env, :label => "Rails Env",  :label_html => { :class => 'label_class' }, :collection => %w{ production development }
+  
+    %tr.trstripeshow
+      %td.tblshowbold
+        .actions
+          = form.button :submit

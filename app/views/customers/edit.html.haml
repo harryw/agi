@@ -1,7 +1,14 @@
-%h1 Editing customer
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', customers_path, :class => "button" 
+        = link_to 'Show', @customer, :class => "button"
 
-= render 'form'
+%fieldset.fieldset/
 
-= link_to 'Show', @customer
-\|
-= link_to 'Back', customers_path
+%legend.legend Edit Customer
+
+%table#tblform
+  %tr
+    %td= render 'form'

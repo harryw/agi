@@ -1,5 +1,14 @@
-%h1 New customer
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', customers_path, :class => "button" 
 
-= render 'form'
 
-= link_to 'Back', customers_path
+%fieldset.fieldset/
+
+%legend.legend New Customer
+
+%table#tblform
+  %tr
+    %td= render 'form'

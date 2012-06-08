@@ -1,26 +1,32 @@
-%h1 Listing projects
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', projects_path, :class => "button"
+        = link_to 'New Project', new_project_path, :class => "button"
 
-%table
-  %tr
-    %th Name
-    %th Name tag
-    %th Platform
-    %th Homepage
-    %th Description
-    %th Repository
-    %th
-    %th
-    %th
+%fieldset.fieldset/
+
+%legend.legend Project Listing
+
+%table#tblmain
+  %tr.trbg
+    %td.fontbold Name
+    %td.fontbold Name tag
+    %td.fontbold Platform
+    %td.fontbold Homepage
+    %td.fontbold Description
+    %td.fontbold Repository
+    
 
   - @projects.each do |project|
-    %tr
-      %td= link_to project.name, project
-      %td= project.name_tag
-      %td= project.platform
-      %td= project.homepage
-      %td= project.description
-      %td= project.repository
+  
+    %tr.trstripe
+      %td=link_to project.name, project
+      %td=project.name_tag
+      %td=project.platform
+      %td=project.homepage
+      %td=project.description
+      %td=project.repository
 
-%br
 
-= link_to 'New Project', new_project_path

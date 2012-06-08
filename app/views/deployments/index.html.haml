@@ -1,20 +1,27 @@
-%h1 Listing deployments
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
 
-%table
-  %tr
-    %th Description
-    %th Result
-    %th Git repo
-    %th Git commit
-    %th Task
-    %th App
-    %th Started at
-    %th
-    %th
-    %th
+
+%fieldset.fieldset/
+
+%legend.legend Deployment Listing
+
+%table#tblmain
+  %tr.trbg
+    %td.fontbold Description
+    %td.fontbold Result
+    %td.fontbold Git Repo    
+    %td.fontbold Git Commit
+    %td.fontbold Task
+    %td.fontbold App
+    %td.fontbold Started At
 
   - @deployments.each do |deployment|
-    %tr
+  
+    %tr.trstripe
       %td= link_to_if deployment.description, deployment.description, [@app,deployment]
       %td= deployment.final_result
       %td= deployment.git_repo
@@ -22,4 +29,4 @@
       %td= deployment.task
       %td= link_to deployment.app.name, deployment.app
       %td= deployment.started_at
-%br
+      

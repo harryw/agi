@@ -1,5 +1,14 @@
-%h1 New project
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', projects_path, :class => "button" 
 
-= render 'form'
 
-= link_to 'Back', projects_path
+%fieldset.fieldset/
+
+%legend.legend New Project
+
+%table#tblform
+  %tr
+    %td= render 'form'

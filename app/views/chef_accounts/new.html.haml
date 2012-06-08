@@ -1,5 +1,14 @@
-%h1 New chef_account
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', chef_accounts_path, :class => "button" 
 
-= render 'form'
 
-= link_to 'Back', chef_accounts_path
+%fieldset.fieldset/
+
+%legend.legend New Chef Account
+
+%table#tblform
+  %tr
+    %td= render 'form'

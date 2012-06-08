@@ -1,28 +1,35 @@
-%h1 Listing customizations
-
-%table
-  %tr
-    %th Name
-    %th Location
-    %th Value
-    %th Prompt on deploy
-    %th Customizable
-    %th Customizable type
-    %th
-    %th
-    %th
-
-  - @customizations.each do |customization|
+%div#maindiv
+  %table.tblbtn
     %tr
+      %td#btntbltd
+        = link_to('Back', "javascript:history.go(-1)", :class => "button") 
+        = link_to 'New Customization', [:new, @customizable, :customization], :class => "button" 
+
+
+%fieldset.fieldset/
+
+%legend.legend Customizations Listing
+
+%table#tblmain
+  %tr.trbg
+    %td.fontbold Name
+    %td.fontbold Location
+    %td.fontbold Value
+    %td.fontbold Prompt On Deploy
+    %td.fontbold Customizable
+    %td.fontbold Customizable Type
+    %td.fontbold{:colspan => "2"} Action
+    
+  
+  - @customizations.each do |customization|
+    %tr.trstripe
       %td= link_to customization.name, [@customizable, customization]
       %td= customization.location
       %td= customization.value
       %td= customization.prompt_on_deploy
       %td= customization.customizable_id
       %td= customization.customizable_type
-      %td= link_to 'Edit', [:edit, @customizable, customization]
-      %td= link_to 'Destroy', [@customizable, customization], :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Customization', [:new, @customizable, :customization]
+      %td#btntbltd{:colspan => "2"}
+        = link_to 'Edit', [:edit, @customizable, customization], :class => "button"
+        = link_to 'Destroy', [@customizable, customization], :confirm => 'Are you sure?', :method => :delete, :class => "button"
+      
