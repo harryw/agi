@@ -1,58 +1,70 @@
-%p
-  %b Final deployment result:
-  = @deployment.final_result
-%p
-  %b Dynect CNAME log:
-  = @deployment.dynect_cname_log
-%p
-  %b IQ:
-  = link_to_unless @deployment.s3_url_iq.blank?, @deployment.merge_iq_with_medistrano_pir ? "IQ + PIR" :"IQ URL", @deployment.s3_url_iq
-  - unless Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
-    %b Merging Medistrano PIR with Agi IQ feature is disable
-%p
-  %b Deployed by:
-  = @deployment.user.email if @deployment.user
-%p
-  %b Git repo:
-  = @deployment.git_repo
-%p
-  %b Git commit:
-  = @deployment.git_commit
-%p
-  %b Description:
-  = @deployment.description
-%p
-  %b Send email:
-  = @deployment.send_email
-%p
-  %b Task:
-  = @deployment.task
-%p
-  %b Run migrations:
-  = @deployment.run_migrations
-%p
-  %b Migration command:
-  = @deployment.migration_command
-%p
-  %b Opscode error log:
-  = @deployment.opscode_log
-%p
-  %b App:
-  = link_to @deployment.app.name, @deployment.app
-%p
-  %b Started at:
-  = @deployment.started_at
-%p
-  %b Completed at:
-  = @deployment.completed_at
-%p
-  %b deployment_timestamp:
-  = @deployment.deployment_timestamp
 
-%p
-  %b Deployed Data:
-  %pre
-    = JSON.pretty_generate(JSON.parse(@deployment.deployed_data.to_json))
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', app_deployments_path(@app), :class => "button" 
 
+%fieldset.fieldset/
 
-= link_to 'Back', app_deployments_path(@app)
+%legend.legend Deployment View
+
+%table#tblshow
+  
+
+  %tr.trstripeshow
+    %td.tblshowbold Final deployment result:
+    %td= @deployment.final_result
+  %tr.trstripeshow   
+    %td.tblshowbold Dynect CNAME log:
+    %td= @deployment.dynect_cname_log
+  %tr.trstripeshow   
+    %td.tblshowbold IQ:
+    %td
+      = link_to_unless @deployment.s3_url_iq.blank?, @deployment.merge_iq_with_medistrano_pir ? "IQ + PIR" :"IQ URL", @deployment.s3_url_iq
+      - unless Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
+        %b Merging Medistrano PIR with Agi IQ feature is disable
+  %tr.trstripeshow   
+    %td.tblshowbold Deployed by:
+    %td= @deployment.user.email if @deployment.user
+  %tr.trstripeshow   
+    %td.tblshowbold Git Repo:
+    %td= @deployment.git_repo
+  %tr.trstripeshow   
+    %td.tblshowbold Git Commit:
+    %td= @deployment.git_commit
+  %tr.trstripeshow   
+    %td.tblshowbold Description:
+    %td= @deployment.description
+  %tr.trstripeshow   
+    %td.tblshowbold Send Email:
+    %td= @deployment.send_email
+  %tr.trstripeshow   
+    %td.tblshowbold Task:
+    %td= @deployment.task
+  %tr.trstripeshow   
+    %td.tblshowbold Run Migrations:
+    %td= @deployment.run_migrations
+  %tr.trstripeshow   
+    %td.tblshowbold Migration Command::
+    %td= @deployment.migration_command
+  %tr.trstripeshow   
+    %td.tblshowbold Opscode Error Log:
+    %td= @deployment.opscode_log
+  %tr.trstripeshow   
+    %td.tblshowbold App:
+    %td= link_to @deployment.app.name, @deployment.app
+  %tr.trstripeshow   
+    %td.tblshowbold Started At:
+    %td= @deployment.started_at
+  %tr.trstripeshow   
+    %td.tblshowbold Completed At:
+    %td= @deployment.completed_at
+  %tr.trstripeshow   
+    %td.tblshowbold Deployment Timestamp:
+    %td= @deployment.deployment_timestamp
+  %tr.trstripeshow   
+    %td{:colspan => "2"}
+      %b Deployed Data:
+      %pre
+        = JSON.pretty_generate(JSON.parse(@deployment.deployed_data.to_json))

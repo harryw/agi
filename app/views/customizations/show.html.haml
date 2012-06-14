@@ -1,27 +1,37 @@
-%p#notice= notice
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', [@customizable, Customization], :class => "button" 
+        = link_to 'Edit', [:edit, @customizable, @customization], :class => "button" 
+        = link_to 'Destroy', [@customizable, @customization], :confirm => 'Are you sure?', :method => :delete, :class => "button"
 
-%p
-  %b Name:
-  = @customization.name
-%p
-  %b Location:
-  = @customization.location
-%p
-  %b Value:
-  = @customization.value
-%p
-  %b Prompt on deploy:
-  = @customization.prompt_on_deploy
-%p
-  %b Customizable:
-  = @customization.customizable_id
-%p
-  %b Customizable type:
-  = @customization.customizable_type
 
-= link_to 'Edit', [:edit, @customizable, @customization]
-\|
-= link_to 'Back', [@customizable, Customization]
-\|
-= link_to 'Destroy', [@customizable, @customization], :confirm => 'Are you sure?', :method => :delete
 
+%fieldset.fieldset/
+
+%legend.legend Customization View
+
+%table#tblshow
+  
+  -if notice
+    %tr.trstripeshow
+      %td{:colspan => "2"}= notice
+  %tr.trstripeshow
+    %td.tblshowbold Name:
+    %td= @customization.name
+  %tr.trstripeshow   
+    %td.tblshowbold Location:
+    %td= @customization.location 
+  %tr.trstripeshow   
+    %td.tblshowbold Value:
+    %td= @customization.value
+  %tr.trstripeshow   
+    %td.tblshowbold Prompt on Deploy:
+    %td= @customization.prompt_on_deploy
+  %tr.trstripeshow   
+    %td.tblshowbold Customizable:
+    %td= @customization.customizable_id
+  %tr.trstripeshow   
+    %td.tblshowbold Customizable Type:
+    %td= @customization.customizable_type

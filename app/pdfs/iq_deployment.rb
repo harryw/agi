@@ -2,42 +2,42 @@ class IqDeployment < Prawn::Document
   FILTERED_KEYS = [:password, :repo_private_key]
   
   def initialize(deployed_data,deployed_time=Time.now)
-    super()
+    super(:page_layout => :landscape)
     @data_bag = deployed_data
     @deployed_time = deployed_time
-    iq_header
+    #iq_header
     iq_data
-  end
-  
-  def iq_header
-    text "MEDIDATA IQ"
-    text " "
-    text "FOR APPLICATION #{@data_bag[:main][:name]}"
-    text "Deployment time: #{@deployed_time}"
-    text "----------------------------------------------------"
-    text "Last Deployed by: #{@data_bag[:main][:deploy_by]}"
-    text " "
-    text "Repository: #{@data_bag[:project][:repository]}"
-    text "Commit/Branch/Tag: #{@data_bag[:main][:git_branch]}"
-    text " "
-    text "Application Platform: #{@data_bag[:main][:platform]}"
-    text "Application URL: #{@data_bag[:project][:homepage]}"
-    text "Deploy User: #{@data_bag[:main][:deploy_user]} Deploy Group: #{@data_bag[:main][:deploy_group]}"
-    text " "
-    if @data_bag[:database]
-      text "DB Host: #{@data_bag[:database][:hostname]}"
-      text "DB Name: #{@data_bag[:database][:db_name]}"
-      text "DB User: #{@data_bag[:database][:username]}"
-      text "DB Type: #{@data_bag[:database][:db_type]}"
-    else
-      text "None Database was specified"
-    end
-    text "----------------------------------------------------"
+    
   end
   
   def iq_data
-    text "Data Bag Content:"
-    text JSON.pretty_generate(JSON.parse(filter_deployed_data.to_json))
+    
+    image "#{Rails.root}/app/assets/images/medidata.png", :position => 450, :vposition => 5
+    
+    text "<b>MEDIDATA IQ</b>", :size => 12, :style => :bold, :inline_format => true
+    text " "
+    text "FOR APPLICATION #{@data_bag[:main][:name]}", :size => 9,  :inline_format => true
+    
+    text " "
+    data = [["Parameter", "Value"]] 
+    data += [["Deployment time:", "#{@deployed_time}"]]
+    data += [["Last Deployed by:", "#{@data_bag[:main][:deploy_by]}"]]
+    data += [["Repository:", "#{@data_bag[:project][:repository]}"]]
+    data += [ ["Commit/Branch/Tag:", "#{@data_bag[:main][:git_branch]}"]]
+    data += [ ["Application Platform:", "#{@data_bag[:main][:platform]}"]]
+    data += [["Application URL:", "#{@data_bag[:project][:homepage]}"]]
+    data += [["Deploy User:", "#{@data_bag[:main][:deploy_user]}"]]
+    data += [["Deploy Group:", "#{@data_bag[:main][:deploy_group]}"]]
+    if @data_bag[:database]
+      data += [["DB Host:", "#{@data_bag[:database][:hostname]}"]]
+      data += [["DB Name:", "#{@data_bag[:database][:db_name]}"]]
+      data += [["DB User:", "#{@data_bag[:database][:username]}"]]
+      data += [["DB Type:", "#{@data_bag[:database][:db_type]}"]]
+    else
+      data += [["No Database was specified"]]
+    end
+    data += [["Data Bag Content:", JSON.pretty_generate(JSON.parse(filter_deployed_data.to_json))]]
+    table(data, :header => true, :width => 700, :cell_style => {:border_color => "cccccc", :size => 9})
   end
   
   def filter_deployed_data

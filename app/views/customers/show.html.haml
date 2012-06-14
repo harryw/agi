@@ -1,15 +1,24 @@
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', customers_path, :class => "button" 
+        = link_to 'Edit', edit_customer_path(@customer), :class => "button" 
+        = link_to 'Destroy', @customer, :confirm => 'Are you sure?', :method => :delete, :class => "button" 
+        = link_to 'New Customization', [:new, @customer, :customization], :class => "button" 
+        = link_to 'Customizations List', [@customer, :customizations], :class => "button"
 
-%p
-  %b Name:
-  = @customer.name
-%p
-  %b Tag name:
-  = @customer.name_tag
 
-= link_to 'Edit', edit_customer_path(@customer)
-\|
-= link_to 'Destroy', @customer, :confirm => 'Are you sure?', :method => :delete
-\|
-= link_to 'New Customization', [:new, @customer, :customization]
-\|
-= link_to 'Customizations', [@customer, :customizations]
+%fieldset.fieldset/
+
+%legend.legend Customer View
+
+%table#tblshow
+  %tr.trstripeshow
+    %td.tblshowbold Name:
+    %td= @customer.name
+  %tr.trstripeshow   
+    %td.tblshowbold Tag Name:
+    %td= @customer.name_tag  
+  
+

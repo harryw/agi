@@ -1,7 +1,14 @@
-%h1 Editing chef_account
+%div#maindiv
+  %table.tblbtn
+    %tr
+      %td#btntbltd
+        = link_to 'Back', chef_accounts_path, :class => "button" 
+        = link_to 'Show', @chef_account, :class => "button"
 
-= render 'form'
+%fieldset.fieldset/
 
-= link_to 'Show', @chef_account
-\|
-= link_to 'Back', chef_accounts_path
+%legend.legend Edit Chef Account
+
+%table#tblform
+  %tr
+    %td= render 'form'
