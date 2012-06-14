@@ -21,7 +21,7 @@ FactoryGirl.define do
   end
 
   factory :app_with_deployment, :parent => :app do |app|
-    app.after_create { |a| create(:deployment, :app => a, :deployment_timestamp => a.updated_at) }
+    app.after(:create) { |a| create(:deployment, :app => a, :deployment_timestamp => a.updated_at) }
   end
 
   factory :working_app, :parent => :app do |a|
