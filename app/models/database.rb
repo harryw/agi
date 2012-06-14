@@ -1,11 +1,10 @@
 class Database < ActiveRecord::Base
-  serialize :security_group_names
   
   has_one :app
   after_initialize :default_values
   before_validation :set_default_rds_attributes
   attr_accessible :name, :db_name, :username, :password, :client_cert, :db_type, :instance_class, :instance_storage, :multi_az, :availability_zone, 
-  :engine_version, :updated_at, :state, :started, :hostname, :security_group_names, :ec2_sg_to_authorize, :parameter_group, :snapshot_id
+  :engine_version, :updated_at, :state, :started, :hostname, :security_group_name, :ec2_sg_to_authorize, :parameter_group, :snapshot_id
   
   
 #  http://docs.amazonwebservices.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html

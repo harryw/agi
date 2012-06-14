@@ -39,5 +39,5 @@ Feature: Allow me to manage my databases
       | instance_storage     | 5                |
       | multi_az             | false            |
       | availability_zone    | us-east-1a       |
-      | security_group_names | test-rds-group   |
+      | security_group_name  | test-rds-group   |
       | ec2_sg_to_authorize  | test-ec2-group   |
