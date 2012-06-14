@@ -49,6 +49,7 @@ Spork.prefork do
 
     config.before(:each) do
       DatabaseCleaner.start
+      Fog::Mock.reset
       # Stub out all the annoying Access Control methods so each
       # controller spec does not have to.
       CASClient::Frameworks::Rails::Filter.stub!(:filter).and_return(true)

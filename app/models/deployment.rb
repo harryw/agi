@@ -14,9 +14,33 @@ class Deployment < ActiveRecord::Base
     :merge_iq_with_medistrano_pir
         
     def get_medistrano_pir!
-      pir = PirDeployment.new(pir_params)
+      pir = PirDeployment.new(self)
       pir.get_medistrano_pir!
     end
+
+    def save_iq_file
+      if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
+        pdf_file_raw = merge_iq_with_medistrano_pir ? merge_pir_with_iq : generate_iq_file
+      else
+        pdf_file_raw = generate_iq_file
+      end
+
+      begin
+        S3Storage.store(iq_bucket, iq_file, pdf_file_raw)
+      rescue => e
+        raise("Failed to save the IQ file in S3, #{e.message}")
+      end
+    end
+    
+    def deploying_time
+      @deploying_time ||= Time.now
+    end
+
+    private
+
+    ####################################################################################################################################
+    # before_save hooks
+    ####################################################################################################################################
 
     def set_initial_status
       self.started_at = Time.now
@@ -24,36 +48,27 @@ class Deployment < ActiveRecord::Base
       self.description = app.name if description.blank?
       self.app_name = app.name
     end
-    
+
     def save_deployed_data
       self.git_repo = app.project.repository
       self.git_commit = app.git_revision
       self.deployed_data = merged_configuration
-      self.s3_url_iq = gen_s3_url_iq
+      self.s3_url_iq = S3Storage.url_for(iq_bucket, iq_file)
       self.deployed_time = deploying_time
     end
-    
-    def save_iq_file
-      if Rails.application.config.feature_merge_medistrano_pir_with_agi_iq_is_enable
-        pdf_file_raw = merge_iq_with_medistrano_pir ? merge_pir_with_iq : generate_iq_file
-      else
-        pdf_file_raw = generate_iq_file
-      end
-      upload_to_s3(pdf_file_raw)
-    end
-    
+
     def update_databag
       begin
         app_chef_account_update_data_bag_item(merged_configuration)
         self.final_result = 'Success'
         self.opscode_log= 'OK'
-      rescue 
-        self.opscode_log= $!.message 
-        self.final_result = 'Failed'  
+      rescue
+        self.opscode_log= $!.message
+        self.final_result = 'Failed'
       end
       self.completed_at = Time.now  # self is required for assignments
     end
-    
+
     def cname_load_balancer
       if app_lb_dns and app_dynect_cname_name
         unless cname_record = Dynect.find(app_dynect_cname_name) rescue nil
@@ -72,7 +87,7 @@ class Deployment < ActiveRecord::Base
             self.dynect_cname_log = "failed to create it: #{$!.message}"
           end
         else
-          self.dynect_cname_log = if !cname_record.rdata or !cname_record.rdata.cname 
+          self.dynect_cname_log = if !cname_record.rdata or !cname_record.rdata.cname
                                     "ERROR:#{app_dynect_cname_name} CNAME was already created, but we couldn't retrieve where it points to"
                                   elsif cname_record.rdata.cname.gsub(/\.$/,'') == app_lb_dns
                                     "OK: #{app_dynect_cname_name} CNAME was already created"
@@ -82,55 +97,30 @@ class Deployment < ActiveRecord::Base
         end
       end
     end
-    
-    private
 
-    
+
       def generate_iq_file
         pdf = IqDeployment.new(deployed_data,deploying_time)
         pdf.render
       end
       
       ####################################################################################################################################
-      # S3 
+      # S3 Storage
       ####################################################################################################################################
           
-      def gen_s3_url_iq
-        "https://#{iq_bucket}.s3.amazonaws.com/#{s3_key_name}"
-      end
-                  
-      def upload_to_s3(pdf_file_content)
-        begin
-          s3.get_bucket(iq_bucket) rescue s3.put_bucket(iq_bucket)
-          s3.directories.get(iq_bucket).files.create(:key => s3_key_name, :body=> pdf_file_content)
-        rescue => e
-          raise("it failed to save the IQ file in S3, #{try_to_parse_excon_aws_error(e)}")
-        end
-      end
-      
-      def s3
-        @s3 ||= Fog::Storage::AWS.new(:aws_access_key_id => AppConfig["amazon_s3"]["access_key_id"], 
-                                      :aws_secret_access_key => AppConfig["amazon_s3"]["secret_access_key"])
-      end
-      
-      def s3_key_name
-        iq_folder = AppConfig["amazon_s3"]["bucket_name"].split('/')[1..-1].join('/')
-        @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time.to_s(:number)}.pdf".gsub(/^\//,"")
-      end
-      
-      def iq_bucket
-        AppConfig["amazon_s3"]["bucket_name"].split('/').first
-      end
-      
-      
+    def iq_file
+      iq_folder = S3Storage.config["bucket_name"].split('/')[1..-1].join('/')
+      @s3_key_name ||= "#{iq_folder}/#{app.name}/#{app.name}-#{deploying_time.to_s(:number)}.pdf".gsub(/^\//,"")
+    end
+
+    def iq_bucket
+      S3Storage.config["bucket_name"].split('/').first
+    end
+
       ####################################################################################################################################
       # Deploy Configuration
       ####################################################################################################################################
-      def deploying_time
-        @deploying_time ||= Time.now
-      end
-      
-      
+
       def configuration
         attributes.symbolize_keys.extract!(:force_deploy,:send_email,:task,:run_migrations,
                                                     :migration_command,:deployment_timestamp).merge(:deploy_by => self.try(:user).try(:email), :deployed_at => deploying_time)
@@ -143,44 +133,12 @@ class Deployment < ActiveRecord::Base
       end
       
       ####################################################################################################################################
-      # Util
-      ####################################################################################################################################
-    
-      def try_to_parse_excon_aws_error(rescue_error_msg)
-        if match = rescue_error_msg.message.match(/<Code>(.*)<\/Code>[\s\\\w]*<Message>(.*)<\/Message>/m)
-          "#{match[1].split('.').last} => #{match[2]}"
-        else
-          rescue_error_msg.message
-        end
-      end
-      
-      ####################################################################################################################################
       # Medistrano PIR
       ####################################################################################################################################
       
-      def medistrano_pir_bucket_name
-        AppConfig["amazon_s3"]["medistrano_pir_bucket_name"]
-      end
-      
-      def medistrano_pir_key_name
-        raise "ec2_sg_to_authorize isn't set, Agi can't determine the medistrano project and stage" if app_ec2_sg_to_authorize.blank?
-        medistrano_project, medistrano_stage, medistrano_cloud = app_ec2_sg_to_authorize.split(/-/)
-        "#{medistrano_project}/IQ/#{medistrano_project}-#{medistrano_stage}-PIR.pdf"
-      end
-      
-      def pir_params
-        { 
-          :medistrano_pir_bucket_name => medistrano_pir_bucket_name,
-          :medistrano_pir_key_name => medistrano_pir_key_name,
-          :access_key_id => AppConfig["amazon_s3"]["access_key_id"],
-          :secret_access_key => AppConfig["amazon_s3"]["secret_access_key"],
-          :deployed_data => deployed_data,
-          :deploying_time => deploying_time
-        }
-      end
-      
+
       def merge_pir_with_iq
-        pir = PirDeployment.new(pir_params)
+        pir = PirDeployment.new(self)
         pir.merge_pir_with_iq
       end
       

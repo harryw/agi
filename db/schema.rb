@@ -11,15 +11,6 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515101256) do
-
-  create_table "addons", :force => true do |t|
-    t.string   "name"
-    t.text     "value"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-end
 ActiveRecord::Schema.define(:version => 20120601152117) do
 
   create_table "apps", :force => true do |t|
@@ -30,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20120601152117) do
     t.string   "deploy_user"
     t.string   "deploy_group"
     t.string   "alert_emails"
-    t.string   "domain"
+    t.string   "url"
     t.string   "git_revision"
     t.string   "rails_env"
     t.string   "cache_cluster_link"
@@ -48,7 +39,6 @@ ActiveRecord::Schema.define(:version => 20120601152117) do
     t.string   "git_branch"
     t.boolean  "auto_generate_database"
     t.string   "ec2_sg_to_authorize",    :default => ""
-    t.string   "url"
     t.string   "lb_dns"
     t.string   "dynect_cname_name"
   end
@@ -63,14 +53,6 @@ ActiveRecord::Schema.define(:version => 20120601152117) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "client_name"
-  end
-
-  create_table "configurations", :force => true do |t|
-    t.string   "aws_access_key_id"
-    t.string   "aws_secret_access_key"
-    t.string   "iq_bucket_name"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
   end
 
   create_table "customers", :force => true do |t|
@@ -116,13 +98,6 @@ ActiveRecord::Schema.define(:version => 20120601152117) do
     t.boolean  "sg_out_of_sync",       :default => false
   end
 
-  create_table "dependencies", :force => true do |t|
-    t.integer "app_id"
-    t.integer "backend_id"
-    t.integer "frontend_id"
-    t.integer "chef_account_id"
-  end
-
   create_table "deployments", :force => true do |t|
     t.string   "user_link"
     t.string   "git_repo"
@@ -151,19 +126,6 @@ ActiveRecord::Schema.define(:version => 20120601152117) do
     t.boolean  "merge_iq_with_medistrano_pir", :default => false
   end
 
-  create_table "extensions", :force => true do |t|
-    t.integer  "app_id"
-    t.integer  "addon_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "permits", :force => true do |t|
-    t.integer "dependency_id"
-    t.string  "port"
-    t.string  "security_group"
-  end
-
   create_table "projects", :force => true do |t|
     t.string   "name_tag"
     t.string   "name"
@@ -174,19 +136,6 @@ ActiveRecord::Schema.define(:version => 20120601152117) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "platform"
-  end
-
-  create_table "stack_deployments", :force => true do |t|
-    t.datetime "started_at"
-    t.datetime "completed_at"
-    t.datetime "deployment_timestamp"
-    t.text     "deployed_data"
-    t.string   "final_result"
-    t.string   "opscode_result"
-    t.text     "opscode_log"
-    t.string   "description"
-    t.integer  "user_id"
-    t.integer  "chef_account_id"
   end
 
   create_table "users", :force => true do |t|
