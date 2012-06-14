@@ -56,5 +56,5 @@ class IqDeployment < Prawn::Document
       key == secret_key
     end
   end
-  
+
 end

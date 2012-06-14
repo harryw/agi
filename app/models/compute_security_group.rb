@@ -1,7 +1,6 @@
 class ComputeSecurityGroup < ActiveResource::Base
   include ActiveResource::Extend::MauthSigner if AppConfig["mauth"]["enable_mauth"]
   include ActiveResource::Extend::ShowErrors
-  puts AppConfig.inspect
   self.site = "http://#{AppConfig["agifog"]["hostname"]}:#{AppConfig["agifog"]["port"]}/api/v1/compute/"
   self.element_name = "security_group"
   alias_attribute :name, :id
