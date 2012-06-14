@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120601152117) do
+ActiveRecord::Schema.define(:version => 20120614185824) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -90,12 +90,11 @@ ActiveRecord::Schema.define(:version => 20120601152117) do
     t.string   "state"
     t.boolean  "started"
     t.string   "hostname"
-    t.string   "security_group_names", :default => "--- []\n"
-    t.string   "ec2_sg_to_authorize",  :default => ""
-    t.string   "parameter_group",      :default => "default.mysql5.5"
+    t.string   "ec2_sg_to_authorize", :default => ""
+    t.string   "parameter_group",     :default => "default.mysql5.5"
     t.string   "security_group_name"
     t.string   "snapshot_id"
-    t.boolean  "sg_out_of_sync",       :default => false
+    t.boolean  "sg_out_of_sync",      :default => false
   end
 
   create_table "deployments", :force => true do |t|
